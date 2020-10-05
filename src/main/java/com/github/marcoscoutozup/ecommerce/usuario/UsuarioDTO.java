@@ -1,6 +1,6 @@
 package com.github.marcoscoutozup.ecommerce.usuario;
 
-import com.github.marcoscoutozup.ecommerce.validator.emailunico.EmailUnico;
+import com.github.marcoscoutozup.ecommerce.validator.valorunico.ValorUnico;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -10,7 +10,7 @@ public class UsuarioDTO {
 
     @NotBlank
     @Email
-    @EmailUnico
+    @ValorUnico(campo = "email", classe = Usuario.class)
     private String email;
 
     @NotBlank
