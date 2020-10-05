@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PastOrPresent;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
+@NamedQuery(name = "findUsuarioByEmail", query = "select u from Usuario u where email = :email")
 public class Usuario {
 
     @Id
@@ -22,7 +24,7 @@ public class Usuario {
 
     @NotBlank
     @Email
-    private String login;
+    private String email;
 
     @NotBlank
     @Size(min = 6)
@@ -37,7 +39,7 @@ public class Usuario {
     }
 
     public Usuario(@NotBlank @Email String login, @NotBlank @Size(min = 6) String senha) {
-        this.login = login;
+        this.email = login;
         this.senha = encriptarSenha(senha);
     }
 
@@ -45,7 +47,7 @@ public class Usuario {
     public String toString() {
         return "Usuario{" +
                 "id=" + id +
-                ", login='" + login + '\'' +
+                ", login='" + email + '\'' +
                 ", senha='" + senha + '\'' +
                 '}';
     }

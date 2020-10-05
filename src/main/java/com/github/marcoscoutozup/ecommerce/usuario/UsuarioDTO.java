@@ -1,5 +1,7 @@
 package com.github.marcoscoutozup.ecommerce.usuario;
 
+import com.github.marcoscoutozup.ecommerce.validator.emailunico.EmailUnico;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -8,7 +10,8 @@ public class UsuarioDTO {
 
     @NotBlank
     @Email
-    private String login;
+    @EmailUnico
+    private String email;
 
     @NotBlank
     @Size(min = 6)
@@ -16,15 +19,15 @@ public class UsuarioDTO {
 
             //1
     public Usuario toModel(){
-        return new Usuario(login, senha);
+        return new Usuario(email, senha);
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setEmail(String login) {
+        this.email = login;
     }
 
     public String getSenha() {
