@@ -1,6 +1,10 @@
 package br.com.ecommerce.cadastrousuario;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.time.OffsetDateTime;
 
 @Entity
@@ -10,8 +14,11 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
+    @Email
     private String login;
 
+    @NotBlank
     private String senha;
 
     private OffsetDateTime instanteCadastro;
