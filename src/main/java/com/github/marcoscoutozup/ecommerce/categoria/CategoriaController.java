@@ -20,17 +20,10 @@ public class CategoriaController {
     @PostMapping
     @Transactional                                          //1
     public String cadastrarCategoria(@RequestBody @Valid CategoriaDTO dto){
+
         //2
-        Categoria categoria = dto.toModel();
+        Categoria categoria = dto.toModel(entityManager);
         entityManager.persist(categoria);
-
-        //3
-        if(dto.getCategoria() != null){
-            Categoria categoriaMae = entityManager.find(Categoria.class, dto.getCategoria());
-            categoriaMae.getCategorias().add(categoria);
-            entityManager.merge(categoriaMae);
-        }
-
         return categoria.toString();
     }
 

@@ -1,8 +1,10 @@
 package com.github.marcoscoutozup.ecommerce.categoria;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -15,9 +17,8 @@ public class Categoria {
     @NotBlank
     private String nome;
 
-    @OneToMany
-    @JoinColumn(name = "categoria")
-    private List<Categoria> categorias;
+    @ManyToOne
+    private Categoria categoria;
 
     @Deprecated
     public Categoria() {
@@ -27,8 +28,8 @@ public class Categoria {
         this.nome = nome;
     }
 
-    public List<Categoria> getCategorias() {
-        return categorias;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     @Override
@@ -36,7 +37,7 @@ public class Categoria {
         return "Categoria{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
-                ", categorias=" + categorias +
+                ", categoria mãe=" + categoria +
                 '}';
     }
 }
