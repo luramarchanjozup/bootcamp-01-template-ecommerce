@@ -15,4 +15,13 @@ public class MercadoLivreExceptionHandler {
         return new ExceptionDto(e.getBindingResult().getFieldError().getField().toString(), 
                     HttpStatus.BAD_REQUEST.toString(), e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
     }
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IllegalStateException.class)
+    public ExceptionDto illegalStateException(IllegalStateException e) {
+        return new ExceptionDto("No field information", 
+                                HttpStatus.BAD_REQUEST.toString(), e.getMessage());
+    }
+
+    
 }
