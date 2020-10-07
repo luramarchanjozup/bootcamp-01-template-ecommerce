@@ -17,7 +17,7 @@ public class UsuarioRequest {
 
     public UsuarioRequest(String login, String senha) {
         this.login = login;
-        this.senha =  new BCryptPasswordEncoder().encode(senha);;
+        this.senha =  senha;
     }
 
     public Usuario converterParaTipoUsuario(){
