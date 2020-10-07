@@ -27,14 +27,16 @@ public class AdicionarImagemAoProdutoController {
     @Transactional                                                      //2
     public ResponseEntity adicionarImagemAoProduto(@RequestBody @Valid ImagemDTO imagens, @PathVariable UUID idProduto, HttpServletRequest request){
         String email = jwtUtils.getEmail(request);
-        Produto produto = entityManager.find(Produto.class, idProduto);
 
         //3
+        Produto produto = entityManager.find(Produto.class, idProduto);
+
+        //4
         if(produto == null){
             return ResponseEntity.status(404).body("Produto não encontrado");
         }
 
-        //4
+        //5
         if(!produto.verificarSeEOProprietarioDoProduto(email)){
             return ResponseEntity.status(403).body("O usuário não tem permissão para alterar esse produto");
         }

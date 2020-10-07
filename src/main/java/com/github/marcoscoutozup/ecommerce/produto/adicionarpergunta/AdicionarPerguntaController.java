@@ -1,4 +1,4 @@
-package com.github.marcoscoutozup.ecommerce.produto.adicionaropiniao;
+package com.github.marcoscoutozup.ecommerce.produto.adicionarpergunta;
 
 import com.github.marcoscoutozup.ecommerce.produto.Produto;
 import com.github.marcoscoutozup.ecommerce.seguranca.JwtUtils;
@@ -14,8 +14,8 @@ import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/produto/adicionaropiniao")
-public class AdicionarOpiniaoController {
+@RequestMapping("/produto/adicionarpergunta")
+public class AdicionarPerguntaController {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -25,23 +25,26 @@ public class AdicionarOpiniaoController {
 
     @PutMapping("/{idProduto}")
     @Transactional                                                      //2
-    public ResponseEntity adicionarOpiniaoAoProduto(@RequestBody @Valid OpiniaoDTO dto, @PathVariable UUID idProduto, HttpServletRequest request){
+    public ResponseEntity adicionarPerguntaAoProduto(@RequestBody @Valid PerguntaDTO dto, @PathVariable UUID idProduto, HttpServletRequest request){
         String email = jwtUtils.getEmail(request);
 
         //3
         Produto produto = entityManager.find(Produto.class, idProduto);
 
         //4
-        Opiniao opiniao = dto.toModel(entityManager, email);
+        Pergunta pergunta = dto.toModel(entityManager, email);
 
         //5
         if(produto == null){
             return ResponseEntity.status(404).body("Produto não encontrado");
         }
 
-        produto.adicionarOpiniaoAoProduto(opiniao);
+        produto.adicionarPerguntaAoProduto(pergunta);
+
+        System.out.println(produto.perguntaDoProdutoPreparadaParaEmail());
 
         entityManager.merge(produto);
-        return ResponseEntity.ok(produto.toString());
+        return ResponseEntity.ok(dto.gerandoListaPerguntaDTO(produto.getPerguntas()));
     }
+
 }

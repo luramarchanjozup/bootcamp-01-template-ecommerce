@@ -3,6 +3,7 @@ package com.github.marcoscoutozup.ecommerce.produto;
 import com.github.marcoscoutozup.ecommerce.caracteristica.Caracteristica;
 import com.github.marcoscoutozup.ecommerce.categoria.Categoria;
 import com.github.marcoscoutozup.ecommerce.produto.adicionaropiniao.Opiniao;
+import com.github.marcoscoutozup.ecommerce.produto.adicionarpergunta.Pergunta;
 import com.github.marcoscoutozup.ecommerce.usuario.Usuario;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -51,6 +52,9 @@ public class Produto {
     @ElementCollection //3
     private List<Opiniao> opinioes;
 
+    @ElementCollection //4
+    private List<Pergunta> perguntas;
+
     @CreationTimestamp
     private LocalDateTime created_at;
 
@@ -79,6 +83,20 @@ public class Produto {
         this.opinioes.add(opiniao);
     }
 
+    public void adicionarPerguntaAoProduto(Pergunta pergunta){
+        this.perguntas.add(pergunta);
+    }
+
+    public List<Pergunta> getPerguntas() {
+        return perguntas;
+    }
+
+    public String perguntaDoProdutoPreparadaParaEmail(){
+        return "\n\n*** Olá, você tem uma nova pergunta sobre o produto "+ nome +" ***" +
+                "\n\n" + perguntas.get(perguntas.size()-1).perguntaPreparadaPraEmail() +
+                "\n\nLink do Produto: " + "\n\n";
+    }
+
     @Override
     public String toString() {
         return "Produto{" +
@@ -91,6 +109,7 @@ public class Produto {
                 ", usuario=" + usuario +
                 ", imagens=" + imagens +
                 ", opinioes=" + opinioes +
+                ", perguntas=" + perguntas +
                 '}';
     }
 }
