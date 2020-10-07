@@ -2,6 +2,7 @@ package com.github.marcoscoutozup.ecommerce.produto;
 
 import com.github.marcoscoutozup.ecommerce.caracteristica.Caracteristica;
 import com.github.marcoscoutozup.ecommerce.categoria.Categoria;
+import com.github.marcoscoutozup.ecommerce.produto.adicionaropiniao.Opiniao;
 import com.github.marcoscoutozup.ecommerce.usuario.Usuario;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -37,15 +38,18 @@ public class Produto {
     private String descricao;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne //1
     private Categoria categoria;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne //2
     private Usuario usuario;
 
     @ElementCollection
     private List<String> imagens;
+
+    @ElementCollection //3
+    private List<Opiniao> opinioes;
 
     @CreationTimestamp
     private LocalDateTime created_at;
@@ -71,6 +75,10 @@ public class Produto {
         this.imagens.addAll(imagens);
     }
 
+    public void adicionarOpiniaoAoProduto(Opiniao opiniao){
+        this.opinioes.add(opiniao);
+    }
+
     @Override
     public String toString() {
         return "Produto{" +
@@ -81,6 +89,8 @@ public class Produto {
                 ", descricao='" + descricao + '\'' +
                 ", categoria=" + categoria +
                 ", usuario=" + usuario +
+                ", imagens=" + imagens +
+                ", opinioes=" + opinioes +
                 '}';
     }
 }
