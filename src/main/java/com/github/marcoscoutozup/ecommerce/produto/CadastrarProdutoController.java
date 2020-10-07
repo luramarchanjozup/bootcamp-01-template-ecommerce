@@ -15,7 +15,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/produto")
-public class ProdutoController {
+public class CadastrarProdutoController {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -26,8 +26,9 @@ public class ProdutoController {
     @PostMapping
     @Transactional                                      //2
     public String cadastrarProduto(@RequestBody @Valid ProdutoDTO dto, HttpServletRequest request){
-        String token = request.getHeader("Authorization").substring(7);
-        String email = jwtUtils.getEmail(token);
+        String email = jwtUtils.getEmail(request);
+
+        //3
         Produto produto = dto.toModel(entityManager, email);
         entityManager.persist(produto);
         return produto.toString();

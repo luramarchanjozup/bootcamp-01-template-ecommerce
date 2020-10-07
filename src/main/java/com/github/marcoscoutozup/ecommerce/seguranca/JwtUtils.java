@@ -5,6 +5,8 @@ import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
+import java.net.http.HttpRequest;
 import java.util.Date;
 
 import static io.jsonwebtoken.SignatureAlgorithm.HS512;
@@ -48,5 +50,9 @@ public class JwtUtils {
     public String getEmail(String token){
         return getClaims(token).getSubject();
     }
+
+    public String getEmail(HttpServletRequest request){
+        String token = request.getHeader("Authorization").substring(7);
+        return getClaims(token).getSubject();}
 
 }

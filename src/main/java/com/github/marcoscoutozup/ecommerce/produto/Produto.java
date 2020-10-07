@@ -44,6 +44,9 @@ public class Produto {
     @ManyToOne
     private Usuario usuario;
 
+    @ElementCollection
+    private List<String> imagens;
+
     @CreationTimestamp
     private LocalDateTime created_at;
 
@@ -58,6 +61,14 @@ public class Produto {
         this.descricao = descricao;
         this.categoria = categoria;
         this.usuario = usuario;
+    }
+
+    public boolean verificarSeEOProprietarioDoProduto(String email){
+        return usuario.getEmail().equals(email);
+    }
+
+    public void adicionarListaDeImagensNoProduto(List<String> imagens){
+        this.imagens.addAll(imagens);
     }
 
     @Override
