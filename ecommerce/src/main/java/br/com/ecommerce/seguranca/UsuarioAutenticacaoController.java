@@ -38,7 +38,7 @@ public class UsuarioAutenticacaoController {
 
             String jwt = tokenManager.generateToken(authentication);
 
-            return ResponseEntity.ok(jwt);
+            return ResponseEntity.ok(new TokenResponse(jwt));
 
         } catch (AuthenticationException e) {
 
