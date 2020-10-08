@@ -91,9 +91,9 @@ public class Produto {
         return perguntas;
     }
 
-    public String perguntaDoProdutoPreparadaParaEmail(){
+    public String prepararPerguntaDoProdutoParaEmail(){
         return "\n\n*** Olá, você tem uma nova pergunta sobre o produto "+ nome +" ***" +
-                "\n\n" + perguntas.get(perguntas.size()-1).perguntaPreparadaPraEmail() +
+                "\n\n" + perguntas.get(perguntas.size()-1).prepararPerguntaParaEmail() +
                 "\n\nLink do Produto: " + "\n\n";
     }
 

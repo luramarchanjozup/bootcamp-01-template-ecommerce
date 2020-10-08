@@ -33,7 +33,7 @@ public class Pergunta {
         this.created_at = LocalDateTime.now();
     }
 
-    public String perguntaPreparadaPraEmail(){
+    public String prepararPerguntaParaEmail(){
         return "Título: " + titulo +
                 "\n\nPergunta: " + pergunta;
     }

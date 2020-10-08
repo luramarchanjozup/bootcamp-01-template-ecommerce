@@ -41,10 +41,10 @@ public class AdicionarPerguntaController {
 
         produto.adicionarPerguntaAoProduto(pergunta);
 
-        System.out.println(produto.perguntaDoProdutoPreparadaParaEmail());
+        System.out.println(produto.prepararPerguntaDoProdutoParaEmail());
 
         entityManager.merge(produto);
-        return ResponseEntity.ok(dto.gerandoListaPerguntaDTO(produto.getPerguntas()));
+        return ResponseEntity.ok(dto.gerarListaPerguntaDTO(produto.getPerguntas()));
     }
 
 }
