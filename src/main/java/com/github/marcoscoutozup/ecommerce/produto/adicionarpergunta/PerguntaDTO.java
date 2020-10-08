@@ -33,7 +33,7 @@ public class PerguntaDTO {
         return new Pergunta(titulo, pergunta, usuario);
     }
 
-    public List<PerguntaDTO> gerarListaPerguntaDTO(List<Pergunta> perguntas) {
+    public static List<PerguntaDTO> converterListaDePerguntasParaDTO(List<Pergunta> perguntas){
                                         //3
         return perguntas.stream().map(PerguntaDTO::new).collect(Collectors.toList());
     }

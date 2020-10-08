@@ -38,6 +38,18 @@ public class Opiniao {
         this.usuario = usuario;
     }
 
+    public Integer getNota() {
+        return nota;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
     @Override
     public String toString() {
         return "Opiniao{" +

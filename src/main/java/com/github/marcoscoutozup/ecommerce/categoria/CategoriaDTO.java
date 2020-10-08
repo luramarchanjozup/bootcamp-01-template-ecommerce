@@ -16,7 +16,7 @@ public class CategoriaDTO {
     @ExisteId(classe = Categoria.class)
     private UUID categoria;
 
-            //1
+    //1
     public Categoria toModel(EntityManager entityManager){
         Categoria categoria = new Categoria(nome);
 

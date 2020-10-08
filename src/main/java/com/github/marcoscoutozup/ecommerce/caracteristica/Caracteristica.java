@@ -21,6 +21,14 @@ public class Caracteristica {
         this.caracteristica = caracteristica;
     }
 
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getCaracteristica() {
+        return caracteristica;
+    }
+
     @Override
     public String toString() {
         return "Caracteristica{" +

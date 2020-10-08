@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -100,6 +101,52 @@ public class Produto {
         return "\n\n*** Olá, você tem uma nova pergunta sobre o produto "+ nome +" ***" +
                 "\n\n" + perguntas.get(perguntas.size()-1).prepararPerguntaParaEmail() +
                 "\n\nLink do Produto: " + "\n\n";
+    }
+
+    public BigDecimal calcularMediaDeNotas(){
+        BigDecimal totalDasNotas = new BigDecimal(opinioes.stream().mapToDouble(Opiniao::getNota).sum());
+        BigDecimal quantidadeDeNotas = new BigDecimal(getTotaldeNotas());
+        return totalDasNotas.divide(quantidadeDeNotas).setScale(0, RoundingMode.CEILING);
+    }
+
+    public Integer getTotaldeNotas(){
+       return opinioes.size();
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public List<Caracteristica> getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public List<String> getImagens() {
+        return imagens;
+    }
+
+    public List<Opiniao> getOpinioes() {
+        return opinioes;
     }
 
     @Override
