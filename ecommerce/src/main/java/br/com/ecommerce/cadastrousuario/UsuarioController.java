@@ -6,19 +6,23 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+
 @RestController
-@RequestMapping("/usuario")
 public class UsuarioController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    @PostMapping
-    public ResponseEntity<?> criarUsuario(@RequestBody @Valid UsuarioRequest usuarioRequest){
+    @PostMapping("/usuario")
+    public ResponseEntity<?> criarUsuario(@RequestBody @Valid CadastroUsuarioRequest cadastroUsuarioRequest){
 
-        usuarioRepository.save(usuarioRequest.converterParaTipoUsuario());
+        Usuario usuario = cadastroUsuarioRequest.converterParaTipoUsuario();
 
-        return ResponseEntity.ok().build();
+        usuarioRepository.save(usuario);
+
+        return ResponseEntity
+                .ok()
+                .build();
 
     }
 }

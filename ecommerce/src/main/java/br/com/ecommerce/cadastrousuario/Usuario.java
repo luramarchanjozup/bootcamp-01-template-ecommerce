@@ -5,10 +5,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import java.time.OffsetDateTime;
 
 @Entity
 public class Usuario {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +24,14 @@ public class Usuario {
     @NotBlank
     private String senha;
 
+    @NotNull
+    @PastOrPresent
     private OffsetDateTime instanteCadastro;
 
-    public Usuario(String login, String senha) {
+    @Deprecated
+    public Usuario(){};
+
+    public Usuario(@NotBlank @Email String login, @NotBlank String senha) {
         this.login = login;
         this.senha = new BCryptPasswordEncoder().encode(senha);
         this.instanteCadastro = OffsetDateTime.now();
