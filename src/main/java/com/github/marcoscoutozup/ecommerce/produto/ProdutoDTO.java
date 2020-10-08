@@ -14,6 +14,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -22,6 +23,9 @@ public class ProdutoDTO {
 
     @NotBlank
     private String nome;
+
+    @NotNull
+    private BigDecimal preco;
 
     @NotNull
     @PositiveOrZero
@@ -49,7 +53,7 @@ public class ProdutoDTO {
         //4
         Categoria categoria = entityManager.find(Categoria.class, this.categoria);
 
-       return new Produto(nome, quantidade, converterListaDeCaracteristicas(), descricao, categoria, usuario);
+       return new Produto(nome, preco, quantidade, converterListaDeCaracteristicas(), descricao, categoria, usuario);
     }
                     //5
     public List<Caracteristica> converterListaDeCaracteristicas(){
@@ -63,6 +67,14 @@ public class ProdutoDTO {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
     }
 
     public Integer getQuantidade() {

@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -25,6 +26,9 @@ public class Produto {
 
     @NotBlank
     private String nome;
+
+    @NotNull
+    private BigDecimal preco;
 
     @NotNull
     @PositiveOrZero
@@ -62,8 +66,9 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(@NotBlank String nome, @NotNull @PositiveOrZero Integer quantidade, List<Caracteristica> caracteristicas, @NotBlank @Size(max = 1000) String descricao, @NotNull Categoria categoria, @NotNull Usuario usuario) {
+    public Produto(@NotBlank String nome, @NotNull BigDecimal preco, @NotNull @PositiveOrZero Integer quantidade, List<Caracteristica> caracteristicas, @NotBlank @Size(max = 1000) String descricao, @NotNull Categoria categoria, @NotNull Usuario usuario) {
         this.nome = nome;
+        this.preco = preco;
         this.quantidade = quantidade;
         this.caracteristicas = caracteristicas;
         this.descricao = descricao;
