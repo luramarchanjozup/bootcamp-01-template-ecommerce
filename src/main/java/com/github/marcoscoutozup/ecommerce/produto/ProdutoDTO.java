@@ -57,7 +57,7 @@ public class ProdutoDTO {
     }
                     //5
     public List<Caracteristica> converterListaDeCaracteristicas(){
-        //6
+                                                //6
         return caracteristicas.stream().map(CaracteristicaDTO::toModel).collect(Collectors.toList());
     }
 

@@ -16,7 +16,7 @@ public class CaracteristicaDTO {
     public CaracteristicaDTO() {
     }
 
-    //1
+                                //1
     public CaracteristicaDTO(Caracteristica caracteristica) {
         this.titulo = caracteristica.getTitulo();
         this.caracteristica = caracteristica.getTitulo();
@@ -27,7 +27,7 @@ public class CaracteristicaDTO {
     }
 
     public static List<CaracteristicaDTO> converterListaDeCaracteristicasParaDTO(List<Caracteristica> caracteristicas){
-                                            //3
+                                            //2
         return caracteristicas.stream().map(CaracteristicaDTO::new).collect(Collectors.toList());
     }
 

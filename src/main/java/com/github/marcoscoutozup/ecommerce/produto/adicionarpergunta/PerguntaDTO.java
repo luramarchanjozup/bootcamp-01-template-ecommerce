@@ -18,12 +18,12 @@ public class PerguntaDTO {
     @Deprecated
     public PerguntaDTO() {
     }
-
+                        //1
     public PerguntaDTO(Pergunta pergunta) {
         this.titulo = pergunta.getTitulo();
         this.pergunta = pergunta.getPergunta();
     }
-            //1
+
     public Pergunta toModel(EntityManager entityManager, String emailDoUsuario) {
         //2
         Usuario usuario = entityManager.createNamedQuery("findUsuarioByEmail", Usuario.class)

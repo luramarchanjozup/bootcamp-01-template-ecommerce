@@ -113,6 +113,14 @@ public class Produto {
        return opinioes.size();
     }
 
+    public boolean verificarSeExisteEstoqueParaOperacao(Integer quantidade){
+        return this.quantidade >= quantidade;
+    }
+
+    public void abaterEstoque(Integer quantidade){
+        this.quantidade = this.quantidade - quantidade;
+    }
+
     public String getNome() {
         return nome;
     }

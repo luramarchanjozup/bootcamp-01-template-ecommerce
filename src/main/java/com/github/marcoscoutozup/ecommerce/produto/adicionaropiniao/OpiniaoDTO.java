@@ -27,7 +27,7 @@ public class OpiniaoDTO {
     public OpiniaoDTO() {
     }
 
-    //1
+                        //1
     public OpiniaoDTO(Opiniao opiniao) {
         this.nota = opiniao.getNota();
         this.titulo = opiniao.getTitulo();

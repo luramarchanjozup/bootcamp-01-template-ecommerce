@@ -12,11 +12,16 @@ public class DetalhesDoProdutoResponse {
     private List<String> imagens;
     private String nome;
     private BigDecimal preco;
+                    //1
     private List<CaracteristicaDTO> caracteristicas;
     private String descricao;
     private BigDecimal mediaDasNotas;
     private Integer totalDeNotas;
+
+                    //2
     private List<OpiniaoDTO> opinioes;
+
+                    //3
     private List<PerguntaDTO> perguntas;
 
     public DetalhesDoProdutoResponse (Produto produto) {
