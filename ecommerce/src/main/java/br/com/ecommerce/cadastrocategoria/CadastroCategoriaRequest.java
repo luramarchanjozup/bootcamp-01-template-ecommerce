@@ -6,7 +6,6 @@ import javax.validation.constraints.NotBlank;
 public class CadastroCategoriaRequest {
 
     @NotBlank
-    @Unico(fieldName = "nome", domainClass = Categoria.class)
     private String nome;
 
     private Long categoriaMaeId;
@@ -19,7 +18,7 @@ public class CadastroCategoriaRequest {
         this.nome = nome;
     }
 
-    public CadastroCategoriaRequest(@NotBlank String nome, Long categoriaMaeId) {
+    public CadastroCategoriaRequest(String nome, Long categoriaMaeId) {
         this.nome = nome;
         this.categoriaMaeId = categoriaMaeId;
     }

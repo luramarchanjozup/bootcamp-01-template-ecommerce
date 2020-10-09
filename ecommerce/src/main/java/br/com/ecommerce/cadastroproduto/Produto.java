@@ -1,0 +1,131 @@
+package br.com.ecommerce.cadastroproduto;
+
+import br.com.ecommerce.cadastrocategoria.Categoria;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+public class Produto {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank
+    private String nome;
+
+    @NotNull
+    @Positive
+    private Double valor;
+
+    @NotNull
+    @Positive
+    private Long quantidadeDisponivel;
+
+    @OneToMany(mappedBy = "produto")
+    private List<Caracteristica> caracteristicas;
+
+    @OneToMany(mappedBy = "produto")
+    private List<ImagemProduto> imagens = new ArrayList<>();
+
+    @NotBlank
+    @Size(max = 1000)
+    private String descricao;
+
+    @ManyToOne
+    private Categoria categoria;
+
+    private OffsetDateTime instanteCadastro;
+
+    public Produto(@NotBlank String nome, @NotBlank @Positive Double valor, @NotBlank @Positive Long quantidadeDisponivel,
+                   @Size(min = 3) List<Caracteristica> caracteristicas, @NotBlank @Size(max = 1000) String descricao,
+                   @NotNull Categoria categoria) {
+
+        this.nome = nome;
+        this.valor = valor;
+        this.quantidadeDisponivel = quantidadeDisponivel;
+        this.caracteristicas = caracteristicas;
+        this.descricao = descricao;
+        this.categoria = categoria;
+        this.instanteCadastro = OffsetDateTime.now();
+
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Produto produto = (Produto) o;
+
+        return id.equals(produto.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
+    }
+
+    public Long getQuantidadeDisponivel() {
+        return quantidadeDisponivel;
+    }
+
+    public void setQuantidadeDisponivel(Long quantidadeDisponivel) {
+        this.quantidadeDisponivel = quantidadeDisponivel;
+    }
+
+    public List<Caracteristica> getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public void setCaracteristicas(List<Caracteristica> caracteristicas) {
+        this.caracteristicas = caracteristicas;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public OffsetDateTime getInstanteCadastro() {
+        return instanteCadastro;
+    }
+
+    public void setInstanteCadastro(OffsetDateTime instanteCadastro) {
+        this.instanteCadastro = instanteCadastro;
+    }
+}

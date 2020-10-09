@@ -15,17 +15,14 @@ import java.util.Optional;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-
     private TokenManager tokenManager;
 
     private UsersServices usersService;
-
 
     public JwtAuthenticationFilter(TokenManager tokenManager, UsersServices usersService) {
         this.tokenManager = tokenManager;
         this.usersService = usersService;
     }
-
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
@@ -33,12 +30,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         Optional<String> possibleToken = getTokenFromRequest(request);
 
-
-        if (possibleToken.isPresent() && tokenManager.isValid(possibleToken.get())){
-
+        if (tokenManager.isValid(possibleToken.get()))
+        {
             authenticateUser(possibleToken.get());
-
         }
+
 
         chain.doFilter(request, response);
 
@@ -47,6 +43,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     public void authenticateUser(String token){
 
+
         String userName = tokenManager.getUserName(token);
 
         UserDetails userDetails = usersService.loadUserByUsername(userName);
@@ -54,7 +51,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContextHolder
+                .getContext()
+                .setAuthentication(authentication);
 
     }
 
