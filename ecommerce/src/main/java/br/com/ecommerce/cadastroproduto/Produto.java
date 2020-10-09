@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Entity
@@ -31,9 +31,6 @@ public class Produto {
 
     @OneToMany(mappedBy = "produto")
     private List<Caracteristica> caracteristicas;
-
-    @OneToMany(mappedBy = "produto")
-    private List<ImagemProduto> imagens = new ArrayList<>();
 
     @NotBlank
     @Size(max = 1000)
