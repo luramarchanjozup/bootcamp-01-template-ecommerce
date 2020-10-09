@@ -16,7 +16,6 @@ public class Categoria {
     private Long id;
 
     @NotBlank
-    @Unico(fieldName = "nome", domainClass = Categoria.class)
     private String nome;
 
     private Long categoriaMaeId;
@@ -24,7 +23,7 @@ public class Categoria {
     @Deprecated
     public Categoria(){};
 
-    public Categoria(@NotBlank String nome, Long categoriaMaeId) {
+    public Categoria(String nome, Long categoriaMaeId) {
         this.nome = nome;
         this.categoriaMaeId = categoriaMaeId;
     }

@@ -24,16 +24,14 @@ public class UsuarioAutenticacaoController {
     @Autowired
     private TokenManager tokenManager;
 
-    private static final Logger log = LoggerFactory
-            .getLogger(UsuarioAutenticacaoController.class);
-
-
+    
     @PostMapping
-    public ResponseEntity<?> authenticate(@RequestBody UsuarioAutenticacaoRequest loginUsuario) {
+    public ResponseEntity<TokenResponse> authenticate(@RequestBody UsuarioAutenticacaoRequest loginUsuario) {
 
         UsernamePasswordAuthenticationToken authenticationToken = loginUsuario.build();
 
         try {
+
             Authentication authentication = authManager.authenticate(authenticationToken);
 
             String jwt = tokenManager.generateToken(authentication);
@@ -41,8 +39,6 @@ public class UsuarioAutenticacaoController {
             return ResponseEntity.ok(new TokenResponse(jwt));
 
         } catch (AuthenticationException e) {
-
-            log.error("[Autenticacao] {}",e);
 
             return ResponseEntity.badRequest().build();
 
