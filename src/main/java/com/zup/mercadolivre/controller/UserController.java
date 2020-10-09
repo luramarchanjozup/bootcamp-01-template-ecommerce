@@ -32,9 +32,11 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<?> createUser(@RequestBody @Valid UserForm form) {
-        User user = new User(form.getEmail(), form.getEmail());
+        User user = new User(form.getEmail(), form.getPassword());
         userRepository.save(user);
 
         return ResponseEntity.ok().build();
     }
+
+
 }

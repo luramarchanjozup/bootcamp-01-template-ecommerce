@@ -11,24 +11,34 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 @Entity
 public class User {
-    
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull @Email @NotBlank
+    @NotNull
+    @Email
+    @NotBlank
     private String email;
-    @NotNull @Size(min = 6)
+    @NotNull
+    @Size(min = 6)
     private String password;
     @NotNull
     private LocalDateTime timeOfCreation;
 
     @Deprecated
-    public User(){}
+    public User() {
+    }
 
     public User(String email, String password) {
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+
         this.email = email;
-        this.password = password;
+        this.password = encoder.encode(password);
         this.timeOfCreation = LocalDateTime.now();
     }
 
