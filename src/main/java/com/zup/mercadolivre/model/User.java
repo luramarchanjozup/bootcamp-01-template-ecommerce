@@ -1,8 +1,14 @@
 package com.zup.mercadolivre.model;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,8 +17,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.zup.mercadolivre.model.enums.Profiles;
 
 @Entity
 public class User {
@@ -30,16 +35,20 @@ public class User {
     @NotNull
     private LocalDateTime timeOfCreation;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "PROFILES")
+    private Set<Integer> profiles = new HashSet<>();
+
     @Deprecated
     public User() {
+        addProfile(Profiles.USER);
     }
 
     public User(String email, String password) {
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-
         this.email = email;
-        this.password = encoder.encode(password);
+        this.password = password;
         this.timeOfCreation = LocalDateTime.now();
+        addProfile(Profiles.USER);
     }
 
     public Long getId() {
@@ -72,6 +81,14 @@ public class User {
 
     public void setTimeOfCreation(LocalDateTime timeOfCreation) {
         this.timeOfCreation = timeOfCreation;
+    }
+
+    public Set<Profiles> getProfiles() {
+        return profiles.stream().map(x -> Profiles.toEnum(x)).collect(Collectors.toSet());
+    }
+
+    public void addProfile(Profiles profile) {
+        profiles.add(profile.getCode());
     }
 
 }

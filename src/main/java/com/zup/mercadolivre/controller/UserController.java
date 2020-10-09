@@ -9,6 +9,7 @@ import com.zup.mercadolivre.services.validations.CheckDuplicatedEmail;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+    
+    @Autowired
+    private BCryptPasswordEncoder encoder;
     
     @Autowired
     private UserRepository userRepository;
@@ -32,7 +36,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<?> createUser(@RequestBody @Valid UserForm form) {
-        User user = new User(form.getEmail(), form.getPassword());
+        User user = new User(form.getEmail(), encoder.encode(form.getPassword()));
         userRepository.save(user);
 
         return ResponseEntity.ok().build();
