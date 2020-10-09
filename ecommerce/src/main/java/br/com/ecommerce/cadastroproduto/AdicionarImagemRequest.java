@@ -10,6 +10,12 @@ public class AdicionarImagemRequest {
         this.arquivo = arquivo;
     }
 
+    public ImagemProduto criaLinkDaImagem(){
+
+        return new ImagemProduto(arquivo.getOriginalFilename());
+
+    }
+
     public MultipartFile getArquivo() {
         return arquivo;
     }

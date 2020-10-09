@@ -1,6 +1,7 @@
 package br.com.ecommerce.cadastroproduto;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class ImagemProduto {
@@ -9,6 +10,7 @@ public class ImagemProduto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String linkImagem;
 
     @ManyToOne
@@ -17,16 +19,23 @@ public class ImagemProduto {
     @Deprecated
     public ImagemProduto(){};
 
-    public ImagemProduto(Produto produto) {
-        this.produto = produto;
+    public ImagemProduto(String nomeArquivo) {
+
+        //1
+        String basePath = "/home/marceloamorim/Documentos/bootcamp-01-template-ecommerce/" +
+                "ecommerce/src/main/resources/static/imagens";
+
+        //1
+        this.linkImagem = basePath + nomeArquivo;
+
     }
 
-    public Long getId() {
-        return id;
+    public String getLinkImagem() {
+        return linkImagem;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setLinkImagem(String linkImagem) {
+        this.linkImagem = linkImagem;
     }
 
     public Produto getProduto() {
@@ -36,5 +45,4 @@ public class ImagemProduto {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
-
 }

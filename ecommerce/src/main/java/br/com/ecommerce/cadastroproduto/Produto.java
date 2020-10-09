@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
+import java.awt.image.ImageProducer;
 import java.time.OffsetDateTime;
 
 import java.util.List;
@@ -32,6 +33,9 @@ public class Produto {
     @OneToMany(mappedBy = "produto")
     private List<Caracteristica> caracteristicas;
 
+    @OneToMany(mappedBy = "produto")
+    private List<ImagemProduto> imagens;
+
     @NotBlank
     @Size(max = 1000)
     private String descricao;
@@ -41,9 +45,9 @@ public class Produto {
 
     private OffsetDateTime instanteCadastro;
 
-    public Produto(@NotBlank String nome, @NotBlank @Positive Double valor, @NotBlank @Positive Long quantidadeDisponivel,
-                   @Size(min = 3) List<Caracteristica> caracteristicas, @NotBlank @Size(max = 1000) String descricao,
-                   @NotNull Categoria categoria) {
+    public Produto(@NotBlank String nome, @NotNull @Positive Double valor, @NotNull @Positive Long quantidadeDisponivel,
+                   List<Caracteristica> caracteristicas,
+                   @NotBlank @Size(max = 1000) String descricao, Categoria categoria) {
 
         this.nome = nome;
         this.valor = valor;
@@ -53,21 +57,6 @@ public class Produto {
         this.categoria = categoria;
         this.instanteCadastro = OffsetDateTime.now();
 
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Produto produto = (Produto) o;
-
-        return id.equals(produto.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id.hashCode();
     }
 
     public String getNome() {
@@ -100,6 +89,14 @@ public class Produto {
 
     public void setCaracteristicas(List<Caracteristica> caracteristicas) {
         this.caracteristicas = caracteristicas;
+    }
+
+    public List<ImagemProduto> getImagens() {
+        return imagens;
+    }
+
+    public void setImagens(List<ImagemProduto> imagens) {
+        this.imagens = imagens;
     }
 
     public String getDescricao() {
