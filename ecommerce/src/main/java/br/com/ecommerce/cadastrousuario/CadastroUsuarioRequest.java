@@ -11,7 +11,6 @@ public class CadastroUsuarioRequest {
 
     @NotBlank
     @Email
-    @Unico(fieldName = "login", domainClass = Usuario.class, message = "não é possível criar um usuário com esse email")
     private String login;
 
     @NotBlank

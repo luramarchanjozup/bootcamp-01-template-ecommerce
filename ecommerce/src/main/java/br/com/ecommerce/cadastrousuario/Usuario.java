@@ -1,5 +1,6 @@
 package br.com.ecommerce.cadastrousuario;
 
+import br.com.ecommerce.adicionaropiniao.Opiniao;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
@@ -8,10 +9,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Entity
 public class Usuario {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +28,9 @@ public class Usuario {
     @NotNull
     @PastOrPresent
     private OffsetDateTime instanteCadastro;
+
+    @OneToMany(mappedBy = "produto")
+    private List<Opiniao> opinioes;
 
     @Deprecated
     public Usuario(){};
@@ -45,6 +49,14 @@ public class Usuario {
         Usuario usuario = (Usuario) o;
 
         return id.equals(usuario.id);
+    }
+
+    public List<Opiniao> getOpinioes() {
+        return opinioes;
+    }
+
+    public void setOpinioes(List<Opiniao> opinioes) {
+        this.opinioes = opinioes;
     }
 
     @Override

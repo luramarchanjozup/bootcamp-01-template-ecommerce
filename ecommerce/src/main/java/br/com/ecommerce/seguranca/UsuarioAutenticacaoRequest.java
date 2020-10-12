@@ -4,9 +4,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 
 public class UsuarioAutenticacaoRequest {
 
+
     private String login;
 
+
     private String senha;
+
 
     public String getLogin() {
         return login;
@@ -24,10 +27,10 @@ public class UsuarioAutenticacaoRequest {
         this.senha = senha;
     }
 
+
     public UsernamePasswordAuthenticationToken build() {
 
-        return new UsernamePasswordAuthenticationToken(this.login,
-                this.senha);
+        return new UsernamePasswordAuthenticationToken(this.login, this.senha);
 
     }
 

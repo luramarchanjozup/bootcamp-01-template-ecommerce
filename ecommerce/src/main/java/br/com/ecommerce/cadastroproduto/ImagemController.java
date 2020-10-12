@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.nio.file.Path;
 
@@ -17,6 +18,7 @@ public class ImagemController {
     private EntityManager entityManager;
 
     @PutMapping
+    @Transactional
     public ResponseEntity<?> adicionarFotoLocal(@PathVariable Long produtoId,
                                                 AdicionarImagemRequest arquivoEnviado) throws IOException {
 

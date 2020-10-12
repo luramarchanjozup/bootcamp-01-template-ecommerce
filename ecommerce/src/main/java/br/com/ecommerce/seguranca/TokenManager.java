@@ -52,8 +52,10 @@ public class TokenManager {
 
     public String getUserName(String jwt) {
 
-        Claims claims = Jwts.parser().setSigningKey(this.secret)
-                .parseClaimsJws(jwt).getBody();
+        Claims claims = Jwts.parser()
+                .setSigningKey(this.secret)
+                .parseClaimsJws(jwt)
+                .getBody();
 
         return claims.getSubject();
     }

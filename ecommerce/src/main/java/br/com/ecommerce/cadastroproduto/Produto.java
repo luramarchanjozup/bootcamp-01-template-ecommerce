@@ -1,5 +1,6 @@
 package br.com.ecommerce.cadastroproduto;
 
+import br.com.ecommerce.adicionaropiniao.Opiniao;
 import br.com.ecommerce.cadastrocategoria.Categoria;
 
 import javax.persistence.*;
@@ -34,6 +35,9 @@ public class Produto {
     private List<Caracteristica> caracteristicas;
 
     @OneToMany(mappedBy = "produto")
+    private List<Opiniao> opinioes;
+
+    @OneToMany(mappedBy = "produto")
     private List<ImagemProduto> imagens;
 
     @NotBlank
@@ -44,6 +48,9 @@ public class Produto {
     private Categoria categoria;
 
     private OffsetDateTime instanteCadastro;
+
+    @Deprecated
+    public Produto(){};
 
     public Produto(@NotBlank String nome, @NotNull @Positive Double valor, @NotNull @Positive Long quantidadeDisponivel,
                    List<Caracteristica> caracteristicas,
@@ -57,6 +64,14 @@ public class Produto {
         this.categoria = categoria;
         this.instanteCadastro = OffsetDateTime.now();
 
+    }
+
+    public List<Opiniao> getOpinioes() {
+        return opinioes;
+    }
+
+    public void setOpinioes(List<Opiniao> opinioes) {
+        this.opinioes = opinioes;
     }
 
     public String getNome() {

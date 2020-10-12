@@ -30,7 +30,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         Optional<String> possibleToken = getTokenFromRequest(request);
 
-        if (tokenManager.isValid(possibleToken.get()))
+        if (possibleToken.isPresent() && tokenManager.isValid(possibleToken.get()))
         {
             authenticateUser(possibleToken.get());
         }

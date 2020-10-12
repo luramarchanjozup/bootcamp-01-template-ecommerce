@@ -8,12 +8,13 @@ import javax.validation.Valid;
 
 
 @RestController
+@RequestMapping("/usuario")
 public class UsuarioController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    @PostMapping("/usuario")
+    @PostMapping
     public ResponseEntity<?> criarUsuario(@RequestBody @Valid CadastroUsuarioRequest cadastroUsuarioRequest){
 
         Usuario usuario = cadastroUsuarioRequest.converterParaTipoUsuario();
