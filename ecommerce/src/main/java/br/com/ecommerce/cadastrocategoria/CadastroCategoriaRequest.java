@@ -6,6 +6,7 @@ import javax.validation.constraints.NotBlank;
 public class CadastroCategoriaRequest {
 
     @NotBlank
+    @Unico(fieldName = "nome", domainClass = Categoria.class)
     private String nome;
 
     private Long categoriaMaeId;

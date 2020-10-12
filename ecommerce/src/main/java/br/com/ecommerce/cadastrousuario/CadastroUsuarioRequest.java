@@ -11,6 +11,7 @@ public class CadastroUsuarioRequest {
 
     @NotBlank
     @Email
+    @Unico(fieldName = "login", domainClass = Usuario.class)
     private String login;
 
     @NotBlank

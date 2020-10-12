@@ -25,12 +25,14 @@ public class CadastroProdutoRequest {
     private Long quantidadeDisponivel;
 
     @ElementCollection
+    @Size(min = 3)
     private List<Caracteristica> caracteristicas;
 
     @NotBlank
     @Size(max = 1000)
     private String descricao;
 
+    @NotNull
     private Long categoriaId;
 
     public CadastroProdutoRequest(@NotBlank String nome, @NotBlank @Positive Double valor, @NotBlank @Positive Long quantidadeDisponivel,

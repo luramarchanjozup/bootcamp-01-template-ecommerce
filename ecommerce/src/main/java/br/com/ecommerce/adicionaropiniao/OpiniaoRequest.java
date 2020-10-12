@@ -5,14 +5,13 @@ import br.com.ecommerce.cadastrousuario.Usuario;
 
 import javax.persistence.EntityManager;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
 public class OpiniaoRequest {
 
     @NotNull
+    @Size(min = 1, max = 5)
     private BigDecimal nota;
 
     @NotBlank
