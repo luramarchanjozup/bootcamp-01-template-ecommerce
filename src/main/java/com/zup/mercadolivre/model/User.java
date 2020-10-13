@@ -17,6 +17,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.zup.mercadolivre.controller.dto.UserDTO;
 import com.zup.mercadolivre.model.enums.Profiles;
 
 @Entity
@@ -91,4 +92,7 @@ public class User {
         profiles.add(profile.getCode());
     }
 
+    public UserDTO toDto() {
+        return new UserDTO(this);
+    }
 }
