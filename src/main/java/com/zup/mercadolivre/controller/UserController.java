@@ -1,11 +1,8 @@
 package com.zup.mercadolivre.controller;
 
-import java.util.Optional;
-
 import javax.validation.Valid;
 
 import com.zup.mercadolivre.config.security.UserSS;
-import com.zup.mercadolivre.controller.dto.UserDTO;
 import com.zup.mercadolivre.controller.form.UserForm;
 import com.zup.mercadolivre.model.User;
 import com.zup.mercadolivre.model.enums.Profiles;
@@ -14,10 +11,8 @@ import com.zup.mercadolivre.services.UserService;
 import com.zup.mercadolivre.services.validations.CheckDuplicatedEmail;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
