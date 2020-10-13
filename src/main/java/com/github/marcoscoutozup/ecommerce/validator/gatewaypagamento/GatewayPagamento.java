@@ -1,4 +1,4 @@
-package com.github.marcoscoutozup.ecommerce.validator.enumvalido;
+package com.github.marcoscoutozup.ecommerce.validator.gatewaypagamento;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

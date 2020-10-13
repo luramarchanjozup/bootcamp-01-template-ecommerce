@@ -4,7 +4,7 @@ import com.github.marcoscoutozup.ecommerce.compra.enums.GatewayDePagamento;
 import com.github.marcoscoutozup.ecommerce.compra.enums.StatusCompra;
 import com.github.marcoscoutozup.ecommerce.produto.Produto;
 import com.github.marcoscoutozup.ecommerce.usuario.Usuario;
-import com.github.marcoscoutozup.ecommerce.validator.enumvalido.GatewayPagamento;
+import com.github.marcoscoutozup.ecommerce.validator.gatewaypagamento.GatewayPagamento;
 import io.jsonwebtoken.lang.Assert;
 
 import javax.persistence.EntityManager;

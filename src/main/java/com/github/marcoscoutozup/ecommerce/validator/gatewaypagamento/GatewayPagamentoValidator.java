@@ -1,10 +1,9 @@
-package com.github.marcoscoutozup.ecommerce.validator.enumvalido;
+package com.github.marcoscoutozup.ecommerce.validator.gatewaypagamento;
 
 import com.github.marcoscoutozup.ecommerce.compra.enums.GatewayDePagamento;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.stream.Stream;
 
 public class GatewayPagamentoValidator implements ConstraintValidator<GatewayPagamento, String> {
 
