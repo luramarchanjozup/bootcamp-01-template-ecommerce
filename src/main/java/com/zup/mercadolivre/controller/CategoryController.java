@@ -9,6 +9,7 @@ import com.zup.mercadolivre.services.validations.CheckDuplicatedCategory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +31,7 @@ public class CategoryController {
         binder.addValidators(checkDuplicatedCategory);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<?> createCategory(@RequestBody @Valid CategoryForm form) {
         Category category = new Category(form.getName(), null);
