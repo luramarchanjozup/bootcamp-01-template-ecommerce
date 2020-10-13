@@ -169,18 +169,6 @@ public class Produto {
                 .collect(Collectors.toSet());
     }
 
-    public boolean abataEstoque(@Positive int quantidade) {
-        if (quantidade <= this.quantidade) {
-            this.quantidade-= quantidade;
-            return true;
-        }
-
-        return false;
-
-
-    }
-
-
     public void associaImagens(Set<String> links) {
         links.stream().map(link -> new ImagemProduto(this, link))
                 .collect(Collectors.toSet());

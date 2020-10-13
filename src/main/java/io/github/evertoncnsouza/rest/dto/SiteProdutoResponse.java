@@ -4,10 +4,11 @@ import io.github.evertoncnsouza.domain.entity.CaracteristicaProduto;
 import io.github.evertoncnsouza.domain.entity.Produto;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 public class SiteProdutoResponse {
 
-    private SiteCaracteristicaResponse caracteristica;
+    private Set<SiteCaracteristicaResponse> caracteristica;
     private SiteCategoriaResponse categoria;
     private SiteOpiniaoResponse opiniao;
     private String nome;
@@ -18,7 +19,7 @@ public class SiteProdutoResponse {
     public SiteProdutoResponse(Produto produto) {
         nome = produto.getNome();
         categoria = new SiteCategoriaResponse(produto.getCategoria());
-      //  caracteristica = new SiteCaracteristicaResponse((CaracteristicaProduto) produto.getCaracteristicas());
+       caracteristica = produto.mapeiaCaracteristicas(SiteCaracteristicaResponse::new);
       //  opiniao = new SiteOpiniaoResponse(produto.getOpiniao());
         quantidade = produto.getQuantidade();
         descricao = produto.getDescricao();
@@ -27,7 +28,7 @@ public class SiteProdutoResponse {
 
     }
 
-    public SiteCaracteristicaResponse getCaracteristica() {
+    public Set<SiteCaracteristicaResponse> getCaracteristica() {
         return caracteristica;
     }
 

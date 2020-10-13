@@ -1,12 +1,9 @@
 package io.github.evertoncnsouza.rest.controller;
 
 
-import io.github.evertoncnsouza.domain.entity.Compra;
 import io.github.evertoncnsouza.domain.entity.Pergunta;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
