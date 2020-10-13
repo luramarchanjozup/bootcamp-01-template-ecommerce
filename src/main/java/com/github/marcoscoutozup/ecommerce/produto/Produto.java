@@ -120,7 +120,7 @@ public class Produto {
     }
 
     public boolean verificarSeExisteEstoqueParaOperacao(Integer quantidade){
-        return this.quantidade >= quantidade;
+        return this.quantidade > 0 && this.quantidade >= quantidade;
     }
 
     public void abaterEstoque(Integer quantidade){
