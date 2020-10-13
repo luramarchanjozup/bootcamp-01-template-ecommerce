@@ -20,7 +20,7 @@ public class SegurancaConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtUtils jwtUtils;
 
-    private final String[] ENDPOINTS_PUBLICOS = {"/usuario"};
+    private final String[] ENDPOINTS_PUBLICOS = {"/usuario", "/notafiscal", "/rankingvendedores"};
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

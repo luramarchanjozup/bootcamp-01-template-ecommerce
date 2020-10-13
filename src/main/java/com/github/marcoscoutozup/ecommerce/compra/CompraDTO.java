@@ -1,7 +1,7 @@
 package com.github.marcoscoutozup.ecommerce.compra;
 
 import com.github.marcoscoutozup.ecommerce.compra.enums.GatewayDePagamento;
-import com.github.marcoscoutozup.ecommerce.compra.enums.Status;
+import com.github.marcoscoutozup.ecommerce.compra.enums.StatusCompra;
 import com.github.marcoscoutozup.ecommerce.produto.Produto;
 import com.github.marcoscoutozup.ecommerce.usuario.Usuario;
 import com.github.marcoscoutozup.ecommerce.validator.enumvalido.EnumValido;
@@ -29,7 +29,7 @@ public class CompraDTO {
         //3
         GatewayDePagamento gatewayDePagamento = GatewayDePagamento.converterStringParaGatewayDePagamento(this.gatewayDePagamento);
 
-        return new Compra(gatewayDePagamento, Status.INICIADA, produto, quantidade, comprador);
+        return new Compra(gatewayDePagamento, StatusCompra.INICIADA, produto, quantidade, comprador);
     }
 
     public String getGatewayDePagamento() {

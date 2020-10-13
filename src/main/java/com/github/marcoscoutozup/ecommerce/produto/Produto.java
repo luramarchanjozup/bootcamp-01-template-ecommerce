@@ -103,7 +103,13 @@ public class Produto {
                 "\n\nLink do Produto: " + "\n\n";
     }
 
-    public BigDecimal calcularMediaDeNotas(){
+    public String prepararDetalhesDoProdutoParaEmail(){
+        return "\n\nProduto: " + nome +
+                "\n\nPreço: " + preco +
+                "\n\n";
+    }
+
+    public BigDecimal calcularMediaDeNotas(){                                       //5
         BigDecimal totalDasNotas = new BigDecimal(opinioes.stream().mapToDouble(Opiniao::getNota).sum());
         BigDecimal quantidadeDeNotas = new BigDecimal(getTotaldeNotas());
         return totalDasNotas.divide(quantidadeDeNotas).setScale(0, RoundingMode.CEILING);

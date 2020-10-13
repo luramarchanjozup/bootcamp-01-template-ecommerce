@@ -43,6 +43,14 @@ public class Usuario {
         this.senha = encriptarSenha(senha);
     }
 
+    public String prepararDadosDoUsuarioParaEmail(){
+        return "\n\nUsuário: " + email + "\n\n";
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -56,7 +64,6 @@ public class Usuario {
         return "Usuario{" +
                 "id=" + id +
                 ", login='" + email + '\'' +
-                ", senha='" + senha + '\'' +
                 '}';
     }
 

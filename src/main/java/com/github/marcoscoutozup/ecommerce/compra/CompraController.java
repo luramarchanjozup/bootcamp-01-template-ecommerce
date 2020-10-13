@@ -5,6 +5,7 @@ import com.github.marcoscoutozup.ecommerce.seguranca.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,7 +26,7 @@ public class CompraController {
 
     @PostMapping("/produto/{idProduto}")
     @Transactional                                                                          //1
-    public ResponseEntity efetuarCompra(@PathVariable UUID idProduto, @RequestBody @Valid CompraDTO dto, HttpServletRequest request){
+    public ResponseEntity efetuarCompra(@PathVariable UUID idProduto, @RequestBody @Valid CompraDTO dto, HttpServletRequest request, UriComponentsBuilder uri){
         String email = jwtUtils.getEmail(request);
 
         //2
@@ -49,9 +50,9 @@ public class CompraController {
         entityManager.merge(produto);
         entityManager.persist(compra);
 
-        System.out.println(compra.prepararDetalhesDaCompraParaEmail());
+        System.out.println(compra.prepararDetalhesDaCompraParaEmailDoVendedor());
 
-        return ResponseEntity.status(302).body(compra.retornarUrlDePagamentoDaCompra());
+        return ResponseEntity.status(302).body(compra.retornarUrlDePagamentoDaCompra(uri.toUriString()));
     }
 
 }

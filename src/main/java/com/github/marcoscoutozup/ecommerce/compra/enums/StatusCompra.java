@@ -1,6 +1,6 @@
 package com.github.marcoscoutozup.ecommerce.compra.enums;
 
-public enum Status {
+public enum StatusCompra {
 
     INICIADA
 }
