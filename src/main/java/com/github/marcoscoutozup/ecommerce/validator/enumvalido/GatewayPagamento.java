@@ -10,14 +10,12 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Target(FIELD)
 @Retention(RUNTIME)
-@Constraint(validatedBy = EnumValidoValidator.class)
-public @interface EnumValido {
+@Constraint(validatedBy = GatewayPagamentoValidator.class)
+public @interface GatewayPagamento {
 
     String message() default "O valor do enum não existe";
 
     Class<?>[] groups() default { };
 
     Class<? extends Payload>[] payload() default { };
-
-    Class classe();
 }

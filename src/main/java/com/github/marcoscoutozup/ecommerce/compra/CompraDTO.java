@@ -4,7 +4,7 @@ import com.github.marcoscoutozup.ecommerce.compra.enums.GatewayDePagamento;
 import com.github.marcoscoutozup.ecommerce.compra.enums.StatusCompra;
 import com.github.marcoscoutozup.ecommerce.produto.Produto;
 import com.github.marcoscoutozup.ecommerce.usuario.Usuario;
-import com.github.marcoscoutozup.ecommerce.validator.enumvalido.EnumValido;
+import com.github.marcoscoutozup.ecommerce.validator.enumvalido.GatewayPagamento;
 
 import javax.persistence.EntityManager;
 import javax.validation.constraints.NotNull;
@@ -13,7 +13,7 @@ import javax.validation.constraints.Positive;
 public class CompraDTO {
 
     @NotNull
-    @EnumValido(classe = GatewayDePagamento.class)
+    @GatewayPagamento
     private String gatewayDePagamento;
 
     @NotNull

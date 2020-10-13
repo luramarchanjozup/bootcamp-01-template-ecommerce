@@ -4,6 +4,8 @@ import com.github.marcoscoutozup.ecommerce.compra.pagamento.Pagamento;
 import com.github.marcoscoutozup.ecommerce.compra.pagamento.Pagseguro;
 import com.github.marcoscoutozup.ecommerce.compra.pagamento.Paypal;
 
+import java.util.stream.Stream;
+
 public enum GatewayDePagamento {
 
                 //1
@@ -20,5 +22,9 @@ public enum GatewayDePagamento {
 
     public static GatewayDePagamento converterStringParaGatewayDePagamento(String valor){
         return Enum.valueOf(GatewayDePagamento.class, valor);
+    }
+
+    public static boolean validateGatewayDePagamento(String gatewayDePagamento){
+        return Stream.of(GatewayDePagamento.class.getFields()).anyMatch(field -> field.getName().equals(gatewayDePagamento));
     }
 }
