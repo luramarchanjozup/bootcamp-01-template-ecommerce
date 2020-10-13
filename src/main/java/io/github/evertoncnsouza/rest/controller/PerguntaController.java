@@ -25,6 +25,9 @@ public class PerguntaController {
         @Autowired
         private Users users;
 
+        @Autowired
+        private Emails emails;
+
 
         @PostMapping
         @Transactional
@@ -34,12 +37,8 @@ public class PerguntaController {
             User navegador = users.findByEmail("everton@gmail.com").get();
             Pergunta pergunta = request.toModel(produto, navegador);
             manager.persist(pergunta);
-/*
-            RestTemplate restTemplate = new RestTemplate();
-            MandrilMessage
-            MandrilMail informacoesEmail = new MandrilMail(message);
-            restTemplate.postForEntity("https://mandrillapp.com/api/messages/send.json",
-                    informacoesEmail, String.class);*/
+
+            emails.pergunta(pergunta);
 
             return pergunta.toString();
 

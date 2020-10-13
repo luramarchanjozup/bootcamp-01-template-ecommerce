@@ -3,6 +3,7 @@ package io.github.evertoncnsouza.domain.entity;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -26,7 +27,7 @@ public class Pergunta {
     @Valid
     User navegador;
 
-    private LocalDateTime instanteCriacao;
+    private LocalDate instanteCriacao;
 
     public Pergunta() {
     }
@@ -38,7 +39,7 @@ public class Pergunta {
         this.titulo = titulo;
         this.produto = produto;
         this.navegador = navegador;
-        this.instanteCriacao = instanteCriacao;
+        this.instanteCriacao = LocalDate.now();
     }
 
     @Override
@@ -51,4 +52,14 @@ public class Pergunta {
                 ", instanteCriacao=" + instanteCriacao +
                 '}';
     }
+
+    public User getNavegador() {
+        return navegador;
+    }
+
+    public User getDono() {
+        return produto.getDono();
+    }
+
+
 }
