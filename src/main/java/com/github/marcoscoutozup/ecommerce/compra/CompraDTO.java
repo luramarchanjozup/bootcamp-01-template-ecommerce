@@ -5,6 +5,7 @@ import com.github.marcoscoutozup.ecommerce.compra.enums.StatusCompra;
 import com.github.marcoscoutozup.ecommerce.produto.Produto;
 import com.github.marcoscoutozup.ecommerce.usuario.Usuario;
 import com.github.marcoscoutozup.ecommerce.validator.enumvalido.GatewayPagamento;
+import io.jsonwebtoken.lang.Assert;
 
 import javax.persistence.EntityManager;
 import javax.validation.constraints.NotNull;
@@ -25,6 +26,8 @@ public class CompraDTO {
         Usuario comprador = entityManager.createNamedQuery("findUsuarioByEmail", Usuario.class)
                 .setParameter("email", emailDoComprador)
                 .getSingleResult();
+
+        Assert.notNull(comprador, "O comprador deve ser válido");
 
         //3
         GatewayDePagamento gatewayDePagamento = GatewayDePagamento.converterStringParaGatewayDePagamento(this.gatewayDePagamento);

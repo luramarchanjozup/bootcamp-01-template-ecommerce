@@ -1,6 +1,7 @@
 package com.github.marcoscoutozup.ecommerce.produto.adicionarpergunta;
 
 import com.github.marcoscoutozup.ecommerce.usuario.Usuario;
+import io.jsonwebtoken.lang.Assert;
 
 import javax.persistence.EntityManager;
 import javax.validation.constraints.NotBlank;
@@ -29,6 +30,8 @@ public class PerguntaDTO {
         Usuario usuario = entityManager.createNamedQuery("findUsuarioByEmail", Usuario.class)
                 .setParameter("email", emailDoUsuario)
                 .getSingleResult();
+
+        Assert.notNull(usuario, "O usuário deve ser válido");
 
         return new Pergunta(titulo, pergunta, usuario);
     }

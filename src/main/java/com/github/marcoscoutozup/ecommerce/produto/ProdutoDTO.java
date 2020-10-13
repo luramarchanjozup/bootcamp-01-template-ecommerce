@@ -6,6 +6,7 @@ import com.github.marcoscoutozup.ecommerce.categoria.Categoria;
 import com.github.marcoscoutozup.ecommerce.usuario.Usuario;
 import com.github.marcoscoutozup.ecommerce.validator.existeid.ExisteId;
 import com.github.marcoscoutozup.ecommerce.validator.minimodeelementos.MinimoDeElementos;
+import io.jsonwebtoken.lang.Assert;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.EntityManager;
@@ -50,6 +51,8 @@ public class ProdutoDTO {
         Usuario usuario = entityManager.createNamedQuery("findUsuarioByEmail", Usuario.class)
                 .setParameter("email", emailDoUsuario)
                 .getSingleResult();
+
+        Assert.notNull(usuario, "O usuário deve ser válido");
         //4
         Categoria categoria = entityManager.find(Categoria.class, this.categoria);
 

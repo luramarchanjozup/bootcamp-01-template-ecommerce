@@ -1,6 +1,7 @@
 package com.github.marcoscoutozup.ecommerce.produto.adicionaropiniao;
 
 import com.github.marcoscoutozup.ecommerce.usuario.Usuario;
+import io.jsonwebtoken.lang.Assert;
 
 import javax.persistence.Column;
 import javax.persistence.EntityManager;
@@ -39,6 +40,8 @@ public class OpiniaoDTO {
         Usuario usuario = entityManager.createNamedQuery("findUsuarioByEmail", Usuario.class)
                 .setParameter("email", emailDoUsuario)
                 .getSingleResult();
+
+        Assert.notNull(usuario, "O usuário deve ser válido");
 
         return new Opiniao(nota, titulo, descricao, usuario);
     }
