@@ -9,9 +9,9 @@ import javax.validation.Valid;
 import com.zup.mercadolivre.controller.form.CharacteristicsForm;
 import com.zup.mercadolivre.controller.form.ProductForm;
 import com.zup.mercadolivre.model.Category;
-import com.zup.mercadolivre.model.Product;
-import com.zup.mercadolivre.model.ProductCharacteristics;
 import com.zup.mercadolivre.model.User;
+import com.zup.mercadolivre.model.products.Product;
+import com.zup.mercadolivre.model.products.ProductCharacteristics;
 import com.zup.mercadolivre.repositories.CategoryRepository;
 import com.zup.mercadolivre.repositories.ProductRepository;
 import com.zup.mercadolivre.repositories.UserRepository;
@@ -27,7 +27,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/product")
-public class ProductController {
+public class NewProductController {
     
     @Autowired
     private ProductRepository productRepository;

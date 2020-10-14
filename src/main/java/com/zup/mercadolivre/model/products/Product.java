@@ -1,4 +1,4 @@
-package com.zup.mercadolivre.model;
+package com.zup.mercadolivre.model.products;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,6 +14,11 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.zup.mercadolivre.model.Category;
+import com.zup.mercadolivre.model.User;
+
+import org.springframework.security.authentication.BadCredentialsException;
 
 @Entity
 public class Product {
@@ -42,6 +47,9 @@ public class Product {
     @NotNull
     @ManyToOne
     private User owner;
+
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ProductImages> images;
 
     @Deprecated
     public Product() {
@@ -130,4 +138,17 @@ public class Product {
         this.owner = owner;
     }
 
+    public List<ProductImages> getImages() {
+        return this.images;
+    }
+
+    public void setImages(ProductImages image) {
+        this.images.add(image);
+    }
+
+    public void checkOwnership(String email) {
+        if (!email.equals(this.owner.getEmail())) {
+            throw new BadCredentialsException("This user does not own the product");
+        }
+    }
 }

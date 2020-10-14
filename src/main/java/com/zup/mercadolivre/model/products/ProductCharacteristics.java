@@ -1,4 +1,4 @@
-package com.zup.mercadolivre.model;
+package com.zup.mercadolivre.model.products;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

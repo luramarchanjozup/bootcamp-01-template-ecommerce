@@ -9,8 +9,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.zup.mercadolivre.model.Category;
-import com.zup.mercadolivre.model.Product;
 import com.zup.mercadolivre.model.User;
+import com.zup.mercadolivre.model.products.Product;
 
 public class ProductForm {
 
