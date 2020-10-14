@@ -5,12 +5,13 @@ import io.github.evertoncnsouza.domain.entity.Categoria;
 public class SiteCategoriaResponse {
 
     private String nome;
+    private Categoria idCategoriaMae;
 
-    private Long idCategoriaMae;
 
     public SiteCategoriaResponse(Categoria categoria) {
-        this.nome = nome;
-        this.idCategoriaMae = idCategoriaMae;
+        nome = categoria.getNome();
+        idCategoriaMae = categoria.getCategoriaMae();
+
     }
 
     public String getNome() {
@@ -21,11 +22,11 @@ public class SiteCategoriaResponse {
         this.nome = nome;
     }
 
-    public Long getIdCategoriaMae() {
+    public Categoria getIdCategoriaMae() {
         return idCategoriaMae;
     }
 
-    public void setIdCategoriaMae(Long idCategoriaMae) {
+    public void setIdCategoriaMae(Categoria idCategoriaMae) {
         this.idCategoriaMae = idCategoriaMae;
     }
 }

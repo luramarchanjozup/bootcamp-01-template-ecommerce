@@ -1,10 +1,8 @@
 package io.github.evertoncnsouza.domain.entity;
 
-
-import io.github.evertoncnsouza.rest.controller.Mailer;
+import io.github.evertoncnsouza.domain.repository.Mailer;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 

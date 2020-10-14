@@ -1,6 +1,5 @@
 package io.github.evertoncnsouza.domain.entity;
 
-import ch.qos.logback.core.util.COWArrayList;
 import io.github.evertoncnsouza.rest.dto.CaracteristicaRequest;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.util.Assert;
@@ -53,13 +52,13 @@ public class Produto {
 
     private final LocalDateTime horaCriacao = LocalDateTime.now();
 
-    @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE )
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private Set<ImagemProduto> imagens = new HashSet<>();
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private Set<Opiniao> opinioes = new HashSet<>();
 
-    @OneToMany (mappedBy = "produto")
+    @OneToMany(mappedBy = "produto")
     @OrderBy("titulo asc")
     private Set<Pergunta> perguntas = new HashSet<>();
 
@@ -87,23 +86,6 @@ public class Produto {
                 "Todo produto ter no minimo 3 caracteristicas");
 
     }
-
-    @Override
-    public String toString() {
-        return "Produto{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", quantidade=" + quantidade +
-                ", descricao='" + descricao + '\'' +
-                ", valor=" + valor +
-                ", categoria=" + categoria +
-                ", dono=" + dono +
-                ", caracteristicas=" + caracteristicas +
-                ", horaCriacao=" + horaCriacao +
-                ", imagens=" + imagens +
-                '}';
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -150,9 +132,9 @@ public class Produto {
         return dono;
     }
 
-  // public Set<Opiniao> getOpinioes() {
-    //    return opinioes;}
-
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 
     public Boolean pertenceAoUser(User possivelDono) {
         return this.dono.equals(possivelDono);
@@ -166,6 +148,8 @@ public class Produto {
     }
     //T - Tipo generico
 
+
+
     public <T> Set<T> mapeiaImagens(Function<ImagemProduto, T> funcaMapeadora) {
         return this.imagens.stream().map(funcaMapeadora)
                 .collect(Collectors.toSet());
@@ -174,13 +158,13 @@ public class Produto {
     public void associaImagens(Set<String> links) {
         links.stream().map(link -> new ImagemProduto(this, link))
                 .collect(Collectors.toSet());
-
         this.imagens.addAll(imagens);
     }
 
-    public <T extends Comparable<T>> SortedSet<T> mapeiaPerguntas(Function<Pergunta, T> funcaMapeadora) {
+    public <T extends Comparable<T>> SortedSet<T> mapeiaPerguntas(
+            Function<Pergunta, T> funcaMapeadora) {
         return this.perguntas.stream().map(funcaMapeadora)
-                .collect(Collectors.toCollection(TreeSet ::new));
+                .collect(Collectors.toCollection(TreeSet::new));
     }
 
     public <T> Set<T> mapeiaOpinioes(Function<Opiniao, T> funcaMapeadora) {
@@ -188,10 +172,25 @@ public class Produto {
                 .collect(Collectors.toSet());
     }
 
-
-
     public Set<Opiniao> getOpinioes() {
         return opinioes;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Produto{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", quantidade=" + quantidade +
+                ", descricao='" + descricao + '\'' +
+                ", valor=" + valor +
+                ", categoria=" + categoria +
+                ", dono=" + dono +
+                ", caracteristicas=" + caracteristicas +
+                ", horaCriacao=" + horaCriacao +
+                ", imagens=" + imagens +
+                '}';
     }
 
 }

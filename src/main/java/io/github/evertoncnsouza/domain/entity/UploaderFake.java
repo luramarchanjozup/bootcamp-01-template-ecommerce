@@ -1,14 +1,11 @@
 package io.github.evertoncnsouza.domain.entity;
 
-import io.github.evertoncnsouza.rest.controller.Uploader;
-import org.apache.tomcat.util.http.fileupload.UploadContext;
+import io.github.evertoncnsouza.domain.repository.Uploader;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component

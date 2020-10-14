@@ -4,12 +4,11 @@ import io.github.evertoncnsouza.domain.entity.Pergunta;
 import io.github.evertoncnsouza.domain.entity.Produto;
 import io.github.evertoncnsouza.domain.entity.User;
 import io.github.evertoncnsouza.domain.repository.Users;
+import io.github.evertoncnsouza.rest.dto.Emails;
 import io.github.evertoncnsouza.rest.dto.PerguntaRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;

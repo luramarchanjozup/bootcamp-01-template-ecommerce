@@ -1,4 +1,4 @@
-package io.github.evertoncnsouza.rest.controller;
+package io.github.evertoncnsouza.domain.repository;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

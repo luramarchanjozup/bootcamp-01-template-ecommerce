@@ -3,7 +3,6 @@ package io.github.evertoncnsouza.domain.entity;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.Assert;
-
 import javax.validation.constraints.NotBlank;
 
 public class SenhaLimpa {

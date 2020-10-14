@@ -1,12 +1,8 @@
 package io.github.evertoncnsouza.rest.dto;
 
-import io.github.evertoncnsouza.domain.entity.Opiniao;
 import io.github.evertoncnsouza.domain.entity.Pergunta;
 import io.github.evertoncnsouza.domain.entity.Produto;
 import io.github.evertoncnsouza.domain.entity.User;
-
-import javax.persistence.EntityManager;
-import javax.persistence.ManyToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

@@ -2,7 +2,6 @@ package io.github.evertoncnsouza.rest.dto;
 
 import io.github.evertoncnsouza.domain.entity.CaracteristicaProduto;
 import io.github.evertoncnsouza.domain.entity.Produto;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

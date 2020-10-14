@@ -47,8 +47,6 @@ public class Opiniao {
         this.descricao = descricao;
         this.produto = produto;
         this.navegador = navegador;
-
-
     }
 
     public String getTitulo() {

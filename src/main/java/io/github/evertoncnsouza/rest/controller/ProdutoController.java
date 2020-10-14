@@ -2,6 +2,7 @@ package io.github.evertoncnsouza.rest.controller;
 
 import io.github.evertoncnsouza.domain.entity.Produto;
 import io.github.evertoncnsouza.domain.entity.User;
+import io.github.evertoncnsouza.domain.repository.Uploader;
 import io.github.evertoncnsouza.domain.repository.Users;
 import io.github.evertoncnsouza.rest.dto.ImagemRequest;
 import io.github.evertoncnsouza.rest.dto.ProdutoRequest;
@@ -12,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;

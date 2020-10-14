@@ -14,7 +14,6 @@ public class SiteProdutoResponse {
     private SiteCategoriaResponse categoria;
     private Set<String> opinioes;
     private String nome;
-    private int quantidade;
     private String descricao;
     private BigDecimal valor;
     private Set<String> linksImagens;
@@ -25,14 +24,14 @@ public class SiteProdutoResponse {
         nome = produto.getNome();
         categoria = new SiteCategoriaResponse(produto.getCategoria());
         caracteristica = produto.mapeiaCaracteristicas(SiteCaracteristicaResponse::new);
+        perguntas = produto.mapeiaPerguntas(pergunta -> pergunta.getTitulo());
         //Metodo Reference do Java;
         //Vantagem é que não expõe todas as características;
        opinioes = produto.mapeiaOpinioes(opiniao -> opiniao.getTitulo());
         linksImagens = produto.mapeiaImagens(imagem -> imagem.getLink());
-        quantidade = produto.getQuantidade();
         descricao = produto.getDescricao();
         valor = produto.getValor();
-        perguntas = produto.mapeiaPerguntas(pergunta -> pergunta.getTitulo());
+
 
         Set<Integer> notas = produto.mapeiaOpinioes(opiniao -> opiniao.getNota());
         IntStream mapToInt = notas.stream().mapToInt(nota -> nota);
@@ -40,9 +39,6 @@ public class SiteProdutoResponse {
         if(average.isPresent()) {
             this.mediaNotas = average.getAsDouble();
         }
-
-
-
 
             }
 
@@ -65,11 +61,7 @@ public class SiteProdutoResponse {
         return nome;
     }
 
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public String getDescricao() {
+     public String getDescricao() {
         return descricao;
     }
 

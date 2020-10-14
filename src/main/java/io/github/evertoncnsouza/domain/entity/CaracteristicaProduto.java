@@ -6,6 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
+//Não tem PCI
 @Entity
 public class CaracteristicaProduto {
 
@@ -18,7 +19,6 @@ public class CaracteristicaProduto {
 
     @NotBlank
     private String descricao;
-
 
     @NotNull
     @Valid

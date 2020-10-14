@@ -22,7 +22,6 @@ public class Pergunta implements Comparable <Pergunta> {
     @Valid
     Produto produto;
 
-
     @ManyToOne
     @NotNull
     @Valid
@@ -62,6 +61,11 @@ public class Pergunta implements Comparable <Pergunta> {
         return produto.getDono();
     }
 
+    public String getTitulo() {
+        return titulo;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -80,9 +84,5 @@ public class Pergunta implements Comparable <Pergunta> {
     @Override
     public int compareTo(Pergunta o) {
         return this.titulo.compareTo(o.titulo);
-    }
-
-    public String getTitulo() {
-        return titulo;
     }
 }

@@ -1,9 +1,9 @@
 package io.github.evertoncnsouza.domain.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
+//Não tem PCI
     @Entity
     public class Categoria {
 
@@ -39,5 +39,13 @@ import javax.validation.constraints.NotEmpty;
                     ", categoriaMae=" + categoriaMae +
                     '}';
         }
+
+    public String getNome() {
+        return nome;
     }
+
+    public Categoria getCategoriaMae() {
+        return categoriaMae;
+    }
+}
 
