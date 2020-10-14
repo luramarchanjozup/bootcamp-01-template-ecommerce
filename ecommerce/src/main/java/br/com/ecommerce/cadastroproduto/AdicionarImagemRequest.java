@@ -1,27 +1,20 @@
 package br.com.ecommerce.cadastroproduto;
-
-import javassist.ByteArrayClassPath;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.persistence.EntityManager;
+import java.util.List;
 
 public class AdicionarImagemRequest {
 
-    private MultipartFile arquivo;
+    private List<MultipartFile> arquivos;
 
-    public AdicionarImagemRequest(MultipartFile arquivo) {
-        this.arquivo = arquivo;
+    public AdicionarImagemRequest(List<MultipartFile> arquivos) {
+        this.arquivos = arquivos;
     }
 
-    public ImagemProduto criaLinkDaImagem(EntityManager entityManager, Long produtoId){
-
-        return new ImagemProduto(arquivo.getOriginalFilename(), entityManager.find(Produto.class, produtoId));
-
+    public List<MultipartFile> getArquivos() {
+        return arquivos;
     }
 
-    public MultipartFile getArquivo() {
-        return arquivo;
+    public void setArquivos(List<MultipartFile> arquivos) {
+        this.arquivos = arquivos;
     }
-
 }

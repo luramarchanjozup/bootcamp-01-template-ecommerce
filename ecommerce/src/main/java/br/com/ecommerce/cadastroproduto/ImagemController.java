@@ -7,42 +7,38 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
-import java.io.IOException;
-import java.nio.file.Path;
+import java.util.List;
 
 @RestController
 @RequestMapping("/imagens/{produtoId}")
 public class ImagemController {
 
+
     @Autowired
     private EntityManager entityManager;
 
-    @PutMapping
+
+    @Autowired
+    private UploaderFake uploaderFake;
+
+
+    @PostMapping
     @Transactional
-    public ResponseEntity<?> adicionarFotoLocal(@PathVariable Long produtoId,
-                                                AdicionarImagemRequest arquivoEnviado) throws IOException {
+    public ResponseEntity<?> adicionarFotos(@PathVariable Long produtoId, AdicionarImagemRequest arquivosEnviados) {
 
-       // 1
-        entityManager
-                .persist(arquivoEnviado.criaLinkDaImagem(entityManager, produtoId));
+        Produto produto = entityManager.find(Produto.class, produtoId);
 
-        // 1
-        MultipartFile arquivo = arquivoEnviado.getArquivo();
+        List<MultipartFile> imagens = arquivosEnviados.getArquivos();
 
-        // 1
-        String nomeDoArquivo = arquivo.getOriginalFilename();
+        List<String> listaLinks = uploaderFake.envia(imagens);
 
-        // 1
-        var diretorioParaSalvarImagemProduto =
-                Path.of("/home/marceloamorim/Documentos/bootcamp-01-template-ecommerce/" +
-                        "ecommerce/src/main/resources/static/imagens", nomeDoArquivo);
+        produto.associaImagens(listaLinks);
 
-        // 1
-        arquivo.transferTo(diretorioParaSalvarImagemProduto);
+        entityManager.merge(produto);
 
         return ResponseEntity
-                .ok()
-                .build();
+                    .ok()
+                    .build();
 
     }
 }

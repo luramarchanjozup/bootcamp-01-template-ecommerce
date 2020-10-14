@@ -20,17 +20,11 @@ public class ImagemProduto {
     @Deprecated
     public ImagemProduto(){};
 
-    public ImagemProduto(String nomeArquivo, Produto produto) {
-
-        //1
-        String basePath = "/home/marceloamorim/Documentos/bootcamp-01-template-ecommerce/" +
-                "ecommerce/src/main/resources/static/imagens";
-
-        //1
-        this.linkImagem = basePath + nomeArquivo;
+    public ImagemProduto(@NotBlank String linkImagem, Produto produto) {
+        this.linkImagem = linkImagem;
         this.produto = produto;
-
     }
+
 
     public String getLinkImagem() {
         return linkImagem;

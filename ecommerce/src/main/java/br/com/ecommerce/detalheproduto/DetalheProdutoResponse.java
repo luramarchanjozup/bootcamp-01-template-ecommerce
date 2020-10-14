@@ -1,14 +1,16 @@
 package br.com.ecommerce.detalheproduto;
 
 import br.com.ecommerce.adicionaropiniao.Opiniao;
+import br.com.ecommerce.cadastroproduto.ImagemProduto;
 import br.com.ecommerce.cadastroproduto.Produto;
+
+import javax.persistence.ElementCollection;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.OptionalDouble;
 
 
 public class DetalheProdutoResponse {
-
 
     private String nome;
 
@@ -31,6 +33,8 @@ public class DetalheProdutoResponse {
 
     public DetalheProdutoResponse(Produto produto){
 
+        this.linksImagens = produto.listarLinks(imagemProduto -> imagemProduto.getLinkImagem());
+
 
         this.nome = produto.getNome();
 
@@ -39,9 +43,6 @@ public class DetalheProdutoResponse {
 
 
         this.descricao = produto.getDescricao();
-
-
-        this.linksImagens = produto.listarLinks(imagem -> imagem.getLinkImagem());
 
 
         this.opinioes = produto.listarOpinioes(opiniao -> opiniao.getTitulo());
@@ -66,40 +67,68 @@ public class DetalheProdutoResponse {
 
     }
 
-    public List<String> getCaracteristicas() {
-        return caracteristicas;
-    }
-
-    public List<String> getPerguntas() {
-        return perguntas;
-    }
 
     public String getNome() {
         return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public BigDecimal getPreco() {
         return preco;
     }
 
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
+
     public String getDescricao() {
         return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public OptionalDouble getMediaDeNotas() {
         return mediaDeNotas;
     }
 
+    public void setMediaDeNotas(OptionalDouble mediaDeNotas) {
+        this.mediaDeNotas = mediaDeNotas;
+    }
+
     public Integer getTotalDeNotas() {
         return totalDeNotas;
+    }
+
+    public void setTotalDeNotas(Integer totalDeNotas) {
+        this.totalDeNotas = totalDeNotas;
     }
 
     public List<String> getOpinioes() {
         return opinioes;
     }
 
-    public List<String> getLinksImagens() {
-        return linksImagens;
+    public void setOpinioes(List<String> opinioes) {
+        this.opinioes = opinioes;
     }
 
+    public List<String> getPerguntas() {
+        return perguntas;
+    }
+
+    public void setPerguntas(List<String> perguntas) {
+        this.perguntas = perguntas;
+    }
+
+    public List<String> getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public void setCaracteristicas(List<String> caracteristicas) {
+        this.caracteristicas = caracteristicas;
+    }
 }
