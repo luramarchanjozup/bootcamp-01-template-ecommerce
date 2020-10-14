@@ -54,19 +54,38 @@ public class DetalheProdutoResponse {
         this.caracteristicas = produto.listarCaracteristicas(caracteristica -> caracteristica.getNome());
 
 
-        List<Opiniao> opinioes = produto.getOpinioes();
+        this.totalDeNotas = total(produto);
 
-
-        this.totalDeNotas = opinioes.size();
-
-
-        this.mediaDeNotas = opinioes.stream()
-                .map(opiniao -> opiniao.getNota())
-                .mapToDouble(x -> x)
-                .average();
+        this.mediaDeNotas = media(produto);
 
     }
 
+
+    public Integer total(Produto produto){
+
+        return produto
+                .getOpinioes()
+                .size();
+    }
+
+
+    public OptionalDouble media(Produto produto){
+
+        return   produto
+                    .getOpinioes()
+                    .stream()
+                    .map(opiniao -> opiniao.getNota())
+                    .mapToDouble(x -> x)
+                    .average();
+    }
+
+    public List<String> getLinksImagens() {
+        return linksImagens;
+    }
+
+    public void setLinksImagens(List<String> linksImagens) {
+        this.linksImagens = linksImagens;
+    }
 
     public String getNome() {
         return nome;

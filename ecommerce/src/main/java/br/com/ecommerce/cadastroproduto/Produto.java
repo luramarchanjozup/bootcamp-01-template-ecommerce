@@ -14,6 +14,7 @@ import java.time.OffsetDateTime;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -75,12 +76,11 @@ public class Produto {
 
     public List<String> listarLinks(Function<ImagemProduto, String> funcaoDeListagem){
 
-        List<String> linkImagens = this.imagens
+        return this.imagens
                 .stream()
                 .map(funcaoDeListagem)
                 .collect(Collectors.toList());
 
-        return linkImagens;
     }
 
     public List<String> listarCaracteristicas(Function<Caracteristica, String> funcaoDeListagem){
@@ -116,7 +116,6 @@ public class Produto {
 
         this.imagens.addAll(imagens);
 
-        System.out.println(this.imagens);
     }
 
     public Long getId() {

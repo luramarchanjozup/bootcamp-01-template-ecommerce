@@ -37,4 +37,5 @@ public class Caracteristica {
     public void setValor(BigDecimal valor) {
         this.valor = valor;
     }
+
 }
