@@ -4,6 +4,6 @@ import java.util.UUID;
 
 public interface Pagamento {
 
-    String retornarUrlDePagamento(UUID id, String url_base);
+    String retornarUrlDePagamento(UUID id, String urlBase);
 
 }

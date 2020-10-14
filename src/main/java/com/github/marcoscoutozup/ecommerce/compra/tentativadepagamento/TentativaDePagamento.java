@@ -18,7 +18,7 @@ public class TentativaDePagamento {
 
     @NotNull
     @Enumerated(value = EnumType.STRING)
-    private StatusPagamento status;
+    private StatusPagamento status; //1
 
     private LocalDateTime instanteDaTransacao;
 

@@ -18,7 +18,7 @@ public class Pergunta {
     private String pergunta;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne //1
     private Usuario usuario;
 
     private LocalDateTime created_at;

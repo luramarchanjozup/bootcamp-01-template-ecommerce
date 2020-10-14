@@ -24,7 +24,7 @@ public enum GatewayDePagamento {
         return Enum.valueOf(GatewayDePagamento.class, valor);
     }
 
-    public static boolean validateGatewayDePagamento(String gatewayDePagamento){
+    public static boolean validateGatewayDePagamento(String gatewayDePagamento){ //4
         return Stream.of(GatewayDePagamento.class.getFields()).anyMatch(field -> field.getName().equals(gatewayDePagamento));
     }
 }

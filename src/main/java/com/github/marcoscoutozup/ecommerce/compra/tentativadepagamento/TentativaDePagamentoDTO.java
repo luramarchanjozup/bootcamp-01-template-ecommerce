@@ -13,6 +13,7 @@ public class TentativaDePagamentoDTO {
     @NotNull //1
     private StatusPagamento status;
 
+                //2
     public TentativaDePagamento toModel(){
         return new TentativaDePagamento(transacao, status);
     }

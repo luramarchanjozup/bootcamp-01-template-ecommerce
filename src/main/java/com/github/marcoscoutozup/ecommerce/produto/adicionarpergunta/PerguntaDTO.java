@@ -31,13 +31,14 @@ public class PerguntaDTO {
                 .setParameter("email", emailDoUsuario)
                 .getSingleResult();
 
+        //3
         Assert.notNull(usuario, "O usuário deve ser válido");
 
         return new Pergunta(titulo, pergunta, usuario);
     }
 
-    public static List<PerguntaDTO> converterListaDePerguntasParaDTO(List<Pergunta> perguntas){
-                                        //3
+    public static List<PerguntaDTO> listaDePerguntasToDTO(List<Pergunta> perguntas){
+                                        //4
         return perguntas.stream().map(PerguntaDTO::new).collect(Collectors.toList());
     }
 

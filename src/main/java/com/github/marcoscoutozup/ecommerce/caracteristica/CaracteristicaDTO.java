@@ -26,9 +26,14 @@ public class CaracteristicaDTO {
         return new Caracteristica(titulo,caracteristica);
     }
 
-    public static List<CaracteristicaDTO> converterListaDeCaracteristicasParaDTO(List<Caracteristica> caracteristicas){
+    public static List<CaracteristicaDTO> listaDeCaracteristicasToDTO(List<Caracteristica> caracteristicas){
                                             //2
         return caracteristicas.stream().map(CaracteristicaDTO::new).collect(Collectors.toList());
+    }
+
+    public static List<Caracteristica> listaDeCaracteristicasToModel(List<CaracteristicaDTO> caracteristicas){
+                                            //3
+        return caracteristicas.stream().map(CaracteristicaDTO::toModel).collect(Collectors.toList());
     }
 
     public String getTitulo() {

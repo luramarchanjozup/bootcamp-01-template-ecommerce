@@ -41,12 +41,13 @@ public class OpiniaoDTO {
                 .setParameter("email", emailDoUsuario)
                 .getSingleResult();
 
+        //3
         Assert.notNull(usuario, "O usuário deve ser válido");
 
         return new Opiniao(nota, titulo, descricao, usuario);
     }
 
-    public static List<OpiniaoDTO> converterListaDeOpinioesParaDTO(List<Opiniao> opinioes){
+    public static List<OpiniaoDTO> listaDeOpinioesToDTO(List<Opiniao> opinioes){
                                     //3
         return opinioes.stream().map(OpiniaoDTO::new).collect(Collectors.toList());
     }

@@ -2,6 +2,8 @@ package com.github.marcoscoutozup.ecommerce.caracteristica;
 
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Embeddable
 public class Caracteristica {

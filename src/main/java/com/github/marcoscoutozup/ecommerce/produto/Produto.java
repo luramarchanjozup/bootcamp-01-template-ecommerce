@@ -35,7 +35,7 @@ public class Produto {
     @PositiveOrZero
     private Integer quantidade;
 
-    @ElementCollection
+    @ElementCollection //1
     private List<Caracteristica> caracteristicas;
 
     @NotBlank
@@ -44,20 +44,20 @@ public class Produto {
     private String descricao;
 
     @NotNull
-    @ManyToOne //1
+    @ManyToOne //2
     private Categoria categoria;
 
     @NotNull
-    @ManyToOne //2
+    @ManyToOne //3
     private Usuario usuario;
 
     @ElementCollection
     private List<String> imagens;
 
-    @ElementCollection //3
+    @ElementCollection //4
     private List<Opiniao> opinioes;
 
-    @ElementCollection //4
+    @ElementCollection //5
     private List<Pergunta> perguntas;
 
     @CreationTimestamp
@@ -109,7 +109,7 @@ public class Produto {
                 "\n\n";
     }
 
-    public BigDecimal calcularMediaDeNotas(){                                       //5
+    public BigDecimal calcularMediaDeNotas(){                                       //6
         BigDecimal totalDasNotas = new BigDecimal(opinioes.stream().mapToDouble(Opiniao::getNota).sum());
         BigDecimal quantidadeDeNotas = new BigDecimal(getTotaldeNotas());
         return totalDasNotas.divide(quantidadeDeNotas).setScale(0, RoundingMode.CEILING);

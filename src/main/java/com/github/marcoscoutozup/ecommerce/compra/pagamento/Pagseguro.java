@@ -5,7 +5,7 @@ import java.util.UUID;
 public class Pagseguro implements Pagamento{
 
     @Override
-    public String retornarUrlDePagamento(UUID id, String url_base) {
-        return "pagseguro.com/?returnId=" + id + "&redirectUrl=" + url_base + "/pagamento/" + id;
+    public String retornarUrlDePagamento(UUID id, String urlBase) {
+        return "pagseguro.com/?returnId=" + id + "&redirectUrl=" + urlBase + "/pagamento/" + id;
     }
 }

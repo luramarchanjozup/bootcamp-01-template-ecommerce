@@ -28,12 +28,12 @@ public class DetalhesDoProdutoResponse {
         this.imagens = produto.getImagens();
         this.nome = produto.getNome();
         this.preco = produto.getPreco();
-        this.caracteristicas = CaracteristicaDTO.converterListaDeCaracteristicasParaDTO(produto.getCaracteristicas());
+        this.caracteristicas = CaracteristicaDTO.listaDeCaracteristicasToDTO(produto.getCaracteristicas());
         this.descricao = produto.getDescricao();
         this.mediaDasNotas = produto.calcularMediaDeNotas();
         this.totalDeNotas = produto.getTotaldeNotas();
-        this.opinioes = OpiniaoDTO.converterListaDeOpinioesParaDTO(produto.getOpinioes());
-        this.perguntas = PerguntaDTO.converterListaDePerguntasParaDTO(produto.getPerguntas());
+        this.opinioes = OpiniaoDTO.listaDeOpinioesToDTO(produto.getOpinioes());
+        this.perguntas = PerguntaDTO.listaDePerguntasToDTO(produto.getPerguntas());
     }
 
     public List<String> getImagens() {

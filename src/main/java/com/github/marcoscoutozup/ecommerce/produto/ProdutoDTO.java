@@ -1,6 +1,5 @@
 package com.github.marcoscoutozup.ecommerce.produto;
 
-import com.github.marcoscoutozup.ecommerce.caracteristica.Caracteristica;
 import com.github.marcoscoutozup.ecommerce.caracteristica.CaracteristicaDTO;
 import com.github.marcoscoutozup.ecommerce.categoria.Categoria;
 import com.github.marcoscoutozup.ecommerce.usuario.Usuario;
@@ -18,7 +17,6 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class ProdutoDTO {
 
@@ -52,16 +50,13 @@ public class ProdutoDTO {
                 .setParameter("email", emailDoUsuario)
                 .getSingleResult();
 
-        Assert.notNull(usuario, "O usuário deve ser válido");
         //4
+        Assert.notNull(usuario, "O usuário deve ser válido");
+
+        //5
         Categoria categoria = entityManager.find(Categoria.class, this.categoria);
 
-       return new Produto(nome, preco, quantidade, converterListaDeCaracteristicas(), descricao, categoria, usuario);
-    }
-                    //5
-    public List<Caracteristica> converterListaDeCaracteristicas(){
-                                                //6
-        return caracteristicas.stream().map(CaracteristicaDTO::toModel).collect(Collectors.toList());
+       return new Produto(nome, preco, quantidade, CaracteristicaDTO.listaDeCaracteristicasToModel(caracteristicas), descricao, categoria, usuario);
     }
 
     public String getNome() {
