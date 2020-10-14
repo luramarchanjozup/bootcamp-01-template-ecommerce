@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+//2 PCI's
 public class CaracteristicaRequest {
 
     @NotBlank

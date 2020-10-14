@@ -1,31 +1,31 @@
-/*package io.github.evertoncnsouza.rest.dto;
+package io.github.evertoncnsouza.rest.dto;
 
 import io.github.evertoncnsouza.domain.entity.Opiniao;
+import java.util.OptionalDouble;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
+//1 PCI
 public class SiteOpiniaoResponse {
 
-    private int nota;
+    private Set<Opiniao> opinioes;
 
-    private String titulo;
+    public SiteOpiniaoResponse(Set<Opiniao> opinioes) {
+        this.opinioes = opinioes;
 
-    private String descricao;
-
-    public SiteOpiniaoResponse(Opiniao opiniao) {
-        this.nota = nota;
-        this.titulo = titulo;
-        this.descricao = descricao;
+    }
+    public <T> Set<T> mapeiaOpinioes(Function<Opiniao, T> funcaMapeadora) {
+        return this.opinioes.stream().map(funcaMapeadora)
+                .collect(Collectors.toSet());
     }
 
-    public int getNota() {
-        return nota;
+    public double media() {
+        Set<Integer> notas = mapeiaOpinioes(opiniao -> opiniao.getNota());
+        OptionalDouble possivelMedia = notas.stream().mapToInt(nota -> nota).average();
+        return possivelMedia.orElse(0.0);
     }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public String getDescricao() {
-        return descricao;
+    public int total() {
+        return this.opinioes.size();
     }
 }
-*/

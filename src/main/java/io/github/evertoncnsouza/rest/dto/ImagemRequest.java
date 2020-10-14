@@ -5,6 +5,7 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
+//Não tem PCI
 public class ImagemRequest {
 
     @Size(min = 1)

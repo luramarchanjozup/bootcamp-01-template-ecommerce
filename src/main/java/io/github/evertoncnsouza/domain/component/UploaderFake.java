@@ -1,4 +1,4 @@
-package io.github.evertoncnsouza.domain.entity;
+package io.github.evertoncnsouza.domain.component;
 
 import io.github.evertoncnsouza.domain.repository.Uploader;
 import org.springframework.context.annotation.Primary;

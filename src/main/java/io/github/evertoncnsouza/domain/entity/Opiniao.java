@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.Objects;
 
+//Não tem PCI
 @Entity
 public class Opiniao {
 

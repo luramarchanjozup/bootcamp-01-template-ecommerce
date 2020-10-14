@@ -53,7 +53,6 @@ public class CaracteristicaProduto {
         return getNome().equals(that.getNome()) &&
                 produto.equals(that.produto);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(getNome(), produto);

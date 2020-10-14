@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
-//Não tem PCI
+//3 PCI's
 public class CategoriaRequest {
 
     @NotBlank

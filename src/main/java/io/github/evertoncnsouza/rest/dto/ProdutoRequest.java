@@ -68,37 +68,22 @@ public class ProdutoRequest {
             List<CaracteristicaRequest> caracteristicas) {
         this.caracteristicas = caracteristicas;
     }
+    public Set<String> buscaCaracteristicasIguais() {
+        HashSet<String> nomesIguais = new HashSet<>();
+        HashSet<String> resultados = new HashSet<>();
 
+        for (CaracteristicaRequest caracteristica : caracteristicas) {
+            String nome = caracteristica.getNome();
 
-    @Override
-    public String toString() {
-        return "ProdutoRequest{" +
-                "nome='" + nome + '\'' +
-                ", quantidade=" + quantidade +
-                ", descricao='" + descricao + '\'' +
-                ", valor=" + valor +
-                ", idCategoria=" + idCategoria +
-                ", caracteristicas=" + caracteristicas +
-                '}';
+            if (!nomesIguais.add(nome)) {
+                resultados.add(nome);
+            }
+        }
+        return resultados;
     }
-
     public Produto toModel(EntityManager manager, User dono){
     Categoria categoria = manager.find(Categoria.class, idCategoria);
-
     return new Produto(nome, quantidade, descricao,valor, categoria, dono, caracteristicas);
 }
 
-public Set<String> buscaCaracteristicasIguais() {
-    HashSet<String> nomesIguais = new HashSet<>();
-    HashSet<String> resultados = new HashSet<>();
-
-    for (CaracteristicaRequest caracteristica : caracteristicas) {
-        String nome = caracteristica.getNome();
-
-        if (!nomesIguais.add(nome)) {
-            resultados.add(nome);
-        }
-    }
-    return resultados;
-}
 }

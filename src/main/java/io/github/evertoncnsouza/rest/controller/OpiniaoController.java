@@ -12,7 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 
-//PCI 5
+//5 PCI's
 @RestController
 @RequestMapping("produtos/{id}/opiniao")
 public class OpiniaoController {

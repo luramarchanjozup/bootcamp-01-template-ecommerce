@@ -1,48 +1,42 @@
 package io.github.evertoncnsouza.rest.dto;
 
 import io.github.evertoncnsouza.domain.entity.Produto;
-
 import java.math.BigDecimal;
-import java.util.OptionalDouble;
+import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.stream.IntStream;
 
+//7 PCI's
 public class SiteProdutoResponse {
 
-    private Set<SiteCaracteristicaResponse> caracteristica;
-    private SiteCategoriaResponse categoria;
-    private Set<String> opinioes;
     private String nome;
     private String descricao;
     private BigDecimal valor;
+    private Set<SiteCaracteristicaResponse> caracteristica;
+    private SiteCategoriaResponse categoria;
+    private Set<Map<String,String>> opinioes;
     private Set<String> linksImagens;
-    private SortedSet<String> perguntas;
+    private Set<Map<String, String>> perguntas;
     private double mediaNotas;
 
     public SiteProdutoResponse(Produto produto) {
         nome = produto.getNome();
-        categoria = new SiteCategoriaResponse(produto.getCategoria());
-        caracteristica = produto.mapeiaCaracteristicas(SiteCaracteristicaResponse::new);
-        perguntas = produto.mapeiaPerguntas(pergunta -> pergunta.getTitulo());
-        //Metodo Reference do Java;
-        //Vantagem é que não expõe todas as características;
-       opinioes = produto.mapeiaOpinioes(opiniao -> opiniao.getTitulo());
-        linksImagens = produto.mapeiaImagens(imagem -> imagem.getLink());
         descricao = produto.getDescricao();
         valor = produto.getValor();
+        categoria = new SiteCategoriaResponse(produto.getCategoria());
+        caracteristica = produto.mapeiaCaracteristicas(SiteCaracteristicaResponse::new);
+        linksImagens = produto.mapeiaImagens(imagem -> imagem.getLink());
 
+        SiteOpiniaoResponse siteOpiniaoResponse = produto.getOpinioes();
+        this.opinioes = siteOpiniaoResponse.mapeiaOpinioes(opiniao -> {
+            return Map.of("titulo", opiniao.getTitulo(),"descricao",opiniao.getDescricao());
+        });
+        mediaNotas = siteOpiniaoResponse.media();
 
-        Set<Integer> notas = produto.mapeiaOpinioes(opiniao -> opiniao.getNota());
-        IntStream mapToInt = notas.stream().mapToInt(nota -> nota);
-        OptionalDouble average = mapToInt.average();
-        if(average.isPresent()) {
-            this.mediaNotas = average.getAsDouble();
-        }
-
-            }
-
-
+        SitePerguntaResponse sitePerguntaResponse = produto.getPerguntas();
+        this.perguntas = sitePerguntaResponse.mapeiaPerguntas(pergunta -> {
+            return Map.of("titulo", pergunta.getTitulo());
+        });
+    }
     public Set<SiteCaracteristicaResponse> getCaracteristica() {
         return caracteristica;
     }
@@ -51,17 +45,15 @@ public class SiteProdutoResponse {
         return categoria;
     }
 
-
-    public Set<String> getOpinioes() {
+    public Set<Map<String, String>> getOpinioes() {
         return opinioes;
     }
-
 
     public String getNome() {
         return nome;
     }
 
-     public String getDescricao() {
+    public String getDescricao() {
         return descricao;
     }
 
@@ -69,12 +61,11 @@ public class SiteProdutoResponse {
         return valor;
     }
 
-    public Set<String> getLinksImagens(){
+    public Set<String> getLinksImagens() {
         return linksImagens;
     }
 
-
-    public SortedSet<String> getPerguntas() {
+    public Set<Map<String, String>> getPerguntas() {
         return perguntas;
     }
 

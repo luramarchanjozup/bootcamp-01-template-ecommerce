@@ -18,7 +18,7 @@ import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 import java.util.Set;
 
-//PCI 7;
+//7 PCI's;
 
 @RestController
 @RequestMapping("produtos")
@@ -43,7 +43,7 @@ public class ProdutoController {
         User dono = users.findByEmail("everton@gmail.com").get();
          Produto produto = request.toModel(manager, dono);
          manager.persist(produto);
-         return request.toString();
+         return produto.toString();
     }
 
     @PostMapping("{id}/imagens")

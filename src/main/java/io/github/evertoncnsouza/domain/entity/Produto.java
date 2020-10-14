@@ -1,6 +1,8 @@
 package io.github.evertoncnsouza.domain.entity;
 
 import io.github.evertoncnsouza.rest.dto.CaracteristicaRequest;
+import io.github.evertoncnsouza.rest.dto.SitePerguntaResponse;
+import io.github.evertoncnsouza.rest.dto.SiteOpiniaoResponse;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.util.Assert;
 import javax.persistence.*;
@@ -11,11 +13,14 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-//PCI 7
+//6 PCI's
 @Entity
 public class Produto {
 
@@ -41,19 +46,23 @@ public class Produto {
     @Valid
     @ManyToOne
     private Categoria categoria;
+    //PCI 1;
 
     @NotNull
     @Valid
     @ManyToOne
     private User dono;
+    //PCI 2;
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
     private Set<CaracteristicaProduto> caracteristicas = new HashSet<>();
+    //PCI 3;
 
     private final LocalDateTime horaCriacao = LocalDateTime.now();
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private Set<ImagemProduto> imagens = new HashSet<>();
+    //PCI 4;
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private Set<Opiniao> opinioes = new HashSet<>();
@@ -81,10 +90,9 @@ public class Produto {
         this.caracteristicas.addAll(caracteristicas.stream()
                 .map(caracteristica -> caracteristica.toModel(this))
                 .collect(Collectors.toSet()));
-
+        //PCI 5 e PCI 6;
         Assert.isTrue(this.caracteristicas.size() >= 3,
                 "Todo produto ter no minimo 3 caracteristicas");
-
     }
 
     @Override
@@ -99,6 +107,7 @@ public class Produto {
     public int hashCode() {
         return Objects.hash(getNome());
     }
+
 
     public Long getId() {
         return id;
@@ -138,7 +147,6 @@ public class Produto {
 
     public Boolean pertenceAoUser(User possivelDono) {
         return this.dono.equals(possivelDono);
-
     }
 
     public <T> Set<T> mapeiaCaracteristicas(
@@ -146,9 +154,6 @@ public class Produto {
         return this.caracteristicas.stream().map(funcaoMapeadora)
                 .collect(Collectors.toSet());
     }
-    //T - Tipo generico
-
-
 
     public <T> Set<T> mapeiaImagens(Function<ImagemProduto, T> funcaMapeadora) {
         return this.imagens.stream().map(funcaMapeadora)
@@ -161,21 +166,13 @@ public class Produto {
         this.imagens.addAll(imagens);
     }
 
-    public <T extends Comparable<T>> SortedSet<T> mapeiaPerguntas(
-            Function<Pergunta, T> funcaMapeadora) {
-        return this.perguntas.stream().map(funcaMapeadora)
-                .collect(Collectors.toCollection(TreeSet::new));
+    public SiteOpiniaoResponse getOpinioes() {
+        return new SiteOpiniaoResponse(this.opinioes);
     }
 
-    public <T> Set<T> mapeiaOpinioes(Function<Opiniao, T> funcaMapeadora) {
-        return this.opinioes.stream().map(funcaMapeadora)
-                .collect(Collectors.toSet());
+    public SitePerguntaResponse getPerguntas() {
+        return new SitePerguntaResponse(this.perguntas);
     }
-
-    public Set<Opiniao> getOpinioes() {
-        return opinioes;
-    }
-
 
     @Override
     public String toString() {
@@ -187,12 +184,9 @@ public class Produto {
                 ", valor=" + valor +
                 ", categoria=" + categoria +
                 ", dono=" + dono +
-                ", caracteristicas=" + caracteristicas +
-                ", horaCriacao=" + horaCriacao +
-                ", imagens=" + imagens +
+
                 '}';
     }
-
 }
 
 

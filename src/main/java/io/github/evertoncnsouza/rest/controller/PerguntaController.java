@@ -13,10 +13,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 
+//5 PCI's
 @RestController
 @RequestMapping("produtos/{id}/pergunta")
 public class PerguntaController {
-
 
         @PersistenceContext
         private EntityManager manager;
@@ -36,9 +36,7 @@ public class PerguntaController {
             User navegador = users.findByEmail("everton@gmail.com").get();
             Pergunta pergunta = request.toModel(produto, navegador);
             manager.persist(pergunta);
-
             emails.pergunta(pergunta);
-
             return pergunta.toString();
 
 

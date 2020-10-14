@@ -42,17 +42,6 @@ public class Pergunta implements Comparable <Pergunta> {
         this.instanteCriacao = LocalDate.now();
     }
 
-    @Override
-    public String toString() {
-        return "Pergunta{" +
-                "id=" + id +
-                ", titulo='" + titulo + '\'' +
-                ", produto=" + produto +
-                ", navegador=" + navegador +
-                ", instanteCriacao=" + instanteCriacao +
-                '}';
-    }
-
     public User getNavegador() {
         return navegador;
     }
@@ -84,5 +73,16 @@ public class Pergunta implements Comparable <Pergunta> {
     @Override
     public int compareTo(Pergunta o) {
         return this.titulo.compareTo(o.titulo);
+    }
+
+    @Override
+    public String toString() {
+        return "Pergunta{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", produto=" + produto +
+                ", navegador=" + navegador +
+                ", instanteCriacao=" + instanteCriacao +
+                '}';
     }
 }

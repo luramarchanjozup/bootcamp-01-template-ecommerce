@@ -31,6 +31,14 @@ import javax.validation.constraints.NotEmpty;
             this.categoriaMae = categoriaMae;
         }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public Categoria getCategoriaMae() {
+        return categoriaMae;
+    }
+
         @Override
         public String toString() {
             return "Categoria{" +
@@ -40,12 +48,5 @@ import javax.validation.constraints.NotEmpty;
                     '}';
         }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public Categoria getCategoriaMae() {
-        return categoriaMae;
-    }
 }
 

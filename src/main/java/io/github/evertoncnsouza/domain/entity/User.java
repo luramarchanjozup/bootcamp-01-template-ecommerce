@@ -34,7 +34,6 @@ public class User {
     @Deprecated
     public User() {
     }
-
     public User(@NotBlank @Email String email,
                 @Valid @NotNull SenhaLimpa senhaLimpa) {
         Assert.isTrue(StringUtils.hasLength(email),"email não pode ser em branco");

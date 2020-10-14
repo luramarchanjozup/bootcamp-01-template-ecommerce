@@ -15,7 +15,6 @@ public class ExistsIdValidator implements ConstraintValidator<ExistsId, Object>{
     @PersistenceContext
     private EntityManager manager;
 
-
     @Override
     public void initialize(ExistsId params) {
 
