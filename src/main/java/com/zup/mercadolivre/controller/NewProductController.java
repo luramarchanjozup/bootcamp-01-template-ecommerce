@@ -37,7 +37,7 @@ public class NewProductController {
     private UserRepository userRepository;
 
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody @Valid ProductForm form, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<?> createProduct(@RequestBody @Valid ProductForm form, UriComponentsBuilder uriBuilder) {
         Category categoryObj = categoryRepository.findByName(form.getCategory()).orElseThrow(
             () -> new IllegalStateException("Category not found"));
         User userObj = userRepository.findByEmail(UserService.authenticated().getUsername()).orElseThrow(
@@ -58,6 +58,6 @@ public class NewProductController {
         productRepository.save(product);
         URI uri = uriBuilder.path("/product/{id}").buildAndExpand(product.getId()).toUri();
 
-        return ResponseEntity.created(uri).body(product);
+        return ResponseEntity.created(uri).body(product.toDto());
     }
 }

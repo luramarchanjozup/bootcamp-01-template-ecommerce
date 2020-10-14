@@ -15,6 +15,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.zup.mercadolivre.controller.dto.ProductDTO;
 import com.zup.mercadolivre.model.Category;
 import com.zup.mercadolivre.model.User;
 
@@ -150,5 +151,9 @@ public class Product {
         if (!email.equals(this.owner.getEmail())) {
             throw new BadCredentialsException("This user does not own the product");
         }
+    }
+
+    public ProductDTO toDto() {
+        return new ProductDTO(this);
     }
 }

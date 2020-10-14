@@ -40,13 +40,13 @@ public class UpdateProductController {
                 File imgFile = new File(assetsPath + "\\" + "product_" + product.getId() + "\\" + product.getId() + "_img" + 
                         (product.getImages().size() + 1) + "." + img.getOriginalFilename().split("\\.")[1]);
                 img.transferTo(imgFile);
-                product.setImages(new ProductImages(imgFile.toPath().toString(), product));
+                product.setImages(new ProductImages(imgFile.toPath().toAbsolutePath().toString(), product));
             } catch (IOException e) {
                 return ResponseEntity.badRequest().body(e.getMessage());
             }
         }
 
         productRepository.save(product);
-        return ResponseEntity.ok().body(product);
+        return ResponseEntity.ok().body(product.toDto());
     }
 }
