@@ -50,6 +50,9 @@ public class Product {
     private User owner;
 
     @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<ProductOpinion> opinions;
+
+    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<ProductImages> images;
 
     @Deprecated
@@ -147,10 +150,28 @@ public class Product {
         this.images.add(image);
     }
 
-    public void checkOwnership(String email) {
+    public List<ProductOpinion> getOpinions() {
+        return this.opinions;
+    }
+
+    public void setOpinions(ProductOpinion opinions) {
+        this.opinions.add(opinions);
+    }
+
+    public void checkOwnershipFalse(String email, String message) {
         if (!email.equals(this.owner.getEmail())) {
-            throw new BadCredentialsException("This user does not own the product");
+            throw new BadCredentialsException(message);
         }
+    }
+
+    public void checkOwnershipTrue(String email, String message) {
+        if (email.equals(this.owner.getEmail())) {
+            throw new BadCredentialsException(message);
+        }
+    }
+
+    public boolean checkOwnership(String email) {
+        return email.equals(this.owner.getEmail());
     }
 
     public ProductDTO toDto() {
