@@ -24,7 +24,4 @@ public class AdicionarImagemRequest {
         return arquivo;
     }
 
-    public void setArquivo(MultipartFile arquivo) {
-        this.arquivo = arquivo;
-    }
 }

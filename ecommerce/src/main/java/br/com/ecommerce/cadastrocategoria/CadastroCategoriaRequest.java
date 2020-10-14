@@ -11,14 +11,6 @@ public class CadastroCategoriaRequest {
 
     private Long categoriaMaeId;
 
-    public void setCategoriaMaeId(Long categoriaMaeId) {
-        this.categoriaMaeId = categoriaMaeId;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public CadastroCategoriaRequest(String nome, Long categoriaMaeId) {
         this.nome = nome;
         this.categoriaMaeId = categoriaMaeId;
