@@ -2,12 +2,11 @@ package br.com.ecommerce.adicionaropiniao;
 
 import br.com.ecommerce.cadastroproduto.Produto;
 import br.com.ecommerce.cadastrousuario.Usuario;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.math.BigDecimal;
+
 
 @Entity
 public class Opiniao {
@@ -17,7 +16,7 @@ public class Opiniao {
     private Long id;
 
     @NotNull
-    private BigDecimal nota;
+    private Double nota;
 
     @NotBlank
     private String titulo;
@@ -37,7 +36,7 @@ public class Opiniao {
     @Deprecated
     public Opiniao() {};
 
-    public Opiniao(@NotBlank BigDecimal nota, @NotBlank String titulo,
+    public Opiniao(@NotBlank Double nota, @NotBlank String titulo,
                    @NotBlank @Size(max = 500) String descricao, @NotNull Usuario usuario,
                    @NotNull Produto produto) {
 
@@ -48,44 +47,15 @@ public class Opiniao {
         this.produto = produto;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Opiniao opiniao = (Opiniao) o;
-
-        return id.equals(opiniao.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id.hashCode();
-    }
-
-    public BigDecimal getNota() {
+    public Double getNota() {
         return nota;
     }
 
-    public void setNota(BigDecimal nota) {
-        this.nota = nota;
-    }
 
     public String getTitulo() {
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
 
     public Usuario getUsuario() {
         return usuario;
@@ -102,4 +72,5 @@ public class Opiniao {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
+
 }

@@ -56,8 +56,4 @@ public class UsuarioLogado implements UserDetails {
         return springUserDetails.isEnabled();
     }
 
-    public Usuario get() {
-        return usuario;
-    }
-
 }

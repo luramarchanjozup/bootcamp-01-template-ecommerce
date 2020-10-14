@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 
@@ -12,14 +14,15 @@ import javax.validation.Valid;
 public class UsuarioController {
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private EntityManager entityManager;
 
     @PostMapping
+    @Transactional
     public ResponseEntity<?> criarUsuario(@RequestBody @Valid CadastroUsuarioRequest cadastroUsuarioRequest){
 
         Usuario usuario = cadastroUsuarioRequest.converterParaTipoUsuario();
 
-        usuarioRepository.save(usuario);
+        entityManager.persist(usuario);
 
         return ResponseEntity
                 .ok()

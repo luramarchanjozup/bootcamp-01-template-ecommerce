@@ -4,11 +4,11 @@ import br.com.ecommerce.cadastrocategoria.Categoria;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.EntityManager;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class CadastroProdutoRequest {
@@ -18,7 +18,7 @@ public class CadastroProdutoRequest {
 
     @NotNull
     @Positive
-    private Double valor;
+    private BigDecimal valor;
 
     @NotNull
     @Positive
@@ -35,7 +35,7 @@ public class CadastroProdutoRequest {
     @NotNull
     private Long categoriaId;
 
-    public CadastroProdutoRequest(@NotBlank String nome, @NotBlank @Positive Double valor, @NotBlank @Positive Long quantidadeDisponivel,
+    public CadastroProdutoRequest(@NotBlank String nome, @NotBlank @Positive BigDecimal valor, @NotBlank @Positive Long quantidadeDisponivel,
                                   @Size(min = 3) List<Caracteristica> caracteristicas, @NotBlank @Size(max = 1000) String descricao,
                                   @NotNull Long categoriaId) {
 

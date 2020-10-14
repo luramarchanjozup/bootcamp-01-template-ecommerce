@@ -40,7 +40,11 @@ public class TokenManager {
 
         try {
 
-            Jwts.parser().setSigningKey(this.secret).parseClaimsJws(jwt);
+            Jwts
+               .parser()
+               .setSigningKey(this.secret)
+               .parseClaimsJws(jwt);
+
             return true;
 
         } catch (JwtException | IllegalArgumentException e) {

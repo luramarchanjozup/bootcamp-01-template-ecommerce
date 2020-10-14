@@ -20,7 +20,7 @@ public class ImagemProduto {
     @Deprecated
     public ImagemProduto(){};
 
-    public ImagemProduto(String nomeArquivo) {
+    public ImagemProduto(String nomeArquivo, Produto produto) {
 
         //1
         String basePath = "/home/marceloamorim/Documentos/bootcamp-01-template-ecommerce/" +
@@ -28,6 +28,7 @@ public class ImagemProduto {
 
         //1
         this.linkImagem = basePath + nomeArquivo;
+        this.produto = produto;
 
     }
 
@@ -46,4 +47,5 @@ public class ImagemProduto {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
+
 }

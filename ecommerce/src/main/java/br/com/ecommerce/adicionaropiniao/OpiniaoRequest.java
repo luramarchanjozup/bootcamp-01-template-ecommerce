@@ -11,8 +11,9 @@ import java.math.BigDecimal;
 public class OpiniaoRequest {
 
     @NotNull
-    @Size(min = 1, max = 5)
-    private BigDecimal nota;
+    @Min(1)
+    @Max(5)
+    private Double nota;
 
     @NotBlank
     private String titulo;
@@ -27,7 +28,7 @@ public class OpiniaoRequest {
     @NotNull
     private Long produtoId;
 
-    public OpiniaoRequest(@NotBlank BigDecimal nota, @NotBlank String titulo,
+    public OpiniaoRequest(@NotNull Double nota, @NotBlank String titulo,
                           @NotBlank @Size(max = 500) String descricao, @NotNull Long usuarioId,
                           @NotNull Long produtoId) {
 
@@ -50,7 +51,7 @@ public class OpiniaoRequest {
         return new Opiniao(nota, titulo, descricao, usuario, produto);
     }
 
-    public void setNota(BigDecimal nota) {
+    public void setNota(Double nota) {
         this.nota = nota;
     }
 

@@ -1,6 +1,10 @@
 package br.com.ecommerce.cadastroproduto;
 
+import javassist.ByteArrayClassPath;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.persistence.EntityManager;
 
 public class AdicionarImagemRequest {
 
@@ -10,9 +14,9 @@ public class AdicionarImagemRequest {
         this.arquivo = arquivo;
     }
 
-    public ImagemProduto criaLinkDaImagem(){
+    public ImagemProduto criaLinkDaImagem(EntityManager entityManager, Long produtoId){
 
-        return new ImagemProduto(arquivo.getOriginalFilename());
+        return new ImagemProduto(arquivo.getOriginalFilename(), entityManager.find(Produto.class, produtoId));
 
     }
 

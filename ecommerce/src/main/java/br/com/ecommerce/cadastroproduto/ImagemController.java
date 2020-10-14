@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 @RestController
-@RequestMapping("/imagem/{produtoId}")
+@RequestMapping("/imagens/{produtoId}")
 public class ImagemController {
 
     @Autowired
@@ -23,7 +23,8 @@ public class ImagemController {
                                                 AdicionarImagemRequest arquivoEnviado) throws IOException {
 
        // 1
-        entityManager.persist(arquivoEnviado.criaLinkDaImagem());
+        entityManager
+                .persist(arquivoEnviado.criaLinkDaImagem(entityManager, produtoId));
 
         // 1
         MultipartFile arquivo = arquivoEnviado.getArquivo();

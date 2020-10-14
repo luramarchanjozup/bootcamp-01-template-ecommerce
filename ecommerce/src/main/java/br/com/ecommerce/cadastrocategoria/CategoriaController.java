@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
@@ -14,14 +16,15 @@ import javax.validation.Valid;
 public class CategoriaController {
 
     @Autowired
-    private CategoriaRepository categoriaRepository;
+    private EntityManager entityManager;
 
     @PostMapping
+    @Transactional
     public ResponseEntity<?> criarCategoria(@RequestBody @Valid CadastroCategoriaRequest cadastroCategoriaRequest){
 
         Categoria categoria = cadastroCategoriaRequest.converterParaTipoCategoria();
 
-        categoriaRepository.save(categoria);
+        entityManager.persist(categoria);
 
         return ResponseEntity
                 .ok()

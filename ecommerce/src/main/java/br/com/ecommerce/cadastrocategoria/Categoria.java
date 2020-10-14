@@ -25,19 +25,4 @@ public class Categoria {
         this.categoriaMaeId = categoriaMaeId;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Long getCategoriaMaeId() {
-        return categoriaMaeId;
-    }
-
-    public void setCategoriaMaeId(Long categoriaMaeId) {
-        this.categoriaMaeId = categoriaMaeId;
-    }
 }

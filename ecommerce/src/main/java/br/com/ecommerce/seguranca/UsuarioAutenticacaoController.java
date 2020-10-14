@@ -34,16 +34,17 @@ public class UsuarioAutenticacaoController {
 
             Authentication authentication = authManager.authenticate(authenticationToken);
 
-            String jwt = tokenManager.generateToken(authentication);
+            String JWT = tokenManager.generateToken(authentication);
 
-            return ResponseEntity.ok(new TokenResponse(jwt));
+            return ResponseEntity
+                    .ok(new TokenResponse(JWT));
 
         } catch (AuthenticationException e) {
 
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity
+                    .badRequest()
+                    .build();
 
         }
-
     }
-
 }

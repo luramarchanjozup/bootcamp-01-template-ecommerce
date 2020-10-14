@@ -27,7 +27,7 @@ public class UsersServices implements UserDetailsService {
 
         Optional<Usuario> usuario = usuarioRepository.findByLogin(username);
 
-        if (!usuario.isPresent()) {
+        if (!usuario.isPresent()){
 
             throw new UsernameNotFoundException(
                     "Não foi possível encontrar usuário com email: "

@@ -2,16 +2,20 @@ package br.com.ecommerce.cadastroproduto;
 
 import br.com.ecommerce.adicionaropiniao.Opiniao;
 import br.com.ecommerce.cadastrocategoria.Categoria;
+import br.com.ecommerce.fazerpergunta.Pergunta;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
-import java.awt.image.ImageProducer;
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Entity
 public class Produto {
@@ -25,20 +29,23 @@ public class Produto {
 
     @NotNull
     @Positive
-    private Double valor;
+    private BigDecimal valor;
 
     @NotNull
     @Positive
     private Long quantidadeDisponivel;
 
     @OneToMany(mappedBy = "produto")
-    private List<Caracteristica> caracteristicas;
+    private List<Caracteristica> caracteristicas = new ArrayList<>();
 
     @OneToMany(mappedBy = "produto")
-    private List<Opiniao> opinioes;
+    private List<Opiniao> opinioes = new ArrayList<>();
 
     @OneToMany(mappedBy = "produto")
-    private List<ImagemProduto> imagens;
+    private List<ImagemProduto> imagens = new ArrayList<>();
+
+    @OneToMany(mappedBy = "produto")
+    private List<Pergunta> perguntas = new ArrayList<>();
 
     @NotBlank
     @Size(max = 1000)
@@ -52,9 +59,9 @@ public class Produto {
     @Deprecated
     public Produto(){};
 
-    public Produto(@NotBlank String nome, @NotNull @Positive Double valor, @NotNull @Positive Long quantidadeDisponivel,
-                   List<Caracteristica> caracteristicas,
-                   @NotBlank @Size(max = 1000) String descricao, Categoria categoria) {
+    public Produto(@NotBlank String nome, @NotNull @Positive BigDecimal valor, @NotNull @Positive Long quantidadeDisponivel,
+                   List<Caracteristica> caracteristicas, @NotBlank @Size(max = 1000) String descricao,
+                   Categoria categoria) {
 
         this.nome = nome;
         this.valor = valor;
@@ -66,75 +73,57 @@ public class Produto {
 
     }
 
+    public List<String> listarLinks(Function<ImagemProduto, String> funcaoDeListagem){
+
+        return this.imagens
+                .stream()
+                .map(funcaoDeListagem)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> listarCaracteristicas(Function<Caracteristica, String> funcaoDeListagem){
+
+        return this.caracteristicas
+                .stream()
+                .map(funcaoDeListagem)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> listarOpinioes(Function<Opiniao, String> funcaoDeListagem){
+
+        return this.opinioes
+                .stream()
+                .map(funcaoDeListagem)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> listarPerguntas(Function<Pergunta, String> funcaoDeListagem){
+
+        return this.perguntas
+                .stream()
+                .map(funcaoDeListagem)
+                .collect(Collectors.toList());
+    }
+
+
     public List<Opiniao> getOpinioes() {
         return opinioes;
     }
 
-    public void setOpinioes(List<Opiniao> opinioes) {
-        this.opinioes = opinioes;
-    }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
-    public Double getValor() {
+    public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(Double valor) {
-        this.valor = valor;
-    }
-
-    public Long getQuantidadeDisponivel() {
-        return quantidadeDisponivel;
-    }
-
-    public void setQuantidadeDisponivel(Long quantidadeDisponivel) {
-        this.quantidadeDisponivel = quantidadeDisponivel;
-    }
-
-    public List<Caracteristica> getCaracteristicas() {
-        return caracteristicas;
-    }
-
-    public void setCaracteristicas(List<Caracteristica> caracteristicas) {
-        this.caracteristicas = caracteristicas;
-    }
-
-    public List<ImagemProduto> getImagens() {
-        return imagens;
-    }
-
-    public void setImagens(List<ImagemProduto> imagens) {
-        this.imagens = imagens;
-    }
 
     public String getDescricao() {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
 
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
-    public OffsetDateTime getInstanteCadastro() {
-        return instanteCadastro;
-    }
-
-    public void setInstanteCadastro(OffsetDateTime instanteCadastro) {
-        this.instanteCadastro = instanteCadastro;
-    }
 }
