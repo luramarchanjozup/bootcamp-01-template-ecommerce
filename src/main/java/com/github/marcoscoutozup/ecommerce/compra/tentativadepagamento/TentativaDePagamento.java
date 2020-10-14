@@ -7,6 +7,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Embeddable
@@ -39,8 +40,16 @@ public class TentativaDePagamento {
         return status.equals(StatusPagamento.SUCESSO);
     }
 
-    public boolean verificarIgualdadeDeTransacao(UUID transacao){
-        return this.transacao.equals(transacao);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TentativaDePagamento that = (TentativaDePagamento) o;
+        return Objects.equals(transacao, that.transacao);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(transacao);
+    }
 }

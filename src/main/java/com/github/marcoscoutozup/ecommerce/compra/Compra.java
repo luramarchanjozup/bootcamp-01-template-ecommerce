@@ -61,8 +61,8 @@ public class Compra {
         return id;
     }
 
-    public String retornarUrlDePagamentoDaCompra(String url_base){
-        return gatewayDePagamento.instanciaDoGatewayDePagamento.retornarUrlDePagamento(id, url_base);
+    public String retornarUrlDePagamentoDaCompra(String urlBase){
+        return gatewayDePagamento.instanciaDoGatewayDePagamento.retornarUrlDePagamento(id, urlBase);
     }
 
     public String prepararDetalhesDaCompraParaEmailDoVendedor(){
@@ -81,10 +81,10 @@ public class Compra {
                 comprador.prepararDadosDoUsuarioParaEmail();
     }
 
-    public String prepararFalhaDeCompraParaEmailDoComprador(String url_base){
+    public String prepararFalhaDeCompraParaEmailDoComprador(String urlBase){
         return "\n\n*** Oh não, seu pagamento não deu certo ***" +
                 "\n\nAqui está a url para novo pagamento: " +
-                retornarUrlDePagamentoDaCompra(url_base) + "\n\n";
+                retornarUrlDePagamentoDaCompra(urlBase) + "\n\n";
     }
 
     public GatewayDePagamento getGatewayDePagamento() {
@@ -92,17 +92,19 @@ public class Compra {
     }
 
     public void adicionarTentativaDePagamento(TentativaDePagamento tentativaDePagamento){
+        //6
+        Assert.isTrue(!verificarSeTransacaoJaExiste(tentativaDePagamento), "A transação " + tentativaDePagamento.getTransacao() + " já existe");
+        //7
         Assert.isTrue(!verificarSeJaExisteTransacaoComSucesso(), "Já existe uma transação com status SUCESSO");
-        Assert.isTrue(!verificarSeTransacaoJaExiste(tentativaDePagamento.getTransacao()), "A transação " + tentativaDePagamento.getTransacao() + " já existe");
         transacoes.add(tentativaDePagamento);
     }
 
-    public boolean verificarSeJaExisteTransacaoComSucesso(){ //6
+    public boolean verificarSeJaExisteTransacaoComSucesso(){ //8
         return transacoes.stream().anyMatch(TentativaDePagamento::transacaoFoiUmSucesso);
     }
 
-    public boolean verificarSeTransacaoJaExiste(UUID idTransacao){ //7
-        return transacoes.stream().anyMatch(tentativaDePagamento -> tentativaDePagamento.verificarIgualdadeDeTransacao(idTransacao));
+    public boolean verificarSeTransacaoJaExiste(TentativaDePagamento tentativaDePagamento){
+        return transacoes.contains(tentativaDePagamento);
     }
 
     public UUID retornarIdVendedor(){
