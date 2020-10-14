@@ -12,9 +12,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -58,6 +56,13 @@ public class Produto {
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE )
     private Set<ImagemProduto> imagens = new HashSet<>();
 
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+    private Set<Opiniao> opinioes = new HashSet<>();
+
+    @OneToMany (mappedBy = "produto")
+    @OrderBy("titulo asc")
+    private Set<Pergunta> perguntas = new HashSet<>();
+
     @Deprecated
     public Produto() {
     }
@@ -100,30 +105,17 @@ public class Produto {
     }
 
 
-
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Produto)) return false;
+        Produto produto = (Produto) o;
+        return getNome().equals(produto.getNome());
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Produto other = (Produto) obj;
-        if (nome == null) {
-            if (other.nome != null)
-                return false;
-        } else if (!nome.equals(other.nome))
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(getNome());
     }
 
     public Long getId() {
@@ -158,6 +150,10 @@ public class Produto {
         return dono;
     }
 
+  // public Set<Opiniao> getOpinioes() {
+    //    return opinioes;}
+
+
     public Boolean pertenceAoUser(User possivelDono) {
         return this.dono.equals(possivelDono);
 
@@ -168,6 +164,12 @@ public class Produto {
         return this.caracteristicas.stream().map(funcaoMapeadora)
                 .collect(Collectors.toSet());
     }
+    //T - Tipo generico
+
+    public <T> Set<T> mapeiaImagens(Function<ImagemProduto, T> funcaMapeadora) {
+        return this.imagens.stream().map(funcaMapeadora)
+                .collect(Collectors.toSet());
+    }
 
     public void associaImagens(Set<String> links) {
         links.stream().map(link -> new ImagemProduto(this, link))
@@ -175,6 +177,23 @@ public class Produto {
 
         this.imagens.addAll(imagens);
     }
+
+    public <T extends Comparable<T>> SortedSet<T> mapeiaPerguntas(Function<Pergunta, T> funcaMapeadora) {
+        return this.perguntas.stream().map(funcaMapeadora)
+                .collect(Collectors.toCollection(TreeSet ::new));
+    }
+
+    public <T> Set<T> mapeiaOpinioes(Function<Opiniao, T> funcaMapeadora) {
+        return this.opinioes.stream().map(funcaMapeadora)
+                .collect(Collectors.toSet());
+    }
+
+
+
+    public Set<Opiniao> getOpinioes() {
+        return opinioes;
+    }
+
 }
 
 

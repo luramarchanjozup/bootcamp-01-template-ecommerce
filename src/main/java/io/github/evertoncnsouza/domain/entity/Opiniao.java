@@ -3,6 +3,7 @@ package io.github.evertoncnsouza.domain.entity;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
+import java.util.Objects;
 
 @Entity
 public class Opiniao {
@@ -72,6 +73,23 @@ public class Opiniao {
                 ", produto=" + produto +
                 ", navegador=" + navegador +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Opiniao)) return false;
+        Opiniao opiniao = (Opiniao) o;
+        return getNota() == opiniao.getNota() &&
+                getTitulo().equals(opiniao.getTitulo()) &&
+                Objects.equals(getDescricao(), opiniao.getDescricao()) &&
+                produto.equals(opiniao.produto) &&
+                navegador.equals(opiniao.navegador);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getNota(), getTitulo(), getDescricao(), produto, navegador);
     }
 }
 

@@ -1,4 +1,4 @@
-package io.github.evertoncnsouza.rest.dto;
+/*package io.github.evertoncnsouza.rest.dto;
 
 import io.github.evertoncnsouza.domain.entity.Opiniao;
 
@@ -28,3 +28,4 @@ public class SiteOpiniaoResponse {
         return descricao;
     }
 }
+*/
