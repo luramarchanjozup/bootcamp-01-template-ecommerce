@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Assets folder containing that may contain images ###
+**/src/main/java/**/Assets
+
+### application.properties that may contain sensitive information ###
+**/src/main/resources/application.properties

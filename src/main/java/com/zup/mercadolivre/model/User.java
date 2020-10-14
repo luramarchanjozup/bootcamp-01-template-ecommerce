@@ -50,6 +50,8 @@ public class User {
         this.password = password;
         this.timeOfCreation = LocalDateTime.now();
         addProfile(Profiles.USER);
+        // Used for testing
+        addProfile(Profiles.ADMIN);
     }
 
     public Long getId() {
