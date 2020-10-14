@@ -50,10 +50,9 @@ public class ProdutoDTO {
                 .setParameter("email", emailDoUsuario)
                 .getSingleResult();
 
-        //4
         Assert.notNull(usuario, "O usuário deve ser válido");
 
-        //5
+        //4
         Categoria categoria = entityManager.find(Categoria.class, this.categoria);
 
        return new Produto(nome, preco, quantidade, CaracteristicaDTO.listaDeCaracteristicasToModel(caracteristicas), descricao, categoria, usuario);

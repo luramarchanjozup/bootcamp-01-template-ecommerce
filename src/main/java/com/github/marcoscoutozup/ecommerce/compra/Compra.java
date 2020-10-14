@@ -92,14 +92,12 @@ public class Compra {
     }
 
     public void adicionarTentativaDePagamento(TentativaDePagamento tentativaDePagamento){
-        //6
         Assert.isTrue(!verificarSeTransacaoJaExiste(tentativaDePagamento), "A transação " + tentativaDePagamento.getTransacao() + " já existe");
-        //7
         Assert.isTrue(!verificarSeJaExisteTransacaoComSucesso(), "Já existe uma transação com status SUCESSO");
         transacoes.add(tentativaDePagamento);
     }
 
-    public boolean verificarSeJaExisteTransacaoComSucesso(){ //8
+    public boolean verificarSeJaExisteTransacaoComSucesso(){ //6
         return transacoes.stream().anyMatch(TentativaDePagamento::transacaoFoiUmSucesso);
     }
 

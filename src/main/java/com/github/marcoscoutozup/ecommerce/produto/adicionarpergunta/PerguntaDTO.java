@@ -31,7 +31,6 @@ public class PerguntaDTO {
                 .setParameter("email", emailDoUsuario)
                 .getSingleResult();
 
-        //3
         Assert.notNull(usuario, "O usuário deve ser válido");
 
         return new Pergunta(titulo, pergunta, usuario);

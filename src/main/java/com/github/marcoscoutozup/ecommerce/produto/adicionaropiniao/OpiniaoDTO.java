@@ -41,7 +41,6 @@ public class OpiniaoDTO {
                 .setParameter("email", emailDoUsuario)
                 .getSingleResult();
 
-        //3
         Assert.notNull(usuario, "O usuário deve ser válido");
 
         return new Opiniao(nota, titulo, descricao, usuario);
