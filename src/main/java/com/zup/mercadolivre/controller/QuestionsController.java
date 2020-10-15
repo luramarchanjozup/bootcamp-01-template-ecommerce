@@ -23,6 +23,8 @@ public class QuestionsController {
     private ProductRepository productRepository;
     @Autowired
     private UserRepository userRepository;
+    //@Autowired
+    //private MailService mailService;
 
     @PutMapping("/product/{id}/question")
     public ResponseEntity<?> createQuestion(@PathVariable Long id, @RequestBody @Valid QuestionForm form ) {
@@ -33,6 +35,8 @@ public class QuestionsController {
 
         product.setQuestions(form.toQuestion(loggedUser, product));
         productRepository.save(product);
+        // Uncomment for mail functionality in production
+        //mailService.sendEmailToSeller(product.getOwner().getEmail(), product.getName());
 
         return ResponseEntity.ok().body(product.toDto());
     }
