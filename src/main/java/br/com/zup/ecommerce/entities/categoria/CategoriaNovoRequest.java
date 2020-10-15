@@ -1,5 +1,6 @@
 package br.com.zup.ecommerce.entities.categoria;
 
+import br.com.zup.ecommerce.validations.ExisteId.ExisteId;
 import br.com.zup.ecommerce.validations.valorUnico.ValorUnico;
 
 import javax.persistence.EntityManager;
@@ -16,6 +17,7 @@ public class CategoriaNovoRequest {
     @ValorUnico(dominioClasse = Categoria.class, nomeCampo = "nome")
     private String nome;
 
+    @ExisteId(dominioClasse = Categoria.class, nomeCampo = "id")
     private Long categoriaMaeId;
 
     public String getNome() {

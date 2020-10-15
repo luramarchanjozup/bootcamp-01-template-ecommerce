@@ -33,11 +33,11 @@ public class valorUnicoValidador implements ConstraintValidator<ValorUnico, Stri
             return true;
         }
 
-        List<?> list = manager
+        List<?> lista = manager
                 .createQuery("SELECT 1 FROM "+dominioClasse.getName()+" WHERE "+nomeCampo+" = :valor")
                 .setParameter("valor", valor)
                 .getResultList();
 
-        return list.isEmpty();
+        return lista.isEmpty();
     }
 }
