@@ -2,8 +2,8 @@ package io.github.evertoncnsouza.rest.controller;
 
 import io.github.evertoncnsouza.domain.entity.Pergunta;
 import io.github.evertoncnsouza.domain.entity.Produto;
-import io.github.evertoncnsouza.domain.entity.User;
-import io.github.evertoncnsouza.domain.repository.Users;
+import io.github.evertoncnsouza.domain.entity.Usuario;
+import io.github.evertoncnsouza.domain.repository.UsuarioRepository;
 import io.github.evertoncnsouza.rest.dto.Emails;
 import io.github.evertoncnsouza.rest.dto.PerguntaRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class PerguntaController {
         private EntityManager manager;
 
         @Autowired
-        private Users users;
+        private UsuarioRepository usuarioRepository;
 
         @Autowired
         private Emails emails;
@@ -33,7 +33,7 @@ public class PerguntaController {
         public String save(@RequestBody @Valid PerguntaRequest request,
                            @PathVariable("id") Long id){
             Produto produto = manager.find(Produto.class, id);
-            User navegador = users.findByEmail("everton@gmail.com").get();
+            Usuario navegador = usuarioRepository.findByEmail("everton@gmail.com").get();
             Pergunta pergunta = request.toModel(produto, navegador);
             manager.persist(pergunta);
             emails.pergunta(pergunta);

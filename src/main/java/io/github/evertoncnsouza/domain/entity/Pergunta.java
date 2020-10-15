@@ -25,7 +25,7 @@ public class Pergunta implements Comparable <Pergunta> {
     @ManyToOne
     @NotNull
     @Valid
-    User navegador;
+    Usuario navegador;
 
     private LocalDate instanteCriacao;
 
@@ -34,7 +34,7 @@ public class Pergunta implements Comparable <Pergunta> {
 
     public Pergunta(@NotBlank String titulo,
                     @NotNull @Valid Produto produto,
-                    @NotNull @Valid User navegador,
+                    @NotNull @Valid Usuario navegador,
                     LocalDateTime instanteCriacao) {
         this.titulo = titulo;
         this.produto = produto;
@@ -42,11 +42,11 @@ public class Pergunta implements Comparable <Pergunta> {
         this.instanteCriacao = LocalDate.now();
     }
 
-    public User getNavegador() {
+    public Usuario getNavegador() {
         return navegador;
     }
 
-    public User getDono() {
+    public Usuario getDono() {
         return produto.getDono();
     }
 

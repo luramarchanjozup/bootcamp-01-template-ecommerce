@@ -51,7 +51,7 @@ public class Produto {
     @NotNull
     @Valid
     @ManyToOne
-    private User dono;
+    private Usuario dono;
     //PCI 2;
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
@@ -78,7 +78,7 @@ public class Produto {
     public Produto(@NotBlank String nome, @Positive int quantidade,
                    @NotBlank @Length(max = 1000) String descricao,
                    @NotNull @Positive BigDecimal valor,
-                   @NotNull @Valid Categoria categoria, @NotNull @Valid User dono,
+                   @NotNull @Valid Categoria categoria, @NotNull @Valid Usuario dono,
                    @Size(min = 3) @Valid Collection<CaracteristicaRequest> caracteristicas) {
 
         this.nome = nome;
@@ -137,7 +137,7 @@ public class Produto {
         return categoria;
     }
 
-    public User getDono() {
+    public Usuario getDono() {
         return dono;
     }
 
@@ -145,7 +145,7 @@ public class Produto {
         this.categoria = categoria;
     }
 
-    public Boolean pertenceAoUser(User possivelDono) {
+    public Boolean pertenceAoUser(Usuario possivelDono) {
         return this.dono.equals(possivelDono);
     }
 

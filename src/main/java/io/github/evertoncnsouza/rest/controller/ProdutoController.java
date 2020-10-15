@@ -1,9 +1,9 @@
 package io.github.evertoncnsouza.rest.controller;
 
 import io.github.evertoncnsouza.domain.entity.Produto;
-import io.github.evertoncnsouza.domain.entity.User;
+import io.github.evertoncnsouza.domain.entity.Usuario;
 import io.github.evertoncnsouza.domain.repository.Uploader;
-import io.github.evertoncnsouza.domain.repository.Users;
+import io.github.evertoncnsouza.domain.repository.UsuarioRepository;
 import io.github.evertoncnsouza.rest.dto.ImagemRequest;
 import io.github.evertoncnsouza.rest.dto.ProdutoRequest;
 import io.github.evertoncnsouza.validation.constraintvalidation.ProibeCaracteristicaComNomeIgualValidator;
@@ -28,7 +28,7 @@ public class ProdutoController {
     private EntityManager manager;
 
     @Autowired
-    private Users users;
+    private UsuarioRepository usuarioRepository;
     @Autowired
     private Uploader uploaderFake;
 
@@ -40,7 +40,7 @@ public class ProdutoController {
     @PostMapping
     @Transactional
     public String save(@RequestBody @Valid ProdutoRequest request){
-        User dono = users.findByEmail("everton@gmail.com").get();
+        Usuario dono = usuarioRepository.findByEmail("everton@gmail.com").get();
          Produto produto = request.toModel(manager, dono);
          manager.persist(produto);
          return produto.toString();
@@ -50,7 +50,7 @@ public class ProdutoController {
     @Transactional
     public String saveImagens (@PathVariable("id") Long id, @Valid ImagemRequest request){
 
-        User dono = users.findByEmail("everton@gmail.com").get();
+        Usuario dono = usuarioRepository.findByEmail("everton@gmail.com").get();
         Produto produto = manager.find(Produto.class,id);
         if(!produto.pertenceAoUser(dono)){
         throw new ResponseStatusException(HttpStatus.FORBIDDEN);

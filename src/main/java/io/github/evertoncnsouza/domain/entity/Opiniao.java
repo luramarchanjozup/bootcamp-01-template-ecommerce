@@ -32,7 +32,7 @@ public class Opiniao {
     @ManyToOne
     @NotNull
     @Valid
-    User navegador;
+    Usuario navegador;
 
     @Deprecated
     public Opiniao() {
@@ -42,7 +42,7 @@ public class Opiniao {
     public Opiniao(@Min(1) @Max(5) int nota,
                    @NotBlank String titulo,
                    @NotBlank @Size(max = 500) String descricao,
-                   @NotNull @Valid Produto produto, @NotNull @Valid User navegador) {
+                   @NotNull @Valid Produto produto, @NotNull @Valid Usuario navegador) {
         this.nota = nota;
         this.titulo = titulo;
         this.descricao = descricao;

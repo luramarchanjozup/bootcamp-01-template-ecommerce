@@ -2,7 +2,7 @@ package io.github.evertoncnsouza.rest.dto;
 
 import io.github.evertoncnsouza.domain.entity.Opiniao;
 import io.github.evertoncnsouza.domain.entity.Produto;
-import io.github.evertoncnsouza.domain.entity.User;
+import io.github.evertoncnsouza.domain.entity.Usuario;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -32,7 +32,7 @@ public class OpiniaoRequest {
         this.descricao = descricao;
        }
 
-    public Opiniao toModel(Produto produto, User navegador){
+    public Opiniao toModel(Produto produto, Usuario navegador){
         return new Opiniao(nota, titulo, descricao ,produto, navegador);
     }
 }

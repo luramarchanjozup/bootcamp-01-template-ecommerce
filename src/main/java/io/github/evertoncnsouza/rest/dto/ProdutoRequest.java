@@ -2,7 +2,7 @@ package io.github.evertoncnsouza.rest.dto;
 
 import io.github.evertoncnsouza.domain.entity.Categoria;
 import io.github.evertoncnsouza.domain.entity.Produto;
-import io.github.evertoncnsouza.domain.entity.User;
+import io.github.evertoncnsouza.domain.entity.Usuario;
 import io.github.evertoncnsouza.validation.constraintvalidation.ExistsId;
 import io.github.evertoncnsouza.validation.constraintvalidation.UniqueValue;
 import org.hibernate.validator.constraints.Length;
@@ -81,7 +81,7 @@ public class ProdutoRequest {
         }
         return resultados;
     }
-    public Produto toModel(EntityManager manager, User dono){
+    public Produto toModel(EntityManager manager, Usuario dono){
     Categoria categoria = manager.find(Categoria.class, idCategoria);
     return new Produto(nome, quantidade, descricao,valor, categoria, dono, caracteristicas);
 }
