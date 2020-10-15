@@ -1,17 +1,15 @@
 package com.github.marcoscoutozup.ecommerce.compra.enums;
 
 import com.github.marcoscoutozup.ecommerce.compra.pagamento.Pagamento;
-import com.github.marcoscoutozup.ecommerce.compra.pagamento.Pagseguro;
-import com.github.marcoscoutozup.ecommerce.compra.pagamento.Paypal;
 
 import java.util.stream.Stream;
 
 public enum GatewayDePagamento {
 
                 //1
-    PAYPAL(new Paypal()),
+    PAYPAL((id, urlBase) -> "paypal.com/" + id + "?redirectUrl=" + urlBase + "/pagamento/" + id),
                     //2
-    PAGSEGURO(new Pagseguro());
+    PAGSEGURO((id, urlBase) -> "pagseguro.com/?returnId=" + id + "&redirectUrl=" + urlBase + "/pagamento/" + id);
 
             //3
     public Pagamento instanciaDoGatewayDePagamento;
