@@ -36,7 +36,7 @@ public class Product {
     @Min(0)
     private Integer quantityInStock;
     @NotNull
-    @Size(min = 3) @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @Size(min = 3) @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductCharacteristics> characteristics;
     @NotNull
     @Size(max = 1000)
@@ -49,10 +49,13 @@ public class Product {
     @ManyToOne
     private User owner;
 
-    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductOpinion> opinions;
 
-    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductQuestions> questions;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductImages> images;
 
     @Deprecated
@@ -156,6 +159,14 @@ public class Product {
 
     public void setOpinions(ProductOpinion opinions) {
         this.opinions.add(opinions);
+    }
+
+    public List<ProductQuestions> getQuestions() {
+        return this.questions;
+    }
+
+    public void setQuestions(ProductQuestions questions) {
+        this.questions.add(questions);
     }
 
     public void checkOwnershipFalse(String email, String message) {
