@@ -28,7 +28,7 @@ public class Compra {
 
     @NotNull //2
     @Enumerated(EnumType.STRING)
-    private StatusCompra status;
+    private StatusCompra statusCompra;
 
     @NotNull
     @ManyToOne //3
@@ -49,9 +49,9 @@ public class Compra {
     public Compra() {
     }
 
-    public Compra(@NotNull GatewayDePagamento gatewayDePagamento, @NotNull StatusCompra status, @NotNull Produto produto, @NotNull @Positive Integer quantidade, @NotNull Usuario comprador) {
+    public Compra(@NotNull GatewayDePagamento gatewayDePagamento, @NotNull StatusCompra statusCompra, @NotNull Produto produto, @NotNull @Positive Integer quantidade, @NotNull Usuario comprador) {
         this.gatewayDePagamento = gatewayDePagamento;
-        this.status = status;
+        this.statusCompra = statusCompra;
         this.produto = produto;
         this.quantidade = quantidade;
         this.comprador = comprador;
@@ -92,17 +92,12 @@ public class Compra {
     }
 
     public void adicionarTentativaDePagamento(TentativaDePagamento tentativaDePagamento){
-        Assert.isTrue(!verificarSeTransacaoJaExiste(tentativaDePagamento), "A transação " + tentativaDePagamento.getTransacao() + " já existe");
-        Assert.isTrue(!verificarSeJaExisteTransacaoComSucesso(), "Já existe uma transação com status SUCESSO");
+        Assert.isTrue(!verificarSeJaExisteTransacaoComSucessoParaACompra(), "Já existe uma transação com status SUCESSO para esta compra");
         transacoes.add(tentativaDePagamento);
     }
 
-    public boolean verificarSeJaExisteTransacaoComSucesso(){ //6
+    public boolean verificarSeJaExisteTransacaoComSucessoParaACompra(){ //6
         return transacoes.stream().anyMatch(TentativaDePagamento::transacaoFoiUmSucesso);
-    }
-
-    public boolean verificarSeTransacaoJaExiste(TentativaDePagamento tentativaDePagamento){
-        return transacoes.contains(tentativaDePagamento);
     }
 
     public UUID retornarIdVendedor(){
@@ -125,7 +120,7 @@ public class Compra {
         return "Compra{" +
                 "id=" + id +
                 ", gatewayDePagamento=" + gatewayDePagamento +
-                ", status=" + status +
+                ", status=" + statusCompra +
                 ", produto=" + produto +
                 ", quantidade=" + quantidade +
                 ", comprador=" + comprador +

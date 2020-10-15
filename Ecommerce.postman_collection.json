@@ -359,7 +359,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"transacao\": \"04b9fbbb-6bae-4df7-956b-37ccf520493c\",\r\n    \"status\": \"1\"\r\n}",
+							"raw": "{\r\n    \"transacao\": \"04b9fbbb-6bae-4df7-956b-37ccf520493c\",\r\n    \"statusPagamento\": \"1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -367,13 +367,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/pagamento/8c91d6c7-e8a8-42e6-8534-64b38dbb3c3d",
+							"raw": "{{base_url}}/pagamento/ef1ac4db-8b46-43e1-baff-549bdef4648a",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"pagamento",
-								"8c91d6c7-e8a8-42e6-8534-64b38dbb3c3d"
+								"ef1ac4db-8b46-43e1-baff-549bdef4648a"
 							]
 						}
 					},

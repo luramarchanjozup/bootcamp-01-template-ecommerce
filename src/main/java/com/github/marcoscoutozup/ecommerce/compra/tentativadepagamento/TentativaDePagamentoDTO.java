@@ -1,6 +1,7 @@
 package com.github.marcoscoutozup.ecommerce.compra.tentativadepagamento;
 
 import com.github.marcoscoutozup.ecommerce.compra.enums.StatusPagamento;
+import com.github.marcoscoutozup.ecommerce.validator.transacao.Transacao;
 
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
@@ -8,14 +9,15 @@ import java.util.UUID;
 public class TentativaDePagamentoDTO {
 
     @NotNull
+    @Transacao
     private UUID transacao;
 
     @NotNull //1
-    private StatusPagamento status;
+    private StatusPagamento statusPagamento;
 
                 //2
     public TentativaDePagamento toModel(){
-        return new TentativaDePagamento(transacao, status);
+        return new TentativaDePagamento(transacao, statusPagamento);
     }
 
     public UUID getTransacao() {
@@ -26,12 +28,12 @@ public class TentativaDePagamentoDTO {
         this.transacao = transacao;
     }
 
-    public StatusPagamento getStatus() {
-        return status;
+    public StatusPagamento getStatusPagamento() {
+        return statusPagamento;
     }
 
-    public void setStatus(StatusPagamento status) {
-        this.status = status;
+    public void setStatusPagamento(StatusPagamento statusPagamento) {
+        this.statusPagamento = statusPagamento;
     }
 
 

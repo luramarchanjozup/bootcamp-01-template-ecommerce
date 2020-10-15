@@ -18,7 +18,7 @@ public class TentativaDePagamento {
 
     @NotNull
     @Enumerated(value = EnumType.STRING)
-    private StatusPagamento status; //1
+    private StatusPagamento statusPagamento; //1
 
     private LocalDateTime instanteDaTransacao;
 
@@ -26,9 +26,9 @@ public class TentativaDePagamento {
     public TentativaDePagamento() {
     }
 
-    public TentativaDePagamento(UUID transacao, StatusPagamento status) {
+    public TentativaDePagamento(UUID transacao, StatusPagamento statusPagamento) {
         this.transacao = transacao;
-        this.status = status;
+        this.statusPagamento = statusPagamento;
         this.instanteDaTransacao = LocalDateTime.now();
     }
 
@@ -37,7 +37,7 @@ public class TentativaDePagamento {
     }
 
     public boolean transacaoFoiUmSucesso(){
-        return status.equals(StatusPagamento.SUCESSO);
+        return statusPagamento.equals(StatusPagamento.SUCESSO);
     }
 
     @Override
