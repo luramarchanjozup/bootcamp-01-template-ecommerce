@@ -1,6 +1,5 @@
 package br.com.ecommerce.seguranca;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,9 +13,12 @@ import java.util.Optional;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+
     private TokenManager tokenManager;
 
+
     private UsersServices usersService;
+
 
     public JwtAuthenticationFilter(TokenManager tokenManager, UsersServices usersService) {
 
@@ -25,6 +27,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         this.usersService = usersService;
 
     }
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
@@ -42,6 +45,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
 
     }
+
 
     public void authenticateUser(String token){
 

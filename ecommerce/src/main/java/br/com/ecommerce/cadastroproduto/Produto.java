@@ -128,14 +128,6 @@ public class Produto {
         this.usuario = usuario;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getNome() {
         return nome;
     }
@@ -155,59 +147,4 @@ public class Produto {
         return descricao;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
-
-    public Long getQuantidadeDisponivel() {
-        return quantidadeDisponivel;
-    }
-
-    public void setQuantidadeDisponivel(Long quantidadeDisponivel) {
-        this.quantidadeDisponivel = quantidadeDisponivel;
-    }
-
-    public List<Caracteristica> getCaracteristicas() {
-        return caracteristicas;
-    }
-
-    public void setCaracteristicas(List<Caracteristica> caracteristicas) {
-        this.caracteristicas = caracteristicas;
-    }
-
-    public void setOpinioes(List<Opiniao> opinioes) {
-        this.opinioes = opinioes;
-    }
-
-    public List<ImagemProduto> getImagens() {
-        return imagens;
-    }
-
-    public void setImagens(List<ImagemProduto> imagens) {
-        this.imagens = imagens;
-    }
-
-    public List<Pergunta> getPerguntas() {
-        return perguntas;
-    }
-
-    public void setPerguntas(List<Pergunta> perguntas) {
-        this.perguntas = perguntas;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
 }

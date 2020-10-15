@@ -28,7 +28,7 @@ public class CadastroUsuarioRequest {
     }
 
     public Usuario converterParaTipoUsuario(){
-        return new Usuario(login, senha);
+        return new Usuario(login, new SenhaLimpa(senha));
     }
 
     public void setLogin(String login) {

@@ -20,7 +20,9 @@ public class Categoria {
 
 
     public Categoria(String nome){
+
         this.nome = nome;
+
     }
 
     public Categoria(@NotBlank String nome, Categoria categoriaMae) {
@@ -30,4 +32,5 @@ public class Categoria {
         this.categoria = categoriaMae;
 
     }
+
 }

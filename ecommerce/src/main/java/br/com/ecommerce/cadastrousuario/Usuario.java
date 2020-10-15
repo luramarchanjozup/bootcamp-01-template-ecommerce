@@ -39,10 +39,14 @@ public class Usuario {
     @Deprecated
     public Usuario(){};
 
-    public Usuario(@NotBlank @Email String login, @NotBlank String senha) {
+    public Usuario(@NotBlank @Email String login, @NotBlank SenhaLimpa senhaLimpa) {
+
         this.login = login;
-        this.senha = new BCryptPasswordEncoder().encode(senha);
+
+        this.senha = senhaLimpa.encoda();
+
         this.instanteCadastro = OffsetDateTime.now();
+
     }
 
 

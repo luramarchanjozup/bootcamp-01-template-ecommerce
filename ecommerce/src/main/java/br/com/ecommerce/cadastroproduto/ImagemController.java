@@ -18,7 +18,7 @@ public class ImagemController {
 
 
     @Autowired
-    private UploaderFake uploaderFake;
+    private ImagemUploader imagemUploader;
 
 
     @Autowired
@@ -38,7 +38,7 @@ public class ImagemController {
 
             List<MultipartFile> imagens = arquivosEnviados.getArquivos();
 
-            List<String> listaLinks = uploaderFake.envia(imagens);
+            List<String> listaLinks = imagemUploader.envia(imagens);
 
             produto.associaImagens(listaLinks);
 

@@ -2,19 +2,17 @@ package br.com.ecommerce.cadastroproduto;
 
 import br.com.ecommerce.seguranca.TokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Service
+@Component
 public class AutorizacaoUploadImagem {
 
     @Autowired
     private TokenManager tokenManager;
 
-
     public boolean donoDoProduto(HttpServletRequest request, Produto produto){
-
 
         String tokenDoUsuarioDaRequisicao = request.getHeader("Authorization");
 
