@@ -1,6 +1,7 @@
 package br.com.ecommerce.cadastrousuario;
 
 import br.com.ecommerce.adicionaropiniao.Opiniao;
+import br.com.ecommerce.cadastroproduto.Produto;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
@@ -29,8 +30,11 @@ public class Usuario {
     @PastOrPresent
     private OffsetDateTime instanteCadastro;
 
-    @OneToMany(mappedBy = "produto")
+    @OneToMany(mappedBy = "usuario")
     private List<Opiniao> opinioes;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Produto> produtos;
 
     @Deprecated
     public Usuario(){};

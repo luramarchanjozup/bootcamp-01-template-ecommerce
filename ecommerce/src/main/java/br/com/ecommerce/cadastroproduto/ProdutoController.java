@@ -15,7 +15,6 @@ import javax.validation.Valid;
 @RequestMapping("/produtos")
 public class ProdutoController {
 
-
     @Autowired
     private EntityManager entityManager;
 
@@ -28,7 +27,9 @@ public class ProdutoController {
 
         entityManager.persist(produtoCadastrado);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity
+                .ok()
+                .build();
 
     }
 }

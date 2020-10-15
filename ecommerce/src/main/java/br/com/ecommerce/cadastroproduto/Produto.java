@@ -2,8 +2,8 @@ package br.com.ecommerce.cadastroproduto;
 
 import br.com.ecommerce.adicionaropiniao.Opiniao;
 import br.com.ecommerce.cadastrocategoria.Categoria;
+import br.com.ecommerce.cadastrousuario.Usuario;
 import br.com.ecommerce.fazerpergunta.Pergunta;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -11,10 +11,8 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.OptionalDouble;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -55,6 +53,9 @@ public class Produto {
     @ManyToOne
     private Categoria categoria;
 
+    @ManyToOne
+    private Usuario usuario;
+
     private OffsetDateTime instanteCadastro;
 
     @Deprecated
@@ -62,7 +63,7 @@ public class Produto {
 
     public Produto(@NotBlank String nome, @NotNull @Positive BigDecimal valor, @NotNull @Positive Long quantidadeDisponivel,
                    List<Caracteristica> caracteristicas, @NotBlank @Size(max = 1000) String descricao,
-                   Categoria categoria) {
+                   Categoria categoria, Usuario usuario) {
 
         this.nome = nome;
         this.valor = valor;
@@ -70,6 +71,7 @@ public class Produto {
         this.caracteristicas = caracteristicas;
         this.descricao = descricao;
         this.categoria = categoria;
+        this.usuario = usuario;
         this.instanteCadastro = OffsetDateTime.now();
 
     }
@@ -116,6 +118,14 @@ public class Produto {
 
         this.imagens.addAll(imagens);
 
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Long getId() {

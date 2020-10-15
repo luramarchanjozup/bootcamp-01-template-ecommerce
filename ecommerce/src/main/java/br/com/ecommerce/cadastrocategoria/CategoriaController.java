@@ -22,7 +22,7 @@ public class CategoriaController {
     @Transactional
     public ResponseEntity<?> criarCategoria(@RequestBody @Valid CadastroCategoriaRequest cadastroCategoriaRequest){
 
-        Categoria categoria = cadastroCategoriaRequest.converterParaTipoCategoria();
+        Categoria categoria = cadastroCategoriaRequest.converterParaTipoCategoria(entityManager);
 
         entityManager.persist(categoria);
 

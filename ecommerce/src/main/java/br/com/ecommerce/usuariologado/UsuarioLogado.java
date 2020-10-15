@@ -12,14 +12,18 @@ import java.util.List;
 
 public class UsuarioLogado implements UserDetails {
 
+
     private Usuario usuario;
 
+
     private User springUserDetails;
+
 
     public UsuarioLogado(@NotNull @Valid Usuario usuario) {
         this.usuario = usuario;
         springUserDetails = new User(usuario.getLogin(), usuario.getSenha(), List.of());
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

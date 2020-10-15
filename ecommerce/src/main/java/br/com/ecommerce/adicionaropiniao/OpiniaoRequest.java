@@ -42,11 +42,9 @@ public class OpiniaoRequest {
 
     public Opiniao converteParaTipoOpiniao(EntityManager entityManager){
 
-        Usuario usuario = entityManager
-                .find(Usuario.class, usuarioId);
+        Usuario usuario = entityManager.find(Usuario.class, usuarioId);
 
-        Produto produto = entityManager
-                .find(Produto.class, produtoId);
+        Produto produto = entityManager.find(Produto.class, produtoId);
 
         return new Opiniao(nota, titulo, descricao, usuario, produto);
     }

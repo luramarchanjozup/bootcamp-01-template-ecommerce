@@ -5,7 +5,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +19,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private UsersServices usersService;
 
     public JwtAuthenticationFilter(TokenManager tokenManager, UsersServices usersService) {
+
         this.tokenManager = tokenManager;
+
         this.usersService = usersService;
+
     }
 
     @Override
@@ -30,16 +32,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         Optional<String> possibleToken = getTokenFromRequest(request);
 
-        if (possibleToken.isPresent() && tokenManager.isValid(possibleToken.get()))
-        {
+        if (possibleToken.isPresent() && tokenManager.isValid(possibleToken.get())) {
+
             authenticateUser(possibleToken.get());
+
         }
 
 
         chain.doFilter(request, response);
 
     }
-
 
     public void authenticateUser(String token){
 
@@ -65,4 +67,5 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         return Optional.ofNullable(authToken);
 
     }
+
 }

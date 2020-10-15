@@ -150,4 +150,5 @@ public class DetalheProdutoResponse {
     public void setCaracteristicas(List<String> caracteristicas) {
         this.caracteristicas = caracteristicas;
     }
+
 }

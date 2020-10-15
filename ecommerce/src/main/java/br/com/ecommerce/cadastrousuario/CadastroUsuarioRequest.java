@@ -11,7 +11,7 @@ public class CadastroUsuarioRequest {
 
     @NotBlank
     @Email
-    @Unico(fieldName = "login", domainClass = Usuario.class)
+    @Unico(fieldName = "login", domainClass = Usuario.class, message = "o login deve ser único")
     private String login;
 
     @NotBlank
