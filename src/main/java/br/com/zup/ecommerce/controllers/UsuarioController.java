@@ -2,6 +2,7 @@ package br.com.zup.ecommerce.controllers;
 
 import br.com.zup.ecommerce.entities.usuario.Usuario;
 import br.com.zup.ecommerce.entities.usuario.UsuarioNovoRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.net.URL;
 
 /**
  * Contagem de carga intrínseca da classe: 2
@@ -28,7 +30,7 @@ public class UsuarioController {
 
         Usuario usuario = usuarioNovo.toModel();
         manager.persist(usuario);
-        return ResponseEntity.ok().body(usuario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
     }
 
 }
