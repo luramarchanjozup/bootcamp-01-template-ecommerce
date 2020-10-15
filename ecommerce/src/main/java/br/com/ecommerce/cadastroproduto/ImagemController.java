@@ -1,4 +1,5 @@
 package br.com.ecommerce.cadastroproduto;
+import br.com.ecommerce.seguranca.AutorizacaoDonoProduto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class ImagemController {
 
 
     @Autowired
-    private AutorizacaoUploadImagem autorizacaoUploadImagem;
+    private AutorizacaoDonoProduto autorizacaoDonoProduto;
 
 
     @PostMapping
@@ -34,7 +35,7 @@ public class ImagemController {
         Produto produto = entityManager.find(Produto.class, produtoId);
 
 
-        if(autorizacaoUploadImagem.donoDoProduto(request, produto)){
+        if(autorizacaoDonoProduto.donoDoProduto(request, produto)){
 
             List<MultipartFile> imagens = arquivosEnviados.getArquivos();
 

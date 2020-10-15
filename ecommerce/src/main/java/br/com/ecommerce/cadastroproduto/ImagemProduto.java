@@ -30,6 +30,10 @@ public class ImagemProduto {
         return linkImagem;
     }
 
+    public void setLinkImagem(String linkImagem) {
+        this.linkImagem = linkImagem;
+    }
+
     public Produto getProduto() {
         return produto;
     }
@@ -37,5 +41,4 @@ public class ImagemProduto {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
-
 }
