@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 /**
- * Contagem de carga intrínseca da classe: 2
+ * Contagem de carga intrínseca da classe:1
  */
 
 @Entity
@@ -34,6 +34,7 @@ public class Usuario {
 
     protected Usuario(){}
 
+    //1
     public Usuario(@NotBlank String login, @Valid @NotNull SenhaTratada senhaTratada) {
         this.login = login;
         this.senha = senhaTratada.getSenha();
