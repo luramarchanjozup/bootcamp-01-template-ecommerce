@@ -1,6 +1,4 @@
 package br.com.ecommerce.cadastroproduto;
-import antlr.Token;
-import br.com.ecommerce.seguranca.TokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +22,7 @@ public class ImagemController {
 
 
     @Autowired
-    private TokenManager tokenManager;
+    private AutorizacaoUploadImagem autorizacaoUploadImagem;
 
 
     @PostMapping
@@ -36,7 +34,7 @@ public class ImagemController {
         Produto produto = entityManager.find(Produto.class, produtoId);
 
 
-        if(donoDoProduto(request, produto)){
+        if(autorizacaoUploadImagem.donoDoProduto(request, produto)){
 
             List<MultipartFile> imagens = arquivosEnviados.getArquivos();
 
@@ -55,24 +53,5 @@ public class ImagemController {
         return ResponseEntity.badRequest().build();
 
     }
-
-
-
-    public boolean donoDoProduto(HttpServletRequest request, Produto produto){
-
-
-        String tokenDoUsuarioDaRequisicao = request.getHeader("Authorization");
-
-        String emailDoUsuarioPeloToken = tokenManager.getUserName(tokenDoUsuarioDaRequisicao);
-
-        String emailDoUsuarioPeloProdutoId = produto
-                .getUsuario()
-                .getLogin();
-
-        return emailDoUsuarioPeloToken
-                .equals(emailDoUsuarioPeloProdutoId);
-
-    }
-
 
 }
