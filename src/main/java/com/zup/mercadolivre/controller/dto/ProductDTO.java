@@ -19,8 +19,6 @@ public class ProductDTO {
     private LocalDateTime registrationTime;
     private UserDTO owner;
     private List<String> imagePaths;
-    private List<OpinionDTO> opinions;
-    private List<QuestionDto> questions;
 
     public ProductDTO(Product product) {
         this.id = product.getId();
@@ -33,8 +31,6 @@ public class ProductDTO {
         this.registrationTime = product.getRegistrationTime();
         this.owner = product.getOwner().toDto();
         this.imagePaths = product.getImages().stream().map(x -> x.getImagePath()).collect(Collectors.toList());
-        this.opinions = product.getOpinions().stream().map(o -> o.toDto()).collect(Collectors.toList());
-        this.questions = product.getQuestions().stream().map(q -> q.toDto()).collect(Collectors.toList());
     }
 
     public Long getId() {
@@ -75,14 +71,6 @@ public class ProductDTO {
 
     public List<String> getImagePaths() {
         return this.imagePaths;
-    }
-
-    public List<OpinionDTO> getOpinions() {
-        return this.opinions;
-    }
-
-    public List<QuestionDto> getQuestions() {
-        return this.questions;
     }
 
 }

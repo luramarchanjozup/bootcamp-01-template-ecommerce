@@ -2,6 +2,7 @@ package com.zup.mercadolivre.model.products;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,7 +16,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.zup.mercadolivre.controller.dto.OpinionListDto;
 import com.zup.mercadolivre.controller.dto.ProductDTO;
+import com.zup.mercadolivre.controller.dto.QuestionListDto;
 import com.zup.mercadolivre.model.Category;
 import com.zup.mercadolivre.model.User;
 
@@ -188,4 +191,12 @@ public class Product {
     public ProductDTO toDto() {
         return new ProductDTO(this);
     }
+
+    public QuestionListDto questionToDto() {
+        return new QuestionListDto(this.questions.stream().map(q -> q.toDto()).collect(Collectors.toList()));
+    }
+
+	public OpinionListDto opinionsDto() {
+		return new OpinionListDto(this.opinions.stream().map(o -> o.toDto()).collect(Collectors.toList()));
+	}
 }
