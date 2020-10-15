@@ -2,6 +2,7 @@ package com.zup.mercadolivre.model.products;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,7 +16,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.zup.mercadolivre.controller.dto.OpinionListDto;
 import com.zup.mercadolivre.controller.dto.ProductDTO;
+import com.zup.mercadolivre.controller.dto.QuestionListDto;
 import com.zup.mercadolivre.model.Category;
 import com.zup.mercadolivre.model.User;
 
@@ -36,7 +39,7 @@ public class Product {
     @Min(0)
     private Integer quantityInStock;
     @NotNull
-    @Size(min = 3) @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @Size(min = 3) @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductCharacteristics> characteristics;
     @NotNull
     @Size(max = 1000)
@@ -49,7 +52,13 @@ public class Product {
     @ManyToOne
     private User owner;
 
-    @OneToMany(mappedBy = "product", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductOpinion> opinions;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductQuestions> questions;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductImages> images;
 
     @Deprecated
@@ -147,13 +156,47 @@ public class Product {
         this.images.add(image);
     }
 
-    public void checkOwnership(String email) {
+    public List<ProductOpinion> getOpinions() {
+        return this.opinions;
+    }
+
+    public void setOpinions(ProductOpinion opinions) {
+        this.opinions.add(opinions);
+    }
+
+    public List<ProductQuestions> getQuestions() {
+        return this.questions;
+    }
+
+    public void setQuestions(ProductQuestions questions) {
+        this.questions.add(questions);
+    }
+
+    public void checkOwnershipFalse(String email, String message) {
         if (!email.equals(this.owner.getEmail())) {
-            throw new BadCredentialsException("This user does not own the product");
+            throw new BadCredentialsException(message);
         }
+    }
+
+    public void checkOwnershipTrue(String email, String message) {
+        if (email.equals(this.owner.getEmail())) {
+            throw new BadCredentialsException(message);
+        }
+    }
+
+    public boolean checkOwnership(String email) {
+        return email.equals(this.owner.getEmail());
     }
 
     public ProductDTO toDto() {
         return new ProductDTO(this);
     }
+
+    public QuestionListDto questionToDto() {
+        return new QuestionListDto(this.questions.stream().map(q -> q.toDto()).collect(Collectors.toList()));
+    }
+
+	public OpinionListDto opinionsDto() {
+		return new OpinionListDto(this.opinions.stream().map(o -> o.toDto()).collect(Collectors.toList()));
+	}
 }

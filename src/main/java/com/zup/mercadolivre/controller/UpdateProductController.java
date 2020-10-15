@@ -26,10 +26,10 @@ public class UpdateProductController {
     private ProductRepository productRepository;
 
     @PutMapping("/product/{id}")
-    public ResponseEntity<?> produtImages(@PathVariable Long id, @RequestBody List<MultipartFile> images) {
+    public ResponseEntity<?> productImages(@PathVariable Long id, @RequestBody List<MultipartFile> images) {
         UserSS loggedUser = UserService.authenticated();
         Product product = productRepository.findById(id).orElseThrow(() -> new IllegalStateException("Product not found"));
-        product.checkOwnership(loggedUser.getUsername());
+        product.checkOwnershipFalse(loggedUser.getUsername(), "This user does not own the product");
 
         String assetsPath = Paths.get("src\\main\\java\\com\\zup\\mercadolivre\\assets").toAbsolutePath().toString();
         File imgFolder = new File(assetsPath + "\\" + "product_" + product.getId());
