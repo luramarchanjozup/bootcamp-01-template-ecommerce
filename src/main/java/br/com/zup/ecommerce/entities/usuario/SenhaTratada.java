@@ -12,6 +12,8 @@ import javax.validation.constraints.Size;
 
 public class SenhaTratada {
 
+    @NotBlank
+    @Size(min = 6)
     private String senha;
 
     public SenhaTratada(@NotBlank @Size(min = 6) String senha) {
