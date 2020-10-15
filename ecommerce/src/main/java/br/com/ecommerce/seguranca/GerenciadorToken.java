@@ -9,40 +9,34 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.Optional;
 
 @Component
-public class TokenManager {
+public class GerenciadorToken {
+
 
     @Value("${ecommerce.jwt.secret}")
-    private String secret;
+    private String segredo;
 
-    @Value("${ecommerce.jwt.expiration}")
-    private long expirationInMillis;
 
-    public String generateToken(Authentication authentication) {
+    public Optional<String> buscaTokenNoCabecalhoDaRequisicao(HttpServletRequest request) {
 
-        UserDetails user = (UserDetails) authentication.getPrincipal();
+        String authToken = request.getHeader("Authorization");
 
-        final Date now = new Date();
-        final Date expiration = new Date(now.getTime() + this.expirationInMillis);
+        return Optional.ofNullable(authToken);
 
-        return Jwts.builder()
-                .setIssuer("Ecommerce API")
-                .setSubject(user.getUsername())
-                .setIssuedAt(now)
-                .setExpiration(expiration)
-                .signWith(SignatureAlgorithm.HS256, this.secret)
-                .compact();
     }
 
-    public boolean isValid(String jwt) {
+
+    public boolean tokenEhValido(String jwt) {
 
         try {
 
             Jwts
                .parser()
-               .setSigningKey(this.secret)
+               .setSigningKey(this.segredo)
                .parseClaimsJws(jwt);
 
             return true;
@@ -54,13 +48,15 @@ public class TokenManager {
         }
     }
 
-    public String getUserName(String jwt) {
+
+    public String buscaNomeDoUsuario(String jwt) {
 
         Claims claims = Jwts.parser()
-                .setSigningKey(this.secret)
+                .setSigningKey(this.segredo)
                 .parseClaimsJws(jwt)
                 .getBody();
 
         return claims.getSubject();
     }
+
 }

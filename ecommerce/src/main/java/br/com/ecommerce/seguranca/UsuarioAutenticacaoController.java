@@ -1,9 +1,6 @@
 package br.com.ecommerce.seguranca;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,7 +19,7 @@ public class UsuarioAutenticacaoController {
     private AuthenticationManager authManager;
 
     @Autowired
-    private TokenManager tokenManager;
+    private GeradorToken geradorToken;
 
     
     @PostMapping
@@ -34,7 +31,7 @@ public class UsuarioAutenticacaoController {
 
             Authentication authentication = authManager.authenticate(authenticationToken);
 
-            String JWT = tokenManager.generateToken(authentication);
+            String JWT = geradorToken.geraToken(authentication);
 
             return ResponseEntity
                     .ok(new TokenResponse(JWT));

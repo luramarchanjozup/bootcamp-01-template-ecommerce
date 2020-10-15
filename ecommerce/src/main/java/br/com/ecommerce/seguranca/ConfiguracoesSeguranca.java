@@ -16,13 +16,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @EnableWebSecurity
 @Configuration
-public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
+public class ConfiguracoesSeguranca extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UsersServices usersService;
+    private UsuarioServicos usersService;
 
     @Autowired
-    private TokenManager tokenManager;
+    private GerenciadorToken gerenciadorToken;
+
+    @Autowired
+    private AutenticacaoUsuario autenticacaoUsuario;
 
 
     @Override
@@ -45,7 +48,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilterBefore(new JwtAuthenticationFilter(tokenManager, usersService),
+                .addFilterBefore(new FiltroAutenticacaoJwt(gerenciadorToken, usersService, autenticacaoUsuario),
                         UsernamePasswordAuthenticationFilter.class);
 
     }

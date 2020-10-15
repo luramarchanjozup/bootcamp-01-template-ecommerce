@@ -1,6 +1,6 @@
 package br.com.ecommerce.cadastroproduto;
 
-import br.com.ecommerce.seguranca.TokenManager;
+import br.com.ecommerce.seguranca.GerenciadorToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 public class AutorizacaoUploadImagem {
 
     @Autowired
-    private TokenManager tokenManager;
+    private GerenciadorToken gerenciadorToken;
 
     public boolean donoDoProduto(HttpServletRequest request, Produto produto){
 
         String tokenDoUsuarioDaRequisicao = request.getHeader("Authorization");
 
-        String emailDoUsuarioPeloToken = tokenManager.getUserName(tokenDoUsuarioDaRequisicao);
+        String emailDoUsuarioPeloToken = gerenciadorToken.buscaNomeDoUsuario(tokenDoUsuarioDaRequisicao);
 
         String emailDoUsuarioPeloProdutoId = produto
                 .getUsuario()
@@ -26,4 +26,5 @@ public class AutorizacaoUploadImagem {
                 .equals(emailDoUsuarioPeloProdutoId);
 
     }
+
 }
