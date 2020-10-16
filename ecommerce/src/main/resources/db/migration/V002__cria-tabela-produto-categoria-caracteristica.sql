@@ -28,7 +28,7 @@ create table caracteristica (
 	id bigint not null auto_increment,
     nome varchar(60) not null,
     valor bigint not null,
-    produto_id bigint not null,
+    produto_id bigint,
 
     primary key(id)
 

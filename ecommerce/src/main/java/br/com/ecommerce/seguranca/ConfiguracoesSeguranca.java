@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class ConfiguracoesSeguranca extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UsuarioServicos usersService;
+    private BuscaUsuarioPeloEmail usersService;
 
     @Autowired
     private GerenciadorToken gerenciadorToken;

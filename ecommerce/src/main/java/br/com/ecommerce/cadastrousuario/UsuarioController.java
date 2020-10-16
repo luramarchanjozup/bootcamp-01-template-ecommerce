@@ -3,6 +3,7 @@ package br.com.ecommerce.cadastrousuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
@@ -24,9 +25,7 @@ public class UsuarioController {
 
         entityManager.persist(usuario);
 
-        return ResponseEntity
-                .ok()
-                .build();
+        return ResponseEntity.ok().build();
 
     }
 }

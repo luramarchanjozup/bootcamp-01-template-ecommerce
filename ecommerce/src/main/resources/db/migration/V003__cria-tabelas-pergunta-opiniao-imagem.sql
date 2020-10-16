@@ -25,7 +25,7 @@ create table pergunta (
 
 	id bigint not null auto_increment,
     titulo varchar(60) not null,
-    instante_cricao datetime not null,
+    instante_criacao datetime not null,
     usuario_id bigint,
     produto_id bigint,
 

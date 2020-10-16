@@ -1,49 +1,38 @@
-package br.com.ecommerce.cadastroproduto;
+package br.com.ecommerce.adicionaresposta;
+
+import br.com.ecommerce.cadastroproduto.Produto;
 import br.com.ecommerce.seguranca.AutorizacaoDonoProduto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
-import java.util.List;
+import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/imagens/{produtoId}")
-public class ImagemController {
-
+@RequestMapping("produtos/{produtoId}/resposta")
+public class RespostaController {
 
     @Autowired
     private EntityManager entityManager;
 
-
-    @Autowired
-    private ImagemUploader imagemUploader;
-
-
     @Autowired
     private AutorizacaoDonoProduto autorizacaoDonoProduto;
 
-
     @PostMapping
     @Transactional
-    public ResponseEntity<?> adicionarFotos(@PathVariable Long produtoId, AdicionarImagemRequest arquivosEnviados,
-                                            HttpServletRequest request) {
-
+    public ResponseEntity<?> responder(@RequestBody @Valid RespostaRequest respostaRequest,
+                                       HttpServletRequest request, @PathVariable Long produtoId){
 
         Produto produto = entityManager.find(Produto.class, produtoId);
 
-
         if(autorizacaoDonoProduto.donoDoProduto(request, produto)){
 
-            List<MultipartFile> imagens = arquivosEnviados.getArquivos();
+            Resposta resposta = respostaRequest.converteParaTipoResposta(entityManager);
 
-            List<String> listaLinks = imagemUploader.envia(imagens);
-
-            produto.associaImagens(listaLinks);
-
-            entityManager.merge(produto);
+            entityManager.persist(resposta);
 
             return ResponseEntity
                     .ok()
@@ -54,5 +43,4 @@ public class ImagemController {
         return ResponseEntity.badRequest().build();
 
     }
-
 }

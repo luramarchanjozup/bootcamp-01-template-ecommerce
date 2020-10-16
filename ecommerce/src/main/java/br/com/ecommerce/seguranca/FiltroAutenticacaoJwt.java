@@ -13,16 +13,16 @@ public class FiltroAutenticacaoJwt extends OncePerRequestFilter {
 
     private GerenciadorToken gerenciadorToken;
 
-    private UsuarioServicos usuarioServicos;
+    private BuscaUsuarioPeloEmail buscaUsuarioPeloEmail;
 
     private AutenticacaoUsuario autenticacaoUsuario;
 
 
-    public FiltroAutenticacaoJwt(GerenciadorToken gerenciadorToken, UsuarioServicos usuarioServicos,
+    public FiltroAutenticacaoJwt(GerenciadorToken gerenciadorToken, BuscaUsuarioPeloEmail buscaUsuarioPeloEmail,
                                  AutenticacaoUsuario autenticacaoUsuario) {
 
         this.gerenciadorToken = gerenciadorToken;
-        this.usuarioServicos = usuarioServicos;
+        this.buscaUsuarioPeloEmail = buscaUsuarioPeloEmail;
         this.autenticacaoUsuario = autenticacaoUsuario;
 
     }
@@ -36,7 +36,7 @@ public class FiltroAutenticacaoJwt extends OncePerRequestFilter {
 
         if (possibleToken.isPresent() && gerenciadorToken.tokenEhValido(possibleToken.get())) {
 
-            autenticacaoUsuario.autenticaUsuario(possibleToken.get(), gerenciadorToken, usuarioServicos);
+            autenticacaoUsuario.autenticaUsuario(possibleToken.get(), gerenciadorToken, buscaUsuarioPeloEmail);
 
         }
 

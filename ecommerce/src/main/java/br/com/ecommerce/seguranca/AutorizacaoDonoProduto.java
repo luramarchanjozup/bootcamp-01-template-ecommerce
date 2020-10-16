@@ -13,6 +13,7 @@ public class AutorizacaoDonoProduto {
     @Autowired
     private GerenciadorToken gerenciadorToken;
 
+
     public boolean donoDoProduto(HttpServletRequest request, Produto produto){
 
         String tokenDoUsuarioDaRequisicao = request.getHeader("Authorization");

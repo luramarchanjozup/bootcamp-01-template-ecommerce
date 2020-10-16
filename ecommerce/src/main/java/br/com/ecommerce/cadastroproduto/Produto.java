@@ -34,7 +34,7 @@ public class Produto {
     @Positive
     private Long quantidadeDisponivel;
 
-    @OneToMany(mappedBy = "produto")
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
     private List<Caracteristica> caracteristicas = new ArrayList<>();
 
     @OneToMany(mappedBy = "produto")
@@ -120,6 +120,8 @@ public class Produto {
 
     }
 
+
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -146,5 +148,7 @@ public class Produto {
     public String getDescricao() {
         return descricao;
     }
+
+
 
 }

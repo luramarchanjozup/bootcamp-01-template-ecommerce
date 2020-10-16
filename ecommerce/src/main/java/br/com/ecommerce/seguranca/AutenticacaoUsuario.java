@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class AutenticacaoUsuario {
 
-    public void autenticaUsuario(String token, GerenciadorToken gerenciadorToken, UsuarioServicos usuarioServicos){
+    public void autenticaUsuario(String token, GerenciadorToken gerenciadorToken, BuscaUsuarioPeloEmail buscaUsuarioPeloEmail){
 
 
         String userName = gerenciadorToken.buscaNomeDoUsuario(token);
 
-        UserDetails userDetails = usuarioServicos.loadUserByUsername(userName);
+        UserDetails userDetails = buscaUsuarioPeloEmail.loadUserByUsername(userName);
 
         UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

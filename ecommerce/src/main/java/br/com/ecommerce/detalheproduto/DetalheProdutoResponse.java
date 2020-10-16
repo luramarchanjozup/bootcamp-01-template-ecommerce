@@ -12,6 +12,7 @@ import java.util.OptionalDouble;
 
 public class DetalheProdutoResponse {
 
+
     private String nome;
 
     private BigDecimal preco;
@@ -44,22 +45,18 @@ public class DetalheProdutoResponse {
 
         this.descricao = produto.getDescricao();
 
-
         this.opinioes = produto.listarOpinioes(opiniao -> opiniao.getTitulo());
-
 
         this.perguntas = produto.listarPerguntas(pergunta -> pergunta.getTitulo());
 
-
         this.caracteristicas = produto.listarCaracteristicas(caracteristica -> caracteristica.getNome());
-
 
         this.totalDeNotas = total(produto);
 
         this.mediaDeNotas = media(produto);
 
-    }
 
+    }
 
     public Integer total(Produto produto){
 
