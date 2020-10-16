@@ -1,6 +1,7 @@
 package com.zup.mercadolivre.controller;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import com.zup.mercadolivre.controller.form.UserForm;
@@ -41,6 +42,7 @@ public class UserController {
     }
 
     @PostMapping
+    @Transactional
     public ResponseEntity<?> createUser(@RequestBody @Valid UserForm form) {
         manager.persist(form.toUser(encoder));
 

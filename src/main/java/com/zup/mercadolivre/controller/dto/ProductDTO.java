@@ -44,7 +44,8 @@ public class ProductDTO {
         for (ProductOpinion opinion : product.getOpinions()) {
             notesSum += opinion.getNote();
         }
-        return notesSum.floatValue() / noteSize.floatValue();
+        float result = notesSum.floatValue() / noteSize.floatValue();
+        return Float.isNaN(result) ? 0f : result;
     }
 
     public Long getId() {
