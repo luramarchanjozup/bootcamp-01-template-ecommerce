@@ -32,7 +32,8 @@ public class Usuario {
 
     private LocalDateTime dataCadastro = LocalDateTime.now();
 
-    protected Usuario(){}
+    @Deprecated
+    public Usuario() {}
 
     //1
     public Usuario(@NotBlank String login, @Valid @NotNull SenhaTratada senhaTratada) {

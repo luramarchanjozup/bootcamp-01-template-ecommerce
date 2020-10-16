@@ -14,6 +14,10 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
+/**
+ * Contagem de carga intrínseca da classe: 2
+ */
+
 @RestController
 @RequestMapping("/categorias")
 public class CategoriaController {

@@ -2,7 +2,6 @@ package br.com.zup.ecommerce.entities.categoria;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.Collection;
 
 /**
  * Contagem de carga intrínseca da classe: 0
@@ -21,7 +20,8 @@ public class Categoria {
     @ManyToOne
     private Categoria categoriaMae;
 
-    protected Categoria(){}
+    @Deprecated
+    public Categoria(){}
 
     public Categoria(@NotBlank String nome, Categoria categoriaMae) {
         this.nome = nome;
