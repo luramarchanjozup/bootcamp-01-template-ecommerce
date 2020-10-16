@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Documented
 @Constraint(validatedBy = ExistsIdValidator.class)
 public @interface ExistsId {
-    String message() default "Inválido.";
+    String message() default "Não foi possível encontrar um id válido";
 
     Class<?>[] groups() default { };
 
