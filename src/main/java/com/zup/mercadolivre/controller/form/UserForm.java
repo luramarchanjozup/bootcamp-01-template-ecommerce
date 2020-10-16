@@ -5,6 +5,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.zup.mercadolivre.model.User;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 public class UserForm {
     @NotNull @NotBlank @Email
     private String email;
@@ -32,4 +36,7 @@ public class UserForm {
         this.password = password;
     }
     
+    public User toUser(BCryptPasswordEncoder encoder) {
+        return new User(this.email, encoder.encode(this.password));
+    }
 }

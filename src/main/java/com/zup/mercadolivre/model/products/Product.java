@@ -1,5 +1,8 @@
 package com.zup.mercadolivre.model.products;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +26,7 @@ import com.zup.mercadolivre.model.Category;
 import com.zup.mercadolivre.model.User;
 
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 public class Product {
@@ -198,5 +202,23 @@ public class Product {
 
 	public OpinionListDto opinionsDto() {
 		return new OpinionListDto(this.opinions.stream().map(o -> o.toDto()).collect(Collectors.toList()));
-	}
+    }
+    
+    public boolean saveImages(List<MultipartFile> images) {
+        String assetsPath = Paths.get("src\\main\\java\\com\\zup\\mercadolivre\\assets").toAbsolutePath().toString();
+        File imgFolder = new File(assetsPath + "\\" + "product_" + this.id);
+        imgFolder.mkdir();
+
+        for (MultipartFile img : images) {
+            try {
+                File imgFile = new File(assetsPath + "\\" + "product_" + this.id + "\\" + this.id + "_img" + 
+                        (this.images.size() + 1) + "." + img.getOriginalFilename().split("\\.")[1]);
+                img.transferTo(imgFile);
+                this.images.add(new ProductImages(imgFile.toPath().toAbsolutePath().toString(), this));
+            } catch (IOException e) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

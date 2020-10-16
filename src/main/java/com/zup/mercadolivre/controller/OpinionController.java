@@ -1,13 +1,11 @@
 package com.zup.mercadolivre.controller;
 
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import com.zup.mercadolivre.controller.form.OpinionForm;
-import com.zup.mercadolivre.model.User;
 import com.zup.mercadolivre.model.products.Product;
-import com.zup.mercadolivre.repositories.ProductRepository;
-import com.zup.mercadolivre.repositories.UserRepository;
-import com.zup.mercadolivre.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,23 +14,32 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Handles the {@link ProductOpinion} creation.
+ * 
+ * <p>Receives a {@link OpinionForm} with the proper information
+ * for a new {@link ProductOpinion}. The Opinion is injected in
+ * a existing Product and then the {@link EntityManager}
+ * saves the updated Product to the database.
+ * 
+ * @author Matheus
+ */
 @RestController
+//3
 public class OpinionController {
     
     @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private UserRepository userRepository;
-    
-    @PutMapping("/product/{id}/opinion")
-    public ResponseEntity<?> createProductOpinion(@PathVariable Long id, @RequestBody @Valid OpinionForm form) {
-        Product product = productRepository.findById(id).orElseThrow(() -> new IllegalStateException("Product not found"));
-        User loggedUser = userRepository.findByEmail(UserService.authenticated().getUsername()).orElseThrow(
-            () -> new IllegalStateException("User not found or it's not logged in properly"));
-        product.checkOwnershipTrue(loggedUser.getEmail(), "The product owner can't post a opinion");
+    private EntityManager manager;
 
-        product.setOpinions(form.toOpinion(product, loggedUser));
-        productRepository.save(product);
+    @PutMapping("/product/{id}/opinion")
+    @Transactional
+    //1
+    public ResponseEntity<?> createProductOpinion(@PathVariable Long id, @RequestBody @Valid /*1*/ OpinionForm form) {
+        //1
+        Product product = manager.find(Product.class, id);
+        product.setOpinions(form.toOpinion(manager, product));
+
+        manager.persist(product);
 
         return ResponseEntity.ok().body(product.toDto());
     }
