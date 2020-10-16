@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -78,6 +79,10 @@ public class Product {
         this.category = category;
         this.registrationTime = LocalDateTime.now();
         this.owner = owner;
+
+        this.opinions = new ArrayList<>();
+        this.questions = new ArrayList<>();
+        this.images = new ArrayList<>();
     }
 
     public Long getId() {

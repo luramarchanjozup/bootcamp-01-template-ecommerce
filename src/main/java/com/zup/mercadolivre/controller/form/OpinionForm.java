@@ -70,6 +70,7 @@ public class OpinionForm {
 	public ProductOpinion toOpinion(EntityManager manager, Product product) {
         User loggedUser = manager.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
             .setParameter("email", UserService.authenticated().getUsername()).getSingleResult();
+        product.checkOwnershipTrue(loggedUser.getEmail(), "The product owner can't post a opinion");
 		return new ProductOpinion(this.note, this.title, this.description, loggedUser, product);
 	}
 
