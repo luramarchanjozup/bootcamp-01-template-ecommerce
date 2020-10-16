@@ -3,17 +3,19 @@ package br.com.zup.ecommerce.entities.produto;
 import br.com.zup.ecommerce.entities.categoria.Categoria;
 import br.com.zup.ecommerce.entities.produto.caracteristica.CaracteristicasProduto;
 import br.com.zup.ecommerce.entities.produto.caracteristica.CaracteristicasProdutoNovoRequest;
+import br.com.zup.ecommerce.entities.usuario.Usuario;
 import br.com.zup.ecommerce.validations.ExisteId.ExisteId;
 import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Contagem de carga intrínseca da classe: 7
+ * Contagem de carga intrínseca da classe: 8
  */
 
 public class ProdutoNovoRequest {
@@ -29,9 +31,9 @@ public class ProdutoNovoRequest {
     @Min(0)
     private int qtdDisponivel;
 
-    @Size(min = 3)
+    @Size(min = 3, message = "deve ter tamanho igual ou maior que 3")
     //1
-    private Set<CaracteristicasProdutoNovoRequest> caracteristicas;
+    private List<CaracteristicasProdutoNovoRequest> caracteristicas;
 
     @NotBlank
     @Size(max=1000)
@@ -54,7 +56,7 @@ public class ProdutoNovoRequest {
         return qtdDisponivel;
     }
 
-    public Set<CaracteristicasProdutoNovoRequest> getCaracteristicas() {
+    public List<CaracteristicasProdutoNovoRequest> getCaracteristicas() {
         return caracteristicas;
     }
 
@@ -66,8 +68,8 @@ public class ProdutoNovoRequest {
         return categoriaId;
     }
 
-    //1
-    public Produto toModel(EntityManager manager){
+    //2
+    public Produto toModel(EntityManager manager, Usuario dono){
 
         Categoria categoria = manager.find(Categoria.class, this.categoriaId);
         Assert.notNull(categoria, "Categoria não encontrada");
@@ -79,7 +81,7 @@ public class ProdutoNovoRequest {
                 .collect(Collectors.toSet());
 
         Produto produto = new Produto(this.nome, this.valor, this.qtdDisponivel,
-            caracteristicasProdutos, this.descricao, categoria);
+            caracteristicasProdutos, this.descricao, categoria, dono);
 
         //1
         caracteristicasProdutos.forEach(cp -> cp.setProduto(produto));
