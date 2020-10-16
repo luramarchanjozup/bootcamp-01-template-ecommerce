@@ -1,13 +1,12 @@
 package com.zup.mercadolivre.controller;
 
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import com.zup.mercadolivre.controller.form.QuestionForm;
-import com.zup.mercadolivre.model.User;
 import com.zup.mercadolivre.model.products.Product;
-import com.zup.mercadolivre.repositories.ProductRepository;
-import com.zup.mercadolivre.repositories.UserRepository;
-import com.zup.mercadolivre.services.UserService;
+import com.zup.mercadolivre.model.products.ProductQuestions;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,25 +15,30 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Handles {@link ProductQuestions} creation.
+ * 
+ * @author Matheus Santos
+ */
 @RestController
+//4
 public class QuestionsController {
     
     @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private UserRepository userRepository;
+    private EntityManager manager;
     //@Autowired
+    //1
     //private MailService mailService;
-
+    
     @PutMapping("/product/{id}/question")
-    public ResponseEntity<?> createQuestion(@PathVariable Long id, @RequestBody @Valid QuestionForm form ) {
-        Product product = productRepository.findById(id).orElseThrow(() -> new IllegalStateException("Product not found"));
-        User loggedUser = userRepository.findByEmail(UserService.authenticated().getUsername()).orElseThrow(
-            () -> new IllegalStateException("User not found or not properly logged in."));
-        product.checkOwnershipTrue(loggedUser.getEmail(), "The product owner can't post questions.");
+    @Transactional
+    //1
+    public ResponseEntity<?> createQuestion(@PathVariable Long id, @RequestBody @Valid /*1*/ QuestionForm form ) {
+        //1
+        Product product = manager.find(Product.class, id);
 
-        product.setQuestions(form.toQuestion(loggedUser, product));
-        productRepository.save(product);
+        product.setQuestions(form.toQuestion(manager, product));
+        manager.persist(product);
         // Uncomment for mail functionality in production
         //mailService.sendEmailToSeller(product.getOwner().getEmail(), product.getName());
 

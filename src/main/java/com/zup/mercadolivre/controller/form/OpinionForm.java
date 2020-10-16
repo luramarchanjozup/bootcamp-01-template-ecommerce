@@ -1,5 +1,6 @@
 package com.zup.mercadolivre.controller.form;
 
+import javax.persistence.EntityManager;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -9,6 +10,13 @@ import javax.validation.constraints.Size;
 import com.zup.mercadolivre.model.User;
 import com.zup.mercadolivre.model.products.Product;
 import com.zup.mercadolivre.model.products.ProductOpinion;
+import com.zup.mercadolivre.services.UserService;
+
+/**
+ * Handles the incoming {@link ProductOpinion} creation information.
+ * 
+ * @author Matheus
+ */
 
 public class OpinionForm {
     
@@ -49,7 +57,19 @@ public class OpinionForm {
         this.description = description;
     }
 
-	public ProductOpinion toOpinion(Product product, User loggedUser) {
+    /**
+     * Gets the logged user and creates a new {@link ProductOpinion}.
+     * 
+     * @throws NoResultException if no {@link User} is found. (Highly unlikely as the user 
+     * information is from a logged one)
+     * 
+     * @param manager cannot be null
+     * @param product cannot be null
+     * @return new {@link ProductOpinion}
+     */
+	public ProductOpinion toOpinion(EntityManager manager, Product product) {
+        User loggedUser = manager.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
+            .setParameter("email", UserService.authenticated().getUsername()).getSingleResult();
 		return new ProductOpinion(this.note, this.title, this.description, loggedUser, product);
 	}
 
