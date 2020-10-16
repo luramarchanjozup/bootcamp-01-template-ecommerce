@@ -29,7 +29,7 @@ public class FiltroDeAutorizacaoJwt extends BasicAuthenticationFilter {
         if(verificarCabecalhoAuthorization(request)){
             String token = request.getHeader("Authorization").substring(7);
             if(jwtUtils.verificarSeTokenEValido(token)){
-                String email = jwtUtils.getEmail(token);
+                String email = jwtUtils.capturarEmailDoUsuarioLogadoNoToken(token);
                 UserDetails user = userDetailsService.loadUserByUsername(email);
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(auth);

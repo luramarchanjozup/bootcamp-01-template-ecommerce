@@ -26,7 +26,7 @@ public class AdicionarPerguntaController {
     @PutMapping("/{idProduto}")
     @Transactional                                                      //2
     public ResponseEntity adicionarPerguntaAoProduto(@RequestBody @Valid PerguntaDTO dto, @PathVariable UUID idProduto, HttpServletRequest request){
-        String email = jwtUtils.getEmail(request);
+        String email = jwtUtils.capturarEmailDoUsuarioLogadoNoToken(request);
 
         //3
         Produto produto = entityManager.find(Produto.class, idProduto);

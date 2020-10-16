@@ -26,7 +26,7 @@ public class CadastrarProdutoController {
     @PostMapping
     @Transactional                                      //2
     public String cadastrarProduto(@RequestBody @Valid ProdutoDTO dto, HttpServletRequest request){
-        String email = jwtUtils.getEmail(request);
+        String email = jwtUtils.capturarEmailDoUsuarioLogadoNoToken(request);
 
         //3
         Produto produto = dto.toModel(entityManager, email);

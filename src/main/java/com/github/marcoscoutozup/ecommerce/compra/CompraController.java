@@ -27,7 +27,7 @@ public class CompraController {
     @PostMapping("/produto/{idProduto}")
     @Transactional                                                                          //1
     public ResponseEntity efetuarCompra(@PathVariable UUID idProduto, @RequestBody @Valid CompraDTO dto, HttpServletRequest request, UriComponentsBuilder uri){
-        String email = jwtUtils.getEmail(request);
+        String email = jwtUtils.capturarEmailDoUsuarioLogadoNoToken(request);
 
         //2
         Produto produto = entityManager.find(Produto.class, idProduto);

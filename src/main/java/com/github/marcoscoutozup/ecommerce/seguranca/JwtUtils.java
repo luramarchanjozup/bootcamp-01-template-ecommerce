@@ -47,11 +47,11 @@ public class JwtUtils {
                 .getBody();
     }
 
-    public String getEmail(String token){
+    public String capturarEmailDoUsuarioLogadoNoToken(String token){
         return getClaims(token).getSubject();
     }
 
-    public String getEmail(HttpServletRequest request){
+    public String capturarEmailDoUsuarioLogadoNoToken(HttpServletRequest request){
         String token = request.getHeader("Authorization").substring(7);
         return getClaims(token).getSubject();}
 

@@ -26,7 +26,7 @@ public class AdicionarImagemAoProdutoController {
     @PutMapping("/{idProduto}")
     @Transactional                                                      //2
     public ResponseEntity adicionarImagemAoProduto(@RequestBody @Valid ImagemDTO imagens, @PathVariable UUID idProduto, HttpServletRequest request){
-        String email = jwtUtils.getEmail(request);
+        String email = jwtUtils.capturarEmailDoUsuarioLogadoNoToken(request);
 
         //3
         Produto produto = entityManager.find(Produto.class, idProduto);
