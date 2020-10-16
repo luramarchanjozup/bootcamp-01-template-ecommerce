@@ -120,7 +120,23 @@ public class Produto {
 
     }
 
+    public boolean verificaDisponibilidade(Long quantidadeDemandada){
+        return this.quantidadeDisponivel >= quantidadeDemandada;
+    }
 
+    public Long atualizaDisponibilidadeEmEstoque(Long quantidadeDemandada){
+
+        return this.quantidadeDisponivel = quantidadeDisponivel- quantidadeDemandada;
+
+    }
+
+    public void setQuantidadeDisponivel(Long quantidadeDisponivel) {
+        this.quantidadeDisponivel = quantidadeDisponivel;
+    }
+
+    public Long getQuantidadeDisponivel() {
+        return quantidadeDisponivel;
+    }
 
     public Usuario getUsuario() {
         return usuario;

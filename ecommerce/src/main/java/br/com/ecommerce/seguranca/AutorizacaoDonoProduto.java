@@ -11,14 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 public class AutorizacaoDonoProduto {
 
     @Autowired
-    private GerenciadorToken gerenciadorToken;
+    private BuscaEmailDoUsuarioPeloToken buscaEmailDoUsuarioPeloToken;
 
 
     public boolean donoDoProduto(HttpServletRequest request, Produto produto){
 
-        String tokenDoUsuarioDaRequisicao = request.getHeader("Authorization");
-
-        String emailDoUsuarioPeloToken = gerenciadorToken.buscaNomeDoUsuario(tokenDoUsuarioDaRequisicao);
+       String emailDoUsuarioPeloToken = buscaEmailDoUsuarioPeloToken.buscaEmailDoUsuario(request);
 
         String emailDoUsuarioPeloProdutoId = produto
                 .getUsuario()
