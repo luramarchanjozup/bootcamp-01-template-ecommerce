@@ -187,6 +187,15 @@ public class Produto {
 
                 '}';
     }
+
+    public boolean abataEstoque(@Positive int quantidade) {
+        Assert.isTrue(quantidade>0, "Quantidade necessita ser maior que zero");
+        if(quantidade<= this.quantidade) {
+            this.quantidade-=quantidade;
+            return true;
+        }
+        return false;
+    }
 }
 
 

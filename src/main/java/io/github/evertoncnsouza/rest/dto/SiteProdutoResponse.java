@@ -11,6 +11,7 @@ public class SiteProdutoResponse {
     private String nome;
     private String descricao;
     private BigDecimal valor;
+    private int quantidade;
     private SiteCategoriaResponse categoria;
     private Set<SiteCaracteristicaResponse> caracteristica;
     private Set<Map<String,String>> opinioes;
@@ -20,6 +21,7 @@ public class SiteProdutoResponse {
     private Set<Map<String, String>> perguntas;
 
     public SiteProdutoResponse(Produto produto) {
+        quantidade = produto.getQuantidade();
         nome = produto.getNome();
         descricao = produto.getDescricao();
         valor = produto.getValor();
@@ -76,5 +78,9 @@ public class SiteProdutoResponse {
 
     public int getTotal() {
         return total;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
     }
 }
