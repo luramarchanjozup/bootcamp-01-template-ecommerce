@@ -4,6 +4,8 @@ import br.com.zup.ecommerce.entities.produto.ProdutoNovoRequest;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.util.Set;
+
 /**
  * Contagem de carga intrínseca da classe: 3
  */
@@ -25,9 +27,14 @@ public class CaracteristicasSemRepeticaoValidacao implements Validator {
         //1
         ProdutoNovoRequest novoProduto = (ProdutoNovoRequest) o;
 
+        Set<String> listaRepetido = novoProduto.caracteristicasIguais();
+
         //1
-        if (novoProduto.caracteristicaRepetida()) {
-            errors.rejectValue("caracteristicas","Produto.caracteristicas","contém caracteristica com nome repetido");
+        if (!listaRepetido.isEmpty()) {
+            errors.rejectValue(
+                    "caracteristicas",
+                    "Produto.caracteristicas",
+                    "contém caracteristica com nome repetido: " + listaRepetido.toString());
         }
     }
 }

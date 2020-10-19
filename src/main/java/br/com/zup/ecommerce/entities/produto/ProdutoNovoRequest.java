@@ -1,10 +1,10 @@
 package br.com.zup.ecommerce.entities.produto;
 
 import br.com.zup.ecommerce.entities.categoria.Categoria;
-import br.com.zup.ecommerce.entities.produto.caracteristica.CaracteristicasProduto;
 import br.com.zup.ecommerce.entities.produto.caracteristica.CaracteristicasProdutoNovoRequest;
 import br.com.zup.ecommerce.entities.usuario.Usuario;
 import br.com.zup.ecommerce.validations.existeId.ExisteId;
+import br.com.zup.ecommerce.validations.valorUnico.ValorUnico;
 import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
@@ -13,15 +13,16 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
- * Contagem de carga intrínseca da classe: 9
+ * Contagem de carga intrínseca da classe: 8
  */
 
 public class ProdutoNovoRequest {
 
     @NotBlank
+    //2
+    @ValorUnico(dominioClasse = Produto.class, nomeCampo = "nome")
     private String nome;
 
     @NotNull
@@ -69,37 +70,30 @@ public class ProdutoNovoRequest {
         return categoriaId;
     }
 
-    //2
+    //1
     public Produto toModel(EntityManager manager, Usuario dono){
 
         Categoria categoria = manager.find(Categoria.class, this.categoriaId);
         Assert.notNull(categoria, "Categoria não encontrada");
 
-        Produto produto = new Produto(this.nome, this.valor, this.qtdDisponivel,
+        return new Produto(this.nome, this.valor, this.qtdDisponivel,
+                new HashSet<>(this.caracteristicas),
                 this.descricao, categoria, dono);
-
-        //2
-        Set<CaracteristicasProduto> caracteristicasProdutos = this.caracteristicas
-                .stream()
-                .map(cp -> cp.toModel(produto))
-                .collect(Collectors.toSet());
-
-        produto.getCaracteristicasProduto().addAll(caracteristicasProdutos);
-
-        return produto;
     }
 
-    public boolean caracteristicaRepetida() {
+    public Set<String> caracteristicasIguais() {
         Set<String> listaNome = new HashSet<>();
+        Set<String> listaRepetidos = new HashSet<>();
 
         //1
         for (CaracteristicasProdutoNovoRequest caracteristica : this.caracteristicas) {
+            String nome = caracteristica.getNome();
             //1
-            if (!listaNome.add(caracteristica.getNome())) {
-                return true;
+            if (!listaNome.add(nome)){
+                listaRepetidos.add(nome);
             }
         }
 
-        return false;
+        return listaRepetidos;
     }
 }

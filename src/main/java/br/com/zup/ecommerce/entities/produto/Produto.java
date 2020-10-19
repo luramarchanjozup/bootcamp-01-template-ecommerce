@@ -2,6 +2,7 @@ package br.com.zup.ecommerce.entities.produto;
 
 import br.com.zup.ecommerce.entities.categoria.Categoria;
 import br.com.zup.ecommerce.entities.produto.caracteristica.CaracteristicasProduto;
+import br.com.zup.ecommerce.entities.produto.caracteristica.CaracteristicasProdutoNovoRequest;
 import br.com.zup.ecommerce.entities.produto.imagem.ImagemProduto;
 import br.com.zup.ecommerce.entities.usuario.Usuario;
 
@@ -15,7 +16,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Contagem de carga intrínseca da classe: 5
+ * Contagem de carga intrínseca da classe: 7
  */
 
 @Entity
@@ -66,11 +67,15 @@ public class Produto {
     @Deprecated
     public Produto() {}
 
-    public Produto(@NotBlank String nome, @NotNull @Positive BigDecimal valor, @NotNull @Min(0) int qtdDisponivel, @Size(min = 3) Set<CaracteristicasProduto> caracteristicasProduto, @NotBlank @Size(max = 1000) String descricao, @NotNull Categoria categoria, @NotNull @Valid Usuario dono) {
+    //1
+    public Produto(@NotBlank String nome, @NotNull @Positive BigDecimal valor, @NotNull @Min(0) int qtdDisponivel, @Size(min = 3) Set<CaracteristicasProdutoNovoRequest> caracteristicasProdutoNovoRequests, @NotBlank @Size(max = 1000) String descricao, @NotNull Categoria categoria, @NotNull @Valid Usuario dono) {
         this.nome = nome;
         this.valor = valor;
         this.qtdDisponivel = qtdDisponivel;
-        this.caracteristicasProduto = caracteristicasProduto;
+        //1
+        this.caracteristicasProduto = caracteristicasProdutoNovoRequests.stream()
+                .map(cp -> cp.toModel(this))
+                .collect(Collectors.toSet());
         this.descricao = descricao;
         this.categoria = categoria;
         this.dono = dono;
