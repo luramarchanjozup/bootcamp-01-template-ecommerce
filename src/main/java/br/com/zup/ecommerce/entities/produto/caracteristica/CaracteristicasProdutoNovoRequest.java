@@ -1,9 +1,11 @@
 package br.com.zup.ecommerce.entities.produto.caracteristica;
 
+import br.com.zup.ecommerce.entities.produto.Produto;
+
 import javax.validation.constraints.NotBlank;
 
 /**
- * Contagem de carga intrínseca da classe: 1
+ * Contagem de carga intrínseca da classe: 2
  */
 
 public class CaracteristicasProdutoNovoRequest {
@@ -21,8 +23,8 @@ public class CaracteristicasProdutoNovoRequest {
         return descricao;
     }
 
-    //1
-    public CaracteristicasProduto toModelSemProduto() {
-        return new CaracteristicasProduto(this.nome, this.descricao);
+    //2
+    public CaracteristicasProduto toModel(Produto produto) {
+        return new CaracteristicasProduto(this.nome, this.descricao, produto);
     }
 }

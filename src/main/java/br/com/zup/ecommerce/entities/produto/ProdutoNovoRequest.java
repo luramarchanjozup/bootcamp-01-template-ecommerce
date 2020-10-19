@@ -15,7 +15,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Contagem de carga intrínseca da classe: 8
+ * Contagem de carga intrínseca da classe: 7
  */
 
 public class ProdutoNovoRequest {
@@ -74,17 +74,16 @@ public class ProdutoNovoRequest {
         Categoria categoria = manager.find(Categoria.class, this.categoriaId);
         Assert.notNull(categoria, "Categoria não encontrada");
 
+        Produto produto = new Produto(this.nome, this.valor, this.qtdDisponivel,
+                this.descricao, categoria, dono);
+
         //2
         Set<CaracteristicasProduto> caracteristicasProdutos = this.caracteristicas
                 .stream()
-                .map(CaracteristicasProdutoNovoRequest::toModelSemProduto)
+                .map(cp -> cp.toModel(produto))
                 .collect(Collectors.toSet());
 
-        Produto produto = new Produto(this.nome, this.valor, this.qtdDisponivel,
-            caracteristicasProdutos, this.descricao, categoria, dono);
-
-        //1
-        caracteristicasProdutos.forEach(cp -> cp.setProduto(produto));
+        produto.getCaracteristicasProduto().addAll(caracteristicasProdutos);
 
         return produto;
     }

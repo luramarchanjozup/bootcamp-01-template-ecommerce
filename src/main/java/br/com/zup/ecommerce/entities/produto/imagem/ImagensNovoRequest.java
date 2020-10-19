@@ -24,7 +24,4 @@ public class ImagensNovoRequest {
         return imagens;
     }
 
-    public void setImagens(List<MultipartFile> imagens) {
-        this.imagens = imagens;
-    }
 }
