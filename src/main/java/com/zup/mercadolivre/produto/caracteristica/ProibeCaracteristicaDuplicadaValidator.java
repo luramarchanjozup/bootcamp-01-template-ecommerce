@@ -1,5 +1,6 @@
-package com.zup.mercadolivre.produto;
+package com.zup.mercadolivre.produto.caracteristica;
 
+import com.zup.mercadolivre.produto.NovoProdutoRequest;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 

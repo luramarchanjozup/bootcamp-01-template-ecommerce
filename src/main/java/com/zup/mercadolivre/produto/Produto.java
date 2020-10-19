@@ -1,6 +1,9 @@
 package com.zup.mercadolivre.produto;
 
 import com.zup.mercadolivre.categoria.Categoria;
+import com.zup.mercadolivre.produto.caracteristica.CaracteristicaProduto;
+import com.zup.mercadolivre.produto.caracteristica.NovaCaracteristicaRequest;
+import com.zup.mercadolivre.produto.imagem.ImagemProduto;
 import com.zup.mercadolivre.usuario.Usuario;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.util.Assert;
@@ -85,5 +88,13 @@ public class Produto {
                 .map(link -> new ImagemProduto(this, link))
                 .collect(Collectors.toSet());
         this.imagens.addAll(imagens);
+    }
+
+    public boolean pertenceAoUsuario(Usuario possivelDono) {
+        return this.dono.equals(possivelDono);
+    }
+
+    public Usuario getDono() {
+        return this.dono;
     }
 }

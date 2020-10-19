@@ -1,5 +1,6 @@
 package com.zup.mercadolivre.produto;
 
+import com.zup.mercadolivre.produto.caracteristica.ProibeCaracteristicaDuplicadaValidator;
 import com.zup.mercadolivre.usuario.Usuario;
 import com.zup.mercadolivre.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;

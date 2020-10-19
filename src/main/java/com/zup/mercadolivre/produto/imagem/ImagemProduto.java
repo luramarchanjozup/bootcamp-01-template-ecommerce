@@ -1,5 +1,6 @@
-package com.zup.mercadolivre.produto;
+package com.zup.mercadolivre.produto.imagem;
 
+import com.zup.mercadolivre.produto.Produto;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;

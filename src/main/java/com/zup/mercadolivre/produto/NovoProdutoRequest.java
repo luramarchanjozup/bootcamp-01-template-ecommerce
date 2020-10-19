@@ -3,6 +3,7 @@ package com.zup.mercadolivre.produto;
 import com.zup.mercadolivre.categoria.Categoria;
 import com.zup.mercadolivre.compartilhado.ExistsId;
 import com.zup.mercadolivre.compartilhado.UniqueValue;
+import com.zup.mercadolivre.produto.caracteristica.NovaCaracteristicaRequest;
 import com.zup.mercadolivre.usuario.Usuario;
 import org.hibernate.validator.constraints.Length;
 

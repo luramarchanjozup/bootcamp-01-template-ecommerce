@@ -1,4 +1,7 @@
-package com.zup.mercadolivre.produto;
+package com.zup.mercadolivre.produto.caracteristica;
+
+import com.zup.mercadolivre.produto.Produto;
+import com.zup.mercadolivre.produto.caracteristica.CaracteristicaProduto;
 
 import javax.validation.constraints.NotBlank;
 

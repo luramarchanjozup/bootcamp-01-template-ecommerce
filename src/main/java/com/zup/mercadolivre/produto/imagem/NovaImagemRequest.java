@@ -1,4 +1,4 @@
-package com.zup.mercadolivre.produto;
+package com.zup.mercadolivre.produto.imagem;
 
 import org.springframework.web.multipart.MultipartFile;
 
