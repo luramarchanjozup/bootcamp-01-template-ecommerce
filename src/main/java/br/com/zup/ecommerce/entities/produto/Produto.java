@@ -138,4 +138,9 @@ public class Produto {
 
         this.imagens.addAll(imagensProduto);
     }
+
+    public boolean isDono(Long id, EntityManager manager) {
+        Usuario usuario = manager.find(Usuario.class,id);
+        return this.dono.equals(usuario);
+    }
 }

@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,7 +22,7 @@ import javax.validation.Valid;
 import java.util.Set;
 
 /**
- * Contagem de carga intrínseca da classe: 6
+ * Contagem de carga intrínseca da classe: 7
  */
 
 @RestController
@@ -35,7 +36,7 @@ public class ProdutoController {
     //1
     private Uploader uploader;
 
-    @InitBinder
+    @InitBinder(value = "produtoNovoRequest")
     public void init(WebDataBinder binder) {
         //1
         binder.addValidators(new CaracteristicasSemRepeticaoValidacao());
@@ -65,6 +66,14 @@ public class ProdutoController {
 
         Produto produto = manager.find(Produto.class, id);
         produto.incluirImagens(links);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UsuarioLogado userDetails = (UsuarioLogado) authentication.getPrincipal();
+
+        //1
+        if(!produto.isDono(userDetails.getUsuario().getId(), manager)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
 
         manager.merge(produto);
 

@@ -16,12 +16,11 @@ public class ImagensNovoRequest {
     @NotNull
     private List<MultipartFile> imagens;
 
-    public ImagensNovoRequest(@Size(min = 1) List<MultipartFile> imagens) {
-        this.imagens = imagens;
-    }
-
     public List<MultipartFile> getImagens() {
         return imagens;
     }
 
+    public void setImagens(List<MultipartFile> imagens) {
+        this.imagens = imagens;
+    }
 }
