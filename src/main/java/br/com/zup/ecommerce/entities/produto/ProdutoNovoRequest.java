@@ -10,12 +10,13 @@ import org.springframework.util.Assert;
 import javax.persistence.EntityManager;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Contagem de carga intrínseca da classe: 7
+ * Contagem de carga intrínseca da classe: 9
  */
 
 public class ProdutoNovoRequest {
@@ -86,5 +87,19 @@ public class ProdutoNovoRequest {
         produto.getCaracteristicasProduto().addAll(caracteristicasProdutos);
 
         return produto;
+    }
+
+    public boolean caracteristicaRepetida() {
+        Set<String> listaNome = new HashSet<>();
+
+        //1
+        for (CaracteristicasProdutoNovoRequest caracteristica : this.caracteristicas) {
+            //1
+            if (!listaNome.add(caracteristica.getNome())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

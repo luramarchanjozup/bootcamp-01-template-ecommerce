@@ -5,11 +5,13 @@ import br.com.zup.ecommerce.entities.produto.ProdutoNovoRequest;
 import br.com.zup.ecommerce.entities.produto.imagem.ImagensNovoRequest;
 import br.com.zup.ecommerce.security.UsuarioLogado;
 import br.com.zup.ecommerce.service.Uploader;
+import br.com.zup.ecommerce.validations.produto.CaracteristicasSemRepeticaoValidacao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
@@ -19,7 +21,7 @@ import javax.validation.Valid;
 import java.util.Set;
 
 /**
- * Contagem de carga intrínseca da classe: 5
+ * Contagem de carga intrínseca da classe: 6
  */
 
 @RestController
@@ -33,6 +35,12 @@ public class ProdutoController {
     //1
     private Uploader uploader;
 
+    @InitBinder
+    public void init(WebDataBinder binder) {
+        //1
+        binder.addValidators(new CaracteristicasSemRepeticaoValidacao());
+    }
+
     @PostMapping
     @Transactional
     //1
@@ -45,7 +53,7 @@ public class ProdutoController {
         //1
         Produto produto = novoProduto.toModel(manager, userDetails.getUsuario());
         manager.persist(produto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Produto cadastrado");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Produto " +produto.getId()+" cadastrado");
     }
 
     @PostMapping("{id}/imagens")
