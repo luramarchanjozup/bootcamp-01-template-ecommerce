@@ -2,6 +2,7 @@ package br.com.zup.ecommerce.entities.produto;
 
 import br.com.zup.ecommerce.entities.categoria.Categoria;
 import br.com.zup.ecommerce.entities.produto.caracteristica.CaracteristicasProduto;
+import br.com.zup.ecommerce.entities.produto.imagem.ImagemProduto;
 import br.com.zup.ecommerce.entities.usuario.Usuario;
 
 import javax.persistence.*;
@@ -11,9 +12,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
- * Contagem de carga intrínseca da classe: 3
+ * Contagem de carga intrínseca da classe: 5
  */
 
 @Entity
@@ -54,6 +56,10 @@ public class Produto {
     //1
     private Usuario dono;
 
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+    //1
+    private Set<ImagemProduto> imagens = new HashSet<>();
+
     private LocalDateTime dataCadastro = LocalDateTime.now();
 
 
@@ -68,6 +74,10 @@ public class Produto {
         this.descricao = descricao;
         this.categoria = categoria;
         this.dono = dono;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getNome() {
@@ -100,5 +110,18 @@ public class Produto {
 
     public Usuario getDono() {
         return dono;
+    }
+
+    public Set<ImagemProduto> getImagens() {
+        return imagens;
+    }
+
+    public void incluirImagens(Set<String> imagens) {
+        //1
+        Set<ImagemProduto> imagensProduto = imagens.stream()
+                .map(link -> new ImagemProduto(this, link))
+                .collect(Collectors.toSet());
+
+        this.imagens.addAll(imagensProduto);
     }
 }
