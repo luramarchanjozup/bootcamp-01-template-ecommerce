@@ -2,9 +2,10 @@ package br.com.ecommerce.finalizacompra;
 
 import br.com.ecommerce.cadastroproduto.Produto;
 import br.com.ecommerce.cadastrousuario.Usuario;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.persistence.*;
-import java.util.Optional;
+
 
 @Entity
 public class Compra {
@@ -15,16 +16,39 @@ public class Compra {
 
     private Long quantidade;
 
-    @ManyToOne
-    private Produto produtoEscolhido;
+    @Enumerated
+    private GatewayPagamento gatewayPagamento;
 
     @ManyToOne
-    private Usuario comprador;
+    private Produto produto;
 
-    public Compra(Long quantidade, Produto produtoEscolhido, Usuario comprador) {
+    @ManyToOne
+    private Usuario usuario;
+
+    @Deprecated
+    public Compra() {}
+
+    public Compra(Long quantidade, GatewayPagamento gatewayPagamento, Produto produtoEscolhido, Usuario comprador) {
         this.quantidade = quantidade;
-        this.produtoEscolhido = produtoEscolhido;
-        this.comprador = comprador;
+        this.gatewayPagamento = gatewayPagamento;
+        this.produto = produtoEscolhido;
+        this.usuario = comprador;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public String urlRedirecionamento(
+            UriComponentsBuilder uriComponentsBuilder) {
+        return this.gatewayPagamento.criaUrlRetorno(this, uriComponentsBuilder);
+    }
+
+    public GatewayPagamento getGatewayPagamento() {
+        return gatewayPagamento;
+    }
+
+    public void setGatewayPagamento(GatewayPagamento gatewayPagamento) {
+        this.gatewayPagamento = gatewayPagamento;
+    }
 }
