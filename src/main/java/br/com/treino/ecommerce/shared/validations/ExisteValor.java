@@ -1,4 +1,4 @@
-package br.com.treino.ecommerce.validations;
+package br.com.treino.ecommerce.shared.validations;
 
 
 import javax.validation.Constraint;

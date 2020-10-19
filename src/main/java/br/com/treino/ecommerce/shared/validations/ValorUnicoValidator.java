@@ -1,7 +1,4 @@
-package br.com.treino.ecommerce.validations;
-
-
-import org.springframework.util.ObjectUtils;
+package br.com.treino.ecommerce.shared.validations;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -9,7 +6,7 @@ import javax.persistence.Query;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class ExisteValorValidator implements ConstraintValidator<ExisteValor, Object> {
+public class ValorUnicoValidator implements ConstraintValidator<ValorUnico, Object> {
 
     private String nomeCampo;
     private Class<?> nomeClasse;
@@ -17,7 +14,7 @@ public class ExisteValorValidator implements ConstraintValidator<ExisteValor, Ob
     private EntityManager entityManager;
 
     @Override
-    public void initialize(ExisteValor constraintAnnotation) {
+    public void initialize(ValorUnico constraintAnnotation) {
         nomeCampo = constraintAnnotation.nomeCampo();
         nomeClasse = constraintAnnotation.nomeClasse();
     }
@@ -25,16 +22,13 @@ public class ExisteValorValidator implements ConstraintValidator<ExisteValor, Ob
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
 
-        if(ObjectUtils.isEmpty(value)){
-            return true;
-        }
-
-        Query query = entityManager.createQuery("select 1 from " +
-                nomeClasse.getName() +
+        Query query = entityManager.createQuery("select 1 from " + nomeClasse.getName()+
                 " where " + nomeCampo + "=:value");
         query.setParameter("value", value);
 
-        return !query.getResultList().isEmpty();
+        //Assert.isTrue();
+
+        return query.getResultList().isEmpty();
     }
 
 }
