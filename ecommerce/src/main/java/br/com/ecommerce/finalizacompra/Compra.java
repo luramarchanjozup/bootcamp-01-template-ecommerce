@@ -44,11 +44,4 @@ public class Compra {
         return this.gatewayPagamento.criaUrlRetorno(this, uriComponentsBuilder);
     }
 
-    public GatewayPagamento getGatewayPagamento() {
-        return gatewayPagamento;
-    }
-
-    public void setGatewayPagamento(GatewayPagamento gatewayPagamento) {
-        this.gatewayPagamento = gatewayPagamento;
-    }
 }

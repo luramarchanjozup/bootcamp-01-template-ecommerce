@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 
 public class CompraRequest {
 
+
     private Long quantidade;
 
     private GatewayPagamento gatewayPagamento;
@@ -29,26 +30,6 @@ public class CompraRequest {
 
     public Long getQuantidade() {
         return quantidade;
-    }
-
-    public void setQuantidade(Long quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public GatewayPagamento getGatewayPagamento() {
-        return gatewayPagamento;
-    }
-
-    public void setGatewayPagamento(GatewayPagamento gatewayPagamento) {
-        this.gatewayPagamento = gatewayPagamento;
-    }
-
-    public Long getProdutoId() {
-        return produtoId;
-    }
-
-    public void setProdutoId(Long produtoId) {
-        this.produtoId = produtoId;
     }
 
 }

@@ -1,7 +1,6 @@
 package br.com.ecommerce.finalizacompra;
 
 import br.com.ecommerce.cadastroproduto.Produto;
-import br.com.ecommerce.cadastrousuario.Usuario;
 import br.com.ecommerce.cadastrousuario.UsuarioRepository;
 import br.com.ecommerce.seguranca.BuscaEmailDoUsuarioPeloToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.Optional;
 
 
 @RestController
@@ -43,22 +41,17 @@ public class CompraController {
         Produto produtoASerComprado = entityManager.find(Produto.class, produtoId);
 
 
-        if(produtoASerComprado.verificaDisponibilidade(quantidadeSolicitada)){
-
-
-            produtoASerComprado
-                    .atualizaDisponibilidadeEmEstoque(quantidadeSolicitada);
+        if(produtoASerComprado.verificaDisponibilidadeEAtualiza(quantidadeSolicitada)){
 
 
             String emailComprador = buscaEmailDoUsuarioPeloToken
                     .buscaEmailDoUsuario(request);
 
 
-            Optional<Usuario> comprador = usuarioRepository
-                    .findByLogin(emailComprador);
-
-
-            Compra compra = compraRequest.toModel(entityManager, comprador.get());
+            Compra compra = compraRequest.toModel(
+                    entityManager,
+                    usuarioRepository.findByLogin(emailComprador)
+            );
 
 
             entityManager.persist(compra);
@@ -66,12 +59,9 @@ public class CompraController {
 
             return ResponseEntity.ok(compra.urlRedirecionamento(uriComponentsBuilder));
 
-
         }
 
-
         return ResponseEntity.badRequest().build();
-
 
     }
 }

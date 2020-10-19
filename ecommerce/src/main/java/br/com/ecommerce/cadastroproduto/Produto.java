@@ -120,22 +120,15 @@ public class Produto {
 
     }
 
-    public boolean verificaDisponibilidade(Long quantidadeDemandada){
-        return this.quantidadeDisponivel >= quantidadeDemandada;
-    }
 
-    public Long atualizaDisponibilidadeEmEstoque(Long quantidadeDemandada){
+    public boolean verificaDisponibilidadeEAtualiza(Long quantidadeDemandada){
 
-        return this.quantidadeDisponivel = quantidadeDisponivel- quantidadeDemandada;
+        boolean resposta = quantidadeDisponivel >= quantidadeDemandada;
 
-    }
+        this.quantidadeDisponivel = quantidadeDisponivel - quantidadeDemandada;
 
-    public void setQuantidadeDisponivel(Long quantidadeDisponivel) {
-        this.quantidadeDisponivel = quantidadeDisponivel;
-    }
+        return resposta;
 
-    public Long getQuantidadeDisponivel() {
-        return quantidadeDisponivel;
     }
 
     public Usuario getUsuario() {
@@ -164,7 +157,5 @@ public class Produto {
     public String getDescricao() {
         return descricao;
     }
-
-
 
 }

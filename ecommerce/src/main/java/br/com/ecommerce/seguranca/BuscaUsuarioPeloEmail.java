@@ -25,9 +25,9 @@ public class BuscaUsuarioPeloEmail implements UserDetailsService {
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
 
-        Optional<Usuario> usuario = usuarioRepository.findByLogin(username);
+        Usuario usuario = usuarioRepository.findByLogin(username);
 
-        if (!usuario.isPresent()){
+        if (usuario == null){
 
             throw new UsernameNotFoundException(
                     "Não foi possível encontrar usuário com email: "
@@ -35,7 +35,7 @@ public class BuscaUsuarioPeloEmail implements UserDetailsService {
 
         }
 
-        return userDetailsMapper.map(usuario.get());
+        return userDetailsMapper.map(usuario);
 
     }
 }
