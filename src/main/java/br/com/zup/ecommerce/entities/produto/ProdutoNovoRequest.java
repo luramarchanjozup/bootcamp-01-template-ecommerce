@@ -4,7 +4,7 @@ import br.com.zup.ecommerce.entities.categoria.Categoria;
 import br.com.zup.ecommerce.entities.produto.caracteristica.CaracteristicasProduto;
 import br.com.zup.ecommerce.entities.produto.caracteristica.CaracteristicasProdutoNovoRequest;
 import br.com.zup.ecommerce.entities.usuario.Usuario;
-import br.com.zup.ecommerce.validations.ExisteId.ExisteId;
+import br.com.zup.ecommerce.validations.existeId.ExisteId;
 import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;

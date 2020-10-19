@@ -1,6 +1,6 @@
 package br.com.zup.ecommerce.entities.categoria;
 
-import br.com.zup.ecommerce.validations.ExisteId.ExisteId;
+import br.com.zup.ecommerce.validations.existeId.ExisteId;
 import br.com.zup.ecommerce.validations.valorUnico.ValorUnico;
 
 import javax.persistence.EntityManager;

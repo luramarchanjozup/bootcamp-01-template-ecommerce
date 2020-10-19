@@ -1,4 +1,4 @@
-package br.com.zup.ecommerce.validations.ExisteId;
+package br.com.zup.ecommerce.validations.existeId;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

@@ -1,4 +1,4 @@
-package br.com.zup.ecommerce.validations.ExisteId;
+package br.com.zup.ecommerce.validations.existeId;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
