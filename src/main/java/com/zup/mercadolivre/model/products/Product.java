@@ -113,8 +113,15 @@ public class Product {
         return this.quantityInStock;
     }
 
-    public void setQuantityInStock(Integer quantityInStock) {
-        this.quantityInStock = quantityInStock;
+    public void addQuantityInStock(Integer amount) {
+        this.quantityInStock += amount;
+    }
+
+    public void subQuantityInStock(Integer amount) {
+        if (this.quantityInStock < amount) {
+            throw new IllegalArgumentException("No stock available");
+        }
+        this.quantityInStock -= amount;
     }
 
     public List<ProductCharacteristics> getCharacteristics() {

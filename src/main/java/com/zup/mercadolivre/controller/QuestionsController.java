@@ -40,7 +40,7 @@ public class QuestionsController {
         product.setQuestions(form.toQuestion(manager, product));
         manager.persist(product);
         // Uncomment for mail functionality in production
-        //mailService.sendEmailToSeller(product.getOwner().getEmail(), product.getName());
+        //mailService.newQuestionToSeller(product.getOwner().getEmail(), product.getName());
 
         return ResponseEntity.ok().body(product.toDto());
     }

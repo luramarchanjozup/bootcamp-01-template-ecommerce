@@ -3,6 +3,7 @@ package com.zup.mercadolivre.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
 
 /**
  * 
@@ -27,16 +28,25 @@ import org.springframework.mail.javamail.JavaMailSender;
  * @author Matheus
  *   
  */
+@Service
 public class MailService {
     
     @Autowired
     private JavaMailSender mailSender;
 
-    public void sendEmailToSeller(String sellerEmail, String productName) {
+    public void newQuestionToSeller(String sellerEmail, String productName) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(sellerEmail);
         message.setSubject("There's a new question on your product " + productName);
         message.setText("Someone has a question for you about " + productName + ".");
+        mailSender.send(message);
+    }
+
+    public void newProductInterest(String sellerEmail, String productName, Integer amount) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(sellerEmail);
+        message.setSubject("There's someone interested in " + productName);
+        message.setText("Someone just initiated a purchase process in " + amount + productName + ".");
         mailSender.send(message);
     }
 }
