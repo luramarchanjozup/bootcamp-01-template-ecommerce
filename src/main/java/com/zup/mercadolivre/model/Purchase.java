@@ -1,5 +1,7 @@
 package com.zup.mercadolivre.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +27,9 @@ public class Purchase {
     private String gateway;
     @NotNull
     private PurchaseStatus status;
+    
+    private LocalDateTime paymentReturn;
+
 
     @Deprecated
     public Purchase(){}
@@ -83,6 +88,14 @@ public class Purchase {
 
     public void setGateway(String gateway) {
         this.gateway = gateway;
+    }
+
+    public LocalDateTime getPaymentReturn() {
+        return this.paymentReturn;
+    }
+
+    public void setPaymentReturn() {
+        this.paymentReturn = LocalDateTime.now();
     }
 
 }

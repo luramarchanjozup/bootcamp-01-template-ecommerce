@@ -1,12 +1,12 @@
 package com.zup.mercadolivre.controller.form;
 
-public class PaypalResponse {
+public class PagseguroResponse {
     
     private Long productId;
     private Long paymentId;
-    private Integer status;
+    private String status;
 
-    public PaypalResponse(Long productId, Long paymentId, Integer status) {
+    public PagseguroResponse(Long productId, Long paymentId, String status) {
         this.productId = productId;
         this.paymentId = paymentId;
         this.status = status;
@@ -20,18 +20,17 @@ public class PaypalResponse {
         return this.paymentId;
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return this.status;
     }
 
-	public boolean isApproved() {
-		if(this.status.equals(1)) {
+    public boolean isApproved() {
+        if (this.status.equals("SUCESSO")) {
             return true;
-        } else if (this.status.equals(0)) {
+        } else if (this.status.equals("ERRO")) {
             return false;
         } else {
             throw new IllegalArgumentException("Unknown status code");
         }
-	}
-
+    }
 }
