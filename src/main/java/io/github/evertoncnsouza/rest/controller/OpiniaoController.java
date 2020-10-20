@@ -3,9 +3,11 @@ package io.github.evertoncnsouza.rest.controller;
 import io.github.evertoncnsouza.domain.entity.Opiniao;
 import io.github.evertoncnsouza.domain.entity.Produto;
 import io.github.evertoncnsouza.domain.entity.Usuario;
-import io.github.evertoncnsouza.domain.repository.UsuarioRepository;
+import io.github.evertoncnsouza.domain.repository.Usuarios;
 import io.github.evertoncnsouza.rest.dto.OpiniaoRequest;
+import io.github.evertoncnsouza.seguranca.UsuarioLogado;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityManager;
@@ -21,14 +23,14 @@ public class OpiniaoController {
     private EntityManager manager;
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private Usuarios usuarios;
 
     @PostMapping
     @Transactional
     public String save(@RequestBody @Valid OpiniaoRequest request,
-                       @PathVariable("id") Long id){
+                       @PathVariable("id") Long id, @AuthenticationPrincipal UsuarioLogado usuarioLogado){
         Produto produto = manager.find(Produto.class, id);
-        Usuario navegador = usuarioRepository.findByEmail("everton@gmail.com").get();
+        Usuario navegador = usuarioLogado.get();
         Opiniao opiniao = request.toModel(produto, navegador);
         manager.persist(opiniao);
         return opiniao.toString();

@@ -1,4 +1,4 @@
-package io.github.evertoncnsouza.seguranca;
+package io.github.evertoncnsouza.domain.component;
 
 import java.util.Date;
 
@@ -29,7 +29,7 @@ public class TokenManager {
         final Date expiration = new Date(now.getTime() + this.expirationInMillis);
 
         return Jwts.builder()
-                .setIssuer("Desafio jornada dev eficiente mercado livre")
+                .setIssuer("Bootcamp Zup, desafio do E-commerce")
                 .setSubject(user.getUsername())
                 .setIssuedAt(now)
                 .setExpiration(expiration)

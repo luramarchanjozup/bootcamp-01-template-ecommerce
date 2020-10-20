@@ -1,4 +1,4 @@
-package io.github.evertoncnsouza.rest.dto;
+package io.github.evertoncnsouza.Config;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;

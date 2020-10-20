@@ -1,10 +1,12 @@
-package io.github.evertoncnsouza.seguranca;
-
+package io.github.evertoncnsouza.Config;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import io.github.evertoncnsouza.seguranca.JwtAuthenticationFilter;
+import io.github.evertoncnsouza.domain.component.TokenManager;
+import io.github.evertoncnsouza.domain.service.UsersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

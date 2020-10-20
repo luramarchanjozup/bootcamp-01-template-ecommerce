@@ -2,12 +2,12 @@ package io.github.evertoncnsouza.seguranca;
 
 import java.io.IOException;
 import java.util.Optional;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import io.github.evertoncnsouza.domain.component.TokenManager;
+import io.github.evertoncnsouza.domain.service.UsersService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

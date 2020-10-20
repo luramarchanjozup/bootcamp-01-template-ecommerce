@@ -84,6 +84,5 @@ public class ProdutoRequest {
     public Produto toModel(EntityManager manager, Usuario dono){
     Categoria categoria = manager.find(Categoria.class, idCategoria);
     return new Produto(nome, quantidade, descricao,valor, categoria, dono, caracteristicas);
-}
-
+    }
 }

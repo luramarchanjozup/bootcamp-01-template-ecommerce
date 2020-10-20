@@ -1,5 +1,6 @@
 package io.github.evertoncnsouza.domain.entity;
 
+import io.github.evertoncnsouza.rest.dto.SenhaLimpa;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
@@ -13,7 +14,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
+//1 PCI;
 @Entity
 public class Usuario {
 
@@ -31,11 +34,8 @@ public class Usuario {
     @PastOrPresent
     private LocalDateTime instanteCriacao;
 
-
-
     @Deprecated
     public Usuario() {
-
     }
 
     public Usuario(@Email @NotBlank String email,
@@ -48,12 +48,6 @@ public class Usuario {
         this.instanteCriacao = LocalDateTime.now();
     }
 
-    @Override
-    public String toString() {
-        return "Usuario [id=" + id + ", email=" + email + ", senha=" + senha
-                + "]";
-    }
-
     public String getSenha() {
         return senha;
     }
@@ -62,35 +56,26 @@ public class Usuario {
         return this.email;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((email == null) ? 0 : email.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Usuario other = (Usuario) obj;
-        if (email == null) {
-            if (other.email != null)
-                return false;
-        } else if (!email.equals(other.email))
-            return false;
-        return true;
-    }
-
     public Long getId() {
         return this.id;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Usuario)) return false;
+        Usuario usuario = (Usuario) o;
+        return Objects.equals(getEmail(), usuario.getEmail());
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getEmail());
+    }
 
+    @Override
+    public String toString() {
+        return "Usuario [id=" + id + ", email=" + email + ", senha=" + senha
+                + "]";
+    }
 }

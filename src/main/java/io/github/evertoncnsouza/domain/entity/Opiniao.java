@@ -38,7 +38,6 @@ public class Opiniao {
     public Opiniao() {
     }
 
-
     public Opiniao(@Min(1) @Max(5) int nota,
                    @NotBlank String titulo,
                    @NotBlank @Size(max = 500) String descricao,
@@ -63,18 +62,6 @@ public class Opiniao {
     }
 
     @Override
-    public String toString() {
-        return "Opiniao{" +
-                "id=" + id +
-                ", nota=" + nota +
-                ", titulo='" + titulo + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", produto=" + produto +
-                ", navegador=" + navegador +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Opiniao)) return false;
@@ -90,6 +77,16 @@ public class Opiniao {
     public int hashCode() {
         return Objects.hash(getNota(), getTitulo(), getDescricao(), produto, navegador);
     }
+
+    @Override
+    public String toString() {
+        return "Opiniao{" +
+                "id=" + id +
+                ", nota=" + nota +
+                ", titulo='" + titulo + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", produto=" + produto +
+                ", navegador=" + navegador +
+                '}';
+    }
 }
-
-

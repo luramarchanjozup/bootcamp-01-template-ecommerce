@@ -1,9 +1,10 @@
-package io.github.evertoncnsouza.seguranca;
+package io.github.evertoncnsouza.domain.service;
 
 
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import io.github.evertoncnsouza.domain.repository.UserDetailsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;

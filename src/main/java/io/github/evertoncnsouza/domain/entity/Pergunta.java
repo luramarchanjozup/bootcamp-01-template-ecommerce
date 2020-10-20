@@ -7,8 +7,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+//2 PCI's
 @Entity
-public class Pergunta implements Comparable <Pergunta> {
+public class Pergunta  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +30,7 @@ public class Pergunta implements Comparable <Pergunta> {
 
     private LocalDate instanteCriacao;
 
+    @Deprecated
     public Pergunta() {
     }
 
@@ -68,11 +70,6 @@ public class Pergunta implements Comparable <Pergunta> {
     @Override
     public int hashCode() {
         return Objects.hash(titulo, produto, getNavegador());
-    }
-
-    @Override
-    public int compareTo(Pergunta o) {
-        return this.titulo.compareTo(o.titulo);
     }
 
     @Override

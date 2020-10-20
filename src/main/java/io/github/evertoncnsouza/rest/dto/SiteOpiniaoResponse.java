@@ -19,7 +19,6 @@ public class SiteOpiniaoResponse {
         return this.opinioes.stream().map(funcaMapeadora)
                 .collect(Collectors.toSet());
     }
-
     public double media() {
         Set<Integer> notas = mapeiaOpinioes(opiniao -> opiniao.getNota());
         OptionalDouble possivelMedia = notas.stream().mapToInt(nota -> nota).average();

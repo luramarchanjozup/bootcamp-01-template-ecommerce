@@ -1,12 +1,14 @@
-package io.github.evertoncnsouza.rest.controller;
+package io.github.evertoncnsouza.rest.dto;
 
 
 import io.github.evertoncnsouza.domain.entity.Compra;
-
+import io.github.evertoncnsouza.domain.repository.RetornoGatewayPagamento;
+import io.github.evertoncnsouza.domain.enums.StatusRetornoPagseguro;
+import io.github.evertoncnsouza.domain.entity.Transacao;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-public class RetornoPagSeguroRequest {
+public class RetornoPagSeguroRequest implements RetornoGatewayPagamento {
 
     @NotBlank
     private String idTransacao;

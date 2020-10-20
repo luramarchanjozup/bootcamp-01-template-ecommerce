@@ -1,5 +1,7 @@
 package io.github.evertoncnsouza.rest.dto;
 
+import io.github.evertoncnsouza.domain.enums.GatewayPagamento;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -16,6 +18,7 @@ public class CompraRequest {
 
     public CompraRequest(@Positive int quantidade, @NotNull Long idProduto,
                          GatewayPagamento gateway) {
+        super();
         this.quantidade = quantidade;
         this.idProduto = idProduto;
         this.gateway = gateway;

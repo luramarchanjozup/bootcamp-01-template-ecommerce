@@ -14,8 +14,6 @@ public class PerguntaRequest {
         @NotBlank
         private String titulo;
 
-
-
     public PerguntaRequest(@NotBlank String titulo,
                            @NotNull @Valid Long idProduto) {
         super();

@@ -3,10 +3,12 @@ package io.github.evertoncnsouza.rest.controller;
 import io.github.evertoncnsouza.domain.entity.Pergunta;
 import io.github.evertoncnsouza.domain.entity.Produto;
 import io.github.evertoncnsouza.domain.entity.Usuario;
-import io.github.evertoncnsouza.domain.repository.UsuarioRepository;
-import io.github.evertoncnsouza.rest.dto.Emails;
+import io.github.evertoncnsouza.domain.repository.Usuarios;
+import io.github.evertoncnsouza.domain.service.Emails;
 import io.github.evertoncnsouza.rest.dto.PerguntaRequest;
+import io.github.evertoncnsouza.seguranca.UsuarioLogado;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityManager;
@@ -22,24 +24,20 @@ public class PerguntaController {
         private EntityManager manager;
 
         @Autowired
-        private UsuarioRepository usuarioRepository;
+        private Usuarios usuarios;
 
         @Autowired
         private Emails emails;
 
-
         @PostMapping
         @Transactional
         public String save(@RequestBody @Valid PerguntaRequest request,
-                           @PathVariable("id") Long id){
+                           @PathVariable("id") Long id, @AuthenticationPrincipal UsuarioLogado usuarioLogado){
             Produto produto = manager.find(Produto.class, id);
-            Usuario navegador = usuarioRepository.findByEmail("everton@gmail.com").get();
+            Usuario navegador = usuarioLogado.get();
             Pergunta pergunta = request.toModel(produto, navegador);
             manager.persist(pergunta);
             emails.pergunta(pergunta);
             return pergunta.toString();
-
-
         }
-
     }

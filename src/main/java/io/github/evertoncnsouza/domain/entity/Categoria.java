@@ -1,6 +1,7 @@
 package io.github.evertoncnsouza.domain.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 //Não tem PCI
@@ -11,7 +12,7 @@ import javax.validation.constraints.NotEmpty;
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
 
-        @NotEmpty(message = "{nome.categoria.obrigatorio}")
+        @NotBlank(message = "{nome.categoria.obrigatorio}")
         @Column(unique = true)
         private String nome;
 

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+//1 PCI;
 @Component
 @Primary
 public class FakeMailer implements Mailer {
@@ -21,6 +22,5 @@ public class FakeMailer implements Mailer {
         System.out.println(nameFrom);
         System.out.println(from);
         System.out.println(to);
-
     }
 }

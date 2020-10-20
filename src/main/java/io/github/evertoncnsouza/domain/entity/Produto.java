@@ -20,7 +20,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-//6 PCI's
+//7 PCI's
 @Entity
 public class Produto {
 
@@ -67,8 +67,7 @@ public class Produto {
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private Set<Opiniao> opinioes = new HashSet<>();
 
-    @OneToMany(mappedBy = "produto")
-    @OrderBy("titulo asc")
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private Set<Pergunta> perguntas = new HashSet<>();
 
     @Deprecated
@@ -107,7 +106,6 @@ public class Produto {
     public int hashCode() {
         return Objects.hash(getNome());
     }
-
 
     public Long getId() {
         return id;
@@ -149,6 +147,7 @@ public class Produto {
         return this.dono.equals(possivelDono);
     }
 
+
     public <T> Set<T> mapeiaCaracteristicas(
             Function<CaracteristicaProduto, T> funcaoMapeadora) {
         return this.caracteristicas.stream().map(funcaoMapeadora)
@@ -187,7 +186,7 @@ public class Produto {
 
                 '}';
     }
-
+    //PCI 7;
     public boolean abataEstoque(@Positive int quantidade) {
         Assert.isTrue(quantidade>0, "Quantidade necessita ser maior que zero");
         if(quantidade<= this.quantidade) {

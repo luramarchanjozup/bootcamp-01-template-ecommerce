@@ -4,7 +4,6 @@ import io.github.evertoncnsouza.domain.entity.Usuario;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Collection;
@@ -20,8 +19,6 @@ public class UsuarioLogado implements UserDetails {
         springUserDetails = new User(usuario.getEmail(), usuario.getSenha(), List.of());
     }
 
-
-
     public Collection<GrantedAuthority> getAuthorities() {
         return springUserDetails.getAuthorities();
     }
@@ -33,11 +30,9 @@ public class UsuarioLogado implements UserDetails {
     }
 
 
-
     public String getUsername() {
         return springUserDetails.getUsername();
     }
-
 
 
     public boolean isEnabled() {
@@ -45,11 +40,9 @@ public class UsuarioLogado implements UserDetails {
     }
 
 
-
     public boolean isAccountNonExpired() {
         return springUserDetails.isAccountNonExpired();
     }
-
 
 
     public boolean isAccountNonLocked() {
@@ -57,11 +50,9 @@ public class UsuarioLogado implements UserDetails {
     }
 
 
-
     public boolean isCredentialsNonExpired() {
         return springUserDetails.isCredentialsNonExpired();
     }
-
 
 
     public Usuario get() {

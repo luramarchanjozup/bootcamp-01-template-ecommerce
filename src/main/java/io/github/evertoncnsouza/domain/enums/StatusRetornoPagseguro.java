@@ -1,8 +1,8 @@
-package io.github.evertoncnsouza.rest.controller;
+package io.github.evertoncnsouza.domain.enums;
 
 public enum StatusRetornoPagseguro {
 
-    SUCESSO, ERRO;
+    SUCESSO,ERRO;
 
     public StatusTransacao normaliza() {
         if(this.equals(SUCESSO)) {

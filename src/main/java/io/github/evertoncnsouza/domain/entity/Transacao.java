@@ -1,7 +1,6 @@
-package io.github.evertoncnsouza.rest.controller;
+package io.github.evertoncnsouza.domain.entity;
 
-import io.github.evertoncnsouza.domain.entity.Compra;
-
+import io.github.evertoncnsouza.domain.enums.StatusTransacao;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -9,13 +8,13 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+//3 PCI's
 @Entity
 public class Transacao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
 
     @NotNull
     private StatusTransacao status;
@@ -26,24 +25,34 @@ public class Transacao {
     @NotNull
     private LocalDateTime instante;
 
+    @ManyToOne
     @NotNull
     @Valid
-    @ManyToOne
     private Compra compra;
 
     @Deprecated
     public Transacao() {
+
     }
 
     public Transacao(@NotNull StatusTransacao status,
-                     @NotBlank String idTransacaoGateway,
-                                @NotNull @Valid Compra compra) {
+                     @NotBlank String idTransacaoGateway, @NotNull @Valid Compra compra) {
         this.status = status;
         this.idTransacaoGateway = idTransacaoGateway;
-        this.instante = LocalDateTime.now();
         this.compra = compra;
+        this.instante = LocalDateTime.now();
     }
 
+    public boolean concluidaComSucesso() {
+        return this.status.equals(StatusTransacao.sucesso);
+    }
+
+    @Override
+    public String toString() {
+        return "Transacao [id=" + id + ", status=" + status
+                + ", idTransacaoGateway=" + idTransacaoGateway + ", instante="
+                + instante + "]";
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -53,24 +62,8 @@ public class Transacao {
         return Objects.equals(idTransacaoGateway, transacao.idTransacaoGateway);
     }
 
-    public boolean concluidaComSucesso(){
-        return this.status.equals(StatusTransacao.sucesso);
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(idTransacaoGateway);
-    }
-
-
-
-    @Override
-    public String toString() {
-        return "Transacao{" +
-                "id=" + id +
-                ", status=" + status +
-                ", idTransacaoGateway='" + idTransacaoGateway + '\'' +
-                ", instante=" + instante +
-                        '}';
     }
 }

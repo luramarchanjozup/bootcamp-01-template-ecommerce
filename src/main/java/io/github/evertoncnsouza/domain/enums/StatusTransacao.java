@@ -1,4 +1,4 @@
-package io.github.evertoncnsouza.rest.controller;
+package io.github.evertoncnsouza.domain.enums;
 
 public enum StatusTransacao {
 

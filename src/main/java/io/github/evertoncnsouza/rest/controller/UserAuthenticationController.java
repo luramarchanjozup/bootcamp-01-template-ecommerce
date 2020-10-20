@@ -1,5 +1,7 @@
-package io.github.evertoncnsouza.seguranca;
+package io.github.evertoncnsouza.rest.controller;
 
+import io.github.evertoncnsouza.seguranca.LoginInputDto;
+import io.github.evertoncnsouza.domain.component.TokenManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
