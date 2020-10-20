@@ -4,19 +4,26 @@ import br.com.zup.ecommerce.entities.categoria.Categoria;
 import br.com.zup.ecommerce.entities.produto.caracteristica.CaracteristicasProduto;
 import br.com.zup.ecommerce.entities.produto.caracteristica.CaracteristicasProdutoNovoRequest;
 import br.com.zup.ecommerce.entities.produto.imagem.ImagemProduto;
+import br.com.zup.ecommerce.entities.produto.opiniao.OpiniaoProduto;
+import br.com.zup.ecommerce.entities.produto.opiniao.OpiniaoProdutoNovoRequest;
 import br.com.zup.ecommerce.entities.usuario.Usuario;
+import br.com.zup.ecommerce.security.UsuarioLogado;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Contagem de carga intrínseca da classe: 7
+ * Contagem de carga intrínseca da classe: 8
  */
 
 @Entity
@@ -60,6 +67,10 @@ public class Produto {
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     //1
     private Set<ImagemProduto> imagens = new HashSet<>();
+
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+    //1
+    private List<OpiniaoProduto> opinioes = new ArrayList<>();
 
     private LocalDateTime dataCadastro = LocalDateTime.now();
 
@@ -130,6 +141,10 @@ public class Produto {
         return imagens;
     }
 
+    public List<OpiniaoProduto> getOpinioes() {
+        return opinioes;
+    }
+
     public void incluirImagens(Set<String> imagens) {
         //1
         Set<ImagemProduto> imagensProduto = imagens.stream()
@@ -139,8 +154,17 @@ public class Produto {
         this.imagens.addAll(imagensProduto);
     }
 
-    public boolean isDono(Long id, EntityManager manager) {
-        Usuario usuario = manager.find(Usuario.class,id);
+    public void incluirOpinioes(OpiniaoProdutoNovoRequest opiniao) {
+        this.opinioes.add(opiniao.toModel(this));
+    }
+
+    public boolean isDonoLogado(EntityManager manager) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //1
+        UsuarioLogado userDetails = (UsuarioLogado) authentication.getPrincipal();
+
+        Usuario usuario = manager.find(Usuario.class,userDetails.getUsuario().getId());
         return this.dono.equals(usuario);
     }
 }

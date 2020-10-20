@@ -3,14 +3,12 @@ package br.com.zup.ecommerce.controllers;
 import br.com.zup.ecommerce.entities.produto.Produto;
 import br.com.zup.ecommerce.entities.produto.ProdutoNovoRequest;
 import br.com.zup.ecommerce.entities.produto.imagem.ImagensNovoRequest;
-import br.com.zup.ecommerce.security.UsuarioLogado;
+import br.com.zup.ecommerce.entities.produto.opiniao.OpiniaoProdutoNovoRequest;
 import br.com.zup.ecommerce.service.Uploader;
 import br.com.zup.ecommerce.validations.produto.CaracteristicasSemRepeticaoValidacao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -22,7 +20,7 @@ import javax.validation.Valid;
 import java.util.Set;
 
 /**
- * Contagem de carga intrínseca da classe: 7
+ * Contagem de carga intrínseca da classe: 8
  */
 
 @RestController
@@ -46,15 +44,10 @@ public class ProdutoController {
     @Transactional
     //1
     public ResponseEntity<String> cadastroProdutos(@RequestBody @Valid ProdutoNovoRequest novoProduto) {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //1
-        UsuarioLogado userDetails = (UsuarioLogado) authentication.getPrincipal();
-
-        //1
-        Produto produto = novoProduto.toModel(manager, userDetails.getUsuario());
+        Produto produto = novoProduto.toModel(manager);
         manager.persist(produto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Produto " +produto.getId()+" cadastrado");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Produto " +produto.getId()+" cadastrado.");
     }
 
     @PostMapping("{id}/imagens")
@@ -64,20 +57,40 @@ public class ProdutoController {
 
         Set<String> links = uploader.enviaImagens(novasImagens.getImagens());
 
-        Produto produto = manager.find(Produto.class, id);
+        Produto produto = this.getProduto(id);
+
         produto.incluirImagens(links);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UsuarioLogado userDetails = (UsuarioLogado) authentication.getPrincipal();
-
         //1
-        if(!produto.isDono(userDetails.getUsuario().getId(), manager)) {
+        if(!produto.isDonoLogado(manager)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
 
         manager.merge(produto);
 
         return ResponseEntity.ok(links.toString());
+    }
+
+    @PostMapping("{id}/opinioes")
+    @Transactional
+    //1
+    public ResponseEntity<String> envioOpnioes(@PathVariable("id") Long id, @RequestBody @Valid OpiniaoProdutoNovoRequest novaOpiniao) {
+
+        Produto produto = this.getProduto(id);
+        produto.incluirOpinioes(novaOpiniao);
+        manager.merge(produto);
+        Long opiniaoId = produto.getOpinioes().get(produto.getOpinioes().size() - 1).getId();
+        return ResponseEntity.ok("Opinião " + opiniaoId  +" cadastrada.");
+    }
+
+
+    private Produto getProduto(Long id) {
+        Produto produto = manager.find(Produto.class, id);
+        //1
+        if(produto == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return produto;
     }
 
 }
