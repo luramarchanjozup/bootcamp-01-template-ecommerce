@@ -2,21 +2,27 @@ package com.github.marcoscoutozup.ecommerce.compra.tentativadepagamento;
 
 import com.github.marcoscoutozup.ecommerce.compra.enums.StatusPagamento;
 import com.github.marcoscoutozup.ecommerce.validator.transacao.Transacao;
+import jdk.jshell.Snippet;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
-public class TentativaDePagamentoDTO {
+public class PaypalDTO implements TentativaDePagamentoInterface {
 
     @NotNull
     @Transacao
     private UUID transacao;
 
     @NotNull //1
-    private StatusPagamento statusPagamento;
+    @Max(1)
+    @Min(0)
+    private Integer statusPagamento;
 
-                //2
-    public TentativaDePagamento toModel(){
+    @Override
+    public TentativaDePagamento toTentativaDePagamento() {
+        StatusPagamento statusPagamento = this.statusPagamento == 0 ? StatusPagamento.FALHA : StatusPagamento.SUCESSO;
         return new TentativaDePagamento(transacao, statusPagamento);
     }
 
@@ -28,13 +34,11 @@ public class TentativaDePagamentoDTO {
         this.transacao = transacao;
     }
 
-    public StatusPagamento getStatusPagamento() {
+    public Integer getStatusPagamento() {
         return statusPagamento;
     }
 
-    public void setStatusPagamento(StatusPagamento statusPagamento) {
+    public void setStatusPagamento(Integer statusPagamento) {
         this.statusPagamento = statusPagamento;
     }
-
-
 }

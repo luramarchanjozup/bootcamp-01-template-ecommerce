@@ -7,9 +7,9 @@ import java.util.stream.Stream;
 public enum GatewayDePagamento {
 
                 //1
-    PAYPAL((id, urlBase) -> "paypal.com/" + id + "?redirectUrl=" + urlBase + "/pagamento/" + id),
+    PAYPAL((id, urlBase) -> "paypal.com/" + id + "?redirectUrl=" + urlBase + "/pagamento/paypal/" + id),
                     //2
-    PAGSEGURO((id, urlBase) -> "pagseguro.com/?returnId=" + id + "&redirectUrl=" + urlBase + "/pagamento/" + id);
+    PAGSEGURO((id, urlBase) -> "pagseguro.com/?returnId=" + id + "&redirectUrl=" + urlBase + "/pagamento/pagseguro/" + id);
 
             //3
     public Pagamento instanciaDoGatewayDePagamento;
