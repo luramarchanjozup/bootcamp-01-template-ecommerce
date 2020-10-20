@@ -3,6 +3,7 @@ package com.github.marcoscoutozup.ecommerce.compra;
 import com.github.marcoscoutozup.ecommerce.compra.enums.GatewayDePagamento;
 import com.github.marcoscoutozup.ecommerce.compra.enums.StatusCompra;
 import com.github.marcoscoutozup.ecommerce.compra.tentativadepagamento.TentativaDePagamento;
+import com.github.marcoscoutozup.ecommerce.compra.tentativadepagamento.TentativaDePagamentoInterface;
 import com.github.marcoscoutozup.ecommerce.produto.Produto;
 import com.github.marcoscoutozup.ecommerce.usuario.Usuario;
 import io.jsonwebtoken.lang.Assert;
