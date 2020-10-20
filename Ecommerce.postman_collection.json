@@ -1,0 +1,426 @@
+{
+	"info": {
+		"_postman_id": "cff06ac7-6834-4cef-9797-023e3e566575",
+		"name": "Ecommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "Cadastrar Usuário",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"marcos@email.com.br\",\r\n    \"senha\" : \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/usuario",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"usuario"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Categoria",
+			"item": [
+				{
+					"name": "Cadastrar Categoria",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Categoria 3\",\r\n    \"categoria\": \"1806b9c2-9711-49b3-9dbb-cc0d04108f57\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/categoria",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"categoria"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"marcos@email.com.br\",\r\n    \"senha\" : \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Produto",
+			"item": [
+				{
+					"name": "Cadastrar Produto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Produto 2\",\r\n    \"preco\": 29.9,\r\n    \"categoria\": \"f841f6b1-582c-45c4-a711-8249c07fd550\",\r\n    \"descricao\": \"descricao 2\",\r\n    \"quantidade\": 20,\r\n    \"caracteristicas\": [\r\n        {\r\n            \"titulo\": \"Caracteristica 1\",\r\n            \"caracteristica\": \"Valor 1\"\r\n        },\r\n        {\r\n            \"titulo\": \"Caracteristica 2\",\r\n            \"caracteristica\": \"Valor 2\"\r\n        },\r\n        {\r\n            \"titulo\": \"Caracteristica 3\",\r\n            \"caracteristica\": \"Valor 3\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/produto",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"produto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar Fotos no Produto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"imagens\": [\r\n        \"cloud.com/photo1.jpg\",\r\n        \"cloud.com/photo2.jpg\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/produto/adicionarimagens/98901196-33ef-4c1c-99f2-fbc291e15ba7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"produto",
+								"adicionarimagens",
+								"98901196-33ef-4c1c-99f2-fbc291e15ba7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar Opinião sobre o Produto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"Produto é show\",\r\n    \"descricao\": \"Esse produto é show\",\r\n    \"nota\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/produto/adicionaropiniao/98901196-33ef-4c1c-99f2-fbc291e15ba7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"produto",
+								"adicionaropiniao",
+								"98901196-33ef-4c1c-99f2-fbc291e15ba7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar Pergunta ao Produto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"Desconto\",\r\n    \"pergunta\": \"Tem desconto este produto?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/produto/adicionarpergunta/98901196-33ef-4c1c-99f2-fbc291e15ba7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"produto",
+								"adicionarpergunta",
+								"98901196-33ef-4c1c-99f2-fbc291e15ba7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exibir Detalhes do Produto",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/produto/98901196-33ef-4c1c-99f2-fbc291e15ba7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"produto",
+								"98901196-33ef-4c1c-99f2-fbc291e15ba7"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Compra",
+			"item": [
+				{
+					"name": "Efetuar Compra",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quantidade\": 2,\r\n    \"gatewayDePagamento\": \"PAYPAL\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/compra/produto/98901196-33ef-4c1c-99f2-fbc291e15ba7",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"compra",
+								"produto",
+								"98901196-33ef-4c1c-99f2-fbc291e15ba7"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Pagamento",
+			"item": [
+				{
+					"name": "PagSeguro",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"transacao\": \"04b9fbbb-6bae-4df7-956b-37ccf520493e\",\r\n    \"statusPagamento\": \"SUCESSO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/pagamento/pagseguro/c2235986-c9ed-4d06-9c1e-ca45b06d5a2b",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"pagamento",
+								"pagseguro",
+								"c2235986-c9ed-4d06-9c1e-ca45b06d5a2b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PayPal",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"transacao\": \"04b9fbbb-6bae-4df7-956b-37ccf520493f\",\r\n    \"statusPagamento\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/pagamento/paypal/b7511fd6-0272-44d6-b8b9-308752766fce",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"pagamento",
+								"paypal",
+								"b7511fd6-0272-44d6-b8b9-308752766fce"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
