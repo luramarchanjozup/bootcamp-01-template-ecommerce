@@ -1,4 +1,4 @@
-package br.com.treino.ecommerce.encoder;
+package br.com.treino.ecommerce.util;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 

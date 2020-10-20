@@ -8,7 +8,10 @@ import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class Produto {
@@ -20,14 +23,16 @@ public class Produto {
     private @Positive BigDecimal valor;
     private @Min(1) Integer quantidade;
     @ManyToOne
-    private @NotNull Categoria categoria; //
+    private @NotNull Categoria categoria; //1
     @Length(max = 1000)
     private @NotBlank String descricao;
     @ElementCollection
     @NotNull @Size(min = 3)
-    private List<Caracteristica> caracteristicas = new ArrayList<>(); //1
+    private List<Caracteristica> caracteristicas = new ArrayList<>(); //2
     @ManyToOne
-    private @NotNull @Valid Usuario dono; //2
+    private @NotNull @Valid Usuario dono; //3
+    @ElementCollection
+    private Set<ImagemProduto> imagemProduto = new HashSet<>(); //4
     private @NotNull LocalDateTime instanteCriacao;
 
     @Deprecated
@@ -47,6 +52,17 @@ public class Produto {
         this.instanteCriacao = LocalDateTime.now();
     }
 
+    public void associarImagem(Set<String> links) {
+        Set<ImagemProduto> imagens = links.stream()
+                .map(link -> new ImagemProduto(link)) //5
+                .collect(Collectors.toSet());
+        this.imagemProduto.addAll(imagens);
+    }
+
+    public boolean produtoPertenceUsuario(String email) {
+        return dono.getEmail().equals(email);
+    }
+
     @Override
     public String toString() {
         return "Produto{" +
@@ -61,5 +77,7 @@ public class Produto {
                 ", instanteCriacao=" + instanteCriacao +
                 '}';
     }
+
+
 
 }

@@ -1,6 +1,6 @@
 package br.com.treino.ecommerce.model;
 
-import br.com.treino.ecommerce.encoder.SenhaEncoder;
+import br.com.treino.ecommerce.util.SenhaEncoder;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Entity;
