@@ -7,9 +7,6 @@ import br.com.zup.ecommerce.entities.produto.imagem.ImagemProduto;
 import br.com.zup.ecommerce.entities.produto.opiniao.OpiniaoProduto;
 import br.com.zup.ecommerce.entities.produto.opiniao.OpiniaoProdutoNovoRequest;
 import br.com.zup.ecommerce.entities.usuario.Usuario;
-import br.com.zup.ecommerce.security.UsuarioLogado;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -158,13 +155,7 @@ public class Produto {
         this.opinioes.add(opiniao.toModel(this));
     }
 
-    public boolean isDonoLogado(EntityManager manager) {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        //1
-        UsuarioLogado userDetails = (UsuarioLogado) authentication.getPrincipal();
-
-        Usuario usuario = manager.find(Usuario.class,userDetails.getUsuario().getId());
+    public boolean isDonoLogado(EntityManager manager, Usuario usuario) {
         return this.dono.equals(usuario);
     }
 }

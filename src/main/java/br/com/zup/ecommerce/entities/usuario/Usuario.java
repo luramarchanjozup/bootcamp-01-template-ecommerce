@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * Contagem de carga intrínseca da classe:1
@@ -51,5 +52,21 @@ public class Usuario {
 
     public String getSenha() {
         return senha;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Usuario)) return false;
+        Usuario usuario = (Usuario) o;
+        return id.equals(usuario.id) &&
+                login.equals(usuario.login) &&
+                senha.equals(usuario.senha) &&
+                dataCadastro.equals(usuario.dataCadastro);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, login, senha, dataCadastro);
     }
 }

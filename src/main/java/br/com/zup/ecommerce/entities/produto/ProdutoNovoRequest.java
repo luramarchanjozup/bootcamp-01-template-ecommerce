@@ -3,11 +3,8 @@ package br.com.zup.ecommerce.entities.produto;
 import br.com.zup.ecommerce.entities.categoria.Categoria;
 import br.com.zup.ecommerce.entities.produto.caracteristica.CaracteristicasProdutoNovoRequest;
 import br.com.zup.ecommerce.entities.usuario.Usuario;
-import br.com.zup.ecommerce.security.UsuarioLogado;
 import br.com.zup.ecommerce.validations.existeId.ExisteId;
 import br.com.zup.ecommerce.validations.valorUnico.ValorUnico;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
@@ -73,13 +70,8 @@ public class ProdutoNovoRequest {
         return categoriaId;
     }
 
-    //1
-    public Produto toModel(EntityManager manager){
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        //1
-        UsuarioLogado userDetails = (UsuarioLogado) authentication.getPrincipal();
-        Usuario dono = userDetails.getUsuario();
+    //2
+    public Produto toModel(EntityManager manager, Usuario dono){
 
         Categoria categoria = manager.find(Categoria.class, this.categoriaId);
         Assert.notNull(categoria, "Categoria não encontrada");
