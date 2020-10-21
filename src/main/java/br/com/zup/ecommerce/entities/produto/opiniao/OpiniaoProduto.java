@@ -50,6 +50,17 @@ public class OpiniaoProduto {
         this.produto = produto;
     }
 
+    public OpiniaoProduto(@NotNull @Min(1) @Max(5) int nota, @NotBlank String titulo, @NotBlank @Size(max = 500, message = "deve ter tamanho igual ou menor que 500") String descricao, @NotNull Usuario usuario) {
+        this.nota = nota;
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.usuario = usuario;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
     public Long getId() {
         return id;
     }

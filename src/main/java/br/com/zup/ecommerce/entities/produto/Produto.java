@@ -5,7 +5,7 @@ import br.com.zup.ecommerce.entities.produto.caracteristica.CaracteristicasProdu
 import br.com.zup.ecommerce.entities.produto.caracteristica.CaracteristicasProdutoNovoRequest;
 import br.com.zup.ecommerce.entities.produto.imagem.ImagemProduto;
 import br.com.zup.ecommerce.entities.produto.opiniao.OpiniaoProduto;
-import br.com.zup.ecommerce.entities.produto.opiniao.OpiniaoProdutoNovoRequest;
+import br.com.zup.ecommerce.entities.produto.pergunta.PerguntaProduto;
 import br.com.zup.ecommerce.entities.usuario.Usuario;
 
 import javax.persistence.*;
@@ -20,7 +20,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Contagem de carga intrínseca da classe: 8
+ * Contagem de carga intrínseca da classe: 9
  */
 
 @Entity
@@ -68,6 +68,10 @@ public class Produto {
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     //1
     private List<OpiniaoProduto> opinioes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+    //1
+    private List<PerguntaProduto> perguntas = new ArrayList<>();
 
     private LocalDateTime dataCadastro = LocalDateTime.now();
 
@@ -142,6 +146,10 @@ public class Produto {
         return opinioes;
     }
 
+    public List<PerguntaProduto> getPerguntas() {
+        return perguntas;
+    }
+
     public void incluirImagens(Set<String> imagens) {
         //1
         Set<ImagemProduto> imagensProduto = imagens.stream()
@@ -151,8 +159,15 @@ public class Produto {
         this.imagens.addAll(imagensProduto);
     }
 
-    public void incluirOpinioes(OpiniaoProdutoNovoRequest opiniao) {
-        this.opinioes.add(opiniao.toModel(this));
+
+    public void incluirOpinioes(OpiniaoProduto opiniao) {
+        opiniao.setProduto(this);
+        this.opinioes.add(opiniao);
+    }
+
+    public void incluirPerguntas(PerguntaProduto pergunta) {
+        pergunta.setProduto(this);
+        this.perguntas.add(pergunta);
     }
 
     public boolean isDonoLogado(EntityManager manager, Usuario usuario) {

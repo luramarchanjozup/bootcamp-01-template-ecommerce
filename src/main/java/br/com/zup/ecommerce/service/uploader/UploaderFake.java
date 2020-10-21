@@ -1,4 +1,4 @@
-package br.com.zup.ecommerce.service;
+package br.com.zup.ecommerce.service.uploader;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;

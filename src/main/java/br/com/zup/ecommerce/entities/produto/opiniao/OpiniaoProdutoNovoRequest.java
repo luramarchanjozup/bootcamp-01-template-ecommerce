@@ -1,10 +1,6 @@
 package br.com.zup.ecommerce.entities.produto.opiniao;
 
-import br.com.zup.ecommerce.entities.produto.Produto;
 import br.com.zup.ecommerce.entities.usuario.Usuario;
-import br.com.zup.ecommerce.security.UsuarioLogado;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.validation.constraints.*;
 
@@ -38,13 +34,8 @@ public class OpiniaoProdutoNovoRequest {
         return descricao;
     }
 
-    //1
-    public OpiniaoProduto toModel(Produto produto) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        //1
-        UsuarioLogado userDetails = (UsuarioLogado) authentication.getPrincipal();
-        Usuario usuario = userDetails.getUsuario();
-
-        return new OpiniaoProduto(nota,titulo,descricao,usuario, produto);
+    //2
+    public OpiniaoProduto toModelSemProduto(Usuario usuario) {
+        return new OpiniaoProduto(nota,titulo,descricao,usuario);
     }
 }
