@@ -27,4 +27,5 @@ public class RetornoPagseguroRequest implements RetornoGatewayPagamento {
         return new Transacao(statusNormalizado, transacaoId, compra);
 
     }
+
 }

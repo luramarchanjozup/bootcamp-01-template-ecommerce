@@ -30,14 +30,14 @@ public class ProcessadorCompraController {
                                              @RequestBody @Valid RetornoPaypalRequest retornoPaypalRequest){
 
 
-        String pagamentoProcesso = processaCompra
+        String pagamentoProcessado = processaCompra
                 .processa(id, retornoPaypalRequest, entityManager);
 
-
-        return ResponseEntity.ok(pagamentoProcesso);
+        return ResponseEntity.ok(pagamentoProcessado);
 
 
     }
+
 
 
     @PostMapping("/retorno-pagseguro/{id}")
@@ -45,14 +45,13 @@ public class ProcessadorCompraController {
     public ResponseEntity<?> pagamentoPagseguro(@PathVariable Long id,
                                                 @RequestBody @Valid RetornoPagseguroRequest retornoPagseguroRequest){
 
-
-        String pagamentoProcesso = processaCompra
+        String pagamentoProcessado = processaCompra
                 .processa(id, retornoPagseguroRequest, entityManager);
 
-
-        return ResponseEntity.ok(pagamentoProcesso);
+        return ResponseEntity.ok(pagamentoProcessado);
 
     }
+
 
 
 }

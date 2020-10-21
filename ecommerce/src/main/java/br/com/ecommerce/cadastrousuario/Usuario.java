@@ -2,8 +2,6 @@ package br.com.ecommerce.cadastrousuario;
 
 import br.com.ecommerce.adicionaropiniao.Opiniao;
 import br.com.ecommerce.cadastroproduto.Produto;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
