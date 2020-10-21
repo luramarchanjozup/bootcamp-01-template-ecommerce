@@ -47,6 +47,13 @@ public class Usuario {
 
     }
 
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "login='" + login + '\'' +
+                '}';
+    }
+
     public Long getId() {
         return id;
     }

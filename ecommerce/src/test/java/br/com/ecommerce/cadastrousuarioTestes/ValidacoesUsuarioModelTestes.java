@@ -16,7 +16,7 @@ import java.util.Set;
 import static org.junit.Assert.*;
 
 
-public class EmailDoUsuarioDeveTerFormatoValido {
+public class ValidacoesUsuarioModelTestes {
 
     private Validator validator;
 
@@ -50,4 +50,5 @@ public class EmailDoUsuarioDeveTerFormatoValido {
         assertFalse(violations.isEmpty());
 
     }
+
 }

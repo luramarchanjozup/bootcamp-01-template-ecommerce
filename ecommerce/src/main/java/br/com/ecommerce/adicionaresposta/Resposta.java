@@ -3,6 +3,7 @@ package br.com.ecommerce.adicionaresposta;
 import br.com.ecommerce.fazerpergunta.Pergunta;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -12,6 +13,7 @@ public class Resposta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String conteudo;
 
     @ManyToOne
