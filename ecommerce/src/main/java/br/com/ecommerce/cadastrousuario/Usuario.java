@@ -60,4 +60,7 @@ public class Usuario {
         return senha;
     }
 
+    public void setLogin(String login) {
+        this.login = login;
+    }
 }

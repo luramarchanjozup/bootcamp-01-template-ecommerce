@@ -20,16 +20,19 @@ public class EmailDoUsuarioDeveTerFormatoValido {
 
     private Validator validator;
 
+    private Usuario usuarioValidacaoEmail;
+
     @BeforeEach
     public void setUp() {
+
+        usuarioValidacaoEmail = new Usuario("teste", new SenhaLimpa("teste123"));
+
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
 
     @Test
     public void usuarioDeveCadastrarLoginEmFormatoValidoDeEmail(){
-
-        Usuario usuarioValidacaoEmail = new Usuario("teste", new SenhaLimpa("teste123"));
 
         Set<ConstraintViolation<Usuario>> violations = validator.validate(usuarioValidacaoEmail);
 
@@ -40,7 +43,7 @@ public class EmailDoUsuarioDeveTerFormatoValido {
     @Test
     public void loginDoUsuarioNaoPodeSerEmBrancoOuNulo(){
 
-        Usuario usuarioValidacaoEmail = new Usuario("", new SenhaLimpa("teste123"));
+        usuarioValidacaoEmail.setLogin("");
 
         Set<ConstraintViolation<Usuario>> violations = validator.validate(usuarioValidacaoEmail);
 
