@@ -14,11 +14,7 @@ public class RequestUsuarioDto {
     @NotBlank @Length(min = 6, message = "Tamanho mínimo de 6 carateres")
     private String senha;
 
-    public String getLogin() {
-        return login;
-    }
-
-    public String getSenha() {
-        return senha;
+    public Usuario toModel(){
+        return  new Usuario(this.login, this.senha);
     }
 }
