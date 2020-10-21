@@ -1,4 +1,4 @@
-package io.github.evertoncnsouza.seguranca;
+package io.github.evertoncnsouza.domain.service;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 public class LoginInputDto {

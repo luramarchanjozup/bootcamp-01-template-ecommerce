@@ -1,6 +1,6 @@
 package io.github.evertoncnsouza.domain.entity;
 
-import io.github.evertoncnsouza.rest.dto.SenhaLimpa;
+import io.github.evertoncnsouza.domain.service.SenhaLimpa;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;

@@ -2,7 +2,7 @@ package io.github.evertoncnsouza.rest.dto;
 
 import io.github.evertoncnsouza.domain.entity.Categoria;
 
-//1PCI;
+//1 PCI;
 public class SiteCategoriaResponse {
 
     private String nome;

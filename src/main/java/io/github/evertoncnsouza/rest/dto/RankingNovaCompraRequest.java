@@ -16,7 +16,6 @@ public class RankingNovaCompraRequest {
         this.idCompra = idCompra;
         this.idDonoProduto = idDonoProduto;
     }
-
     public Long getIdCompra() {
         return idCompra;
     }

@@ -2,7 +2,7 @@ package io.github.evertoncnsouza.rest.dto;
 
 import javax.validation.constraints.NotNull;
 
-public class CompraNFRequest {
+public class NovaCompraNFRequest {
 
     @NotNull
     private Long idCompra;
@@ -10,7 +10,7 @@ public class CompraNFRequest {
     @NotNull
     private Long idComprador;
 
-    public CompraNFRequest(@NotNull Long idCompra, @NotNull Long idComprador) {
+    public NovaCompraNFRequest(@NotNull Long idCompra, @NotNull Long idComprador) {
         super();
         this.idCompra = idCompra;
         this.idComprador = idComprador;

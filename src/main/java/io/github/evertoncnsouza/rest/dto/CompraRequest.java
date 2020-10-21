@@ -1,7 +1,6 @@
 package io.github.evertoncnsouza.rest.dto;
 
 import io.github.evertoncnsouza.domain.enums.GatewayPagamento;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 

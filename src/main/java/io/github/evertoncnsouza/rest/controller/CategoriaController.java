@@ -20,12 +20,9 @@ public class CategoriaController {
 
     @PostMapping
     @Transactional
-    //@ResponseStatus(HttpStatus.CREATED) Comentado para retornar 200;
     public String save (@RequestBody @Valid CategoriaRequest request) {
         Categoria categoria = request.toModel(manager);
         manager.persist(categoria);
         return categoria.toString();
     }
-
-
 }

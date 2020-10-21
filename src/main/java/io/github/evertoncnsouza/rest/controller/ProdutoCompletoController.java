@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-//3 PCI's
+//4 PCI's
 @RequestMapping("completo")
 @RestController
-public class CompletoController {
+public class ProdutoCompletoController {
     @PersistenceContext
     private EntityManager manager;
 

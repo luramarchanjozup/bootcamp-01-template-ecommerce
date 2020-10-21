@@ -1,6 +1,5 @@
 package io.github.evertoncnsouza.rest.dto;
 
-
 import io.github.evertoncnsouza.domain.entity.Compra;
 import io.github.evertoncnsouza.domain.repository.RetornoGatewayPagamento;
 import io.github.evertoncnsouza.domain.enums.StatusRetornoPagseguro;
@@ -33,5 +32,6 @@ public class RetornoPagSeguroRequest implements RetornoGatewayPagamento {
 
     public Transacao toTransacao(Compra compra) {
         return new Transacao(status.normaliza(), idTransacao, compra);
+
     }
 }

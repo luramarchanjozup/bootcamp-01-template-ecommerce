@@ -13,8 +13,8 @@ import java.util.Objects;
 public class Transacao {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
+     private Long id;
 
     @NotNull
     private StatusTransacao status;
@@ -25,10 +25,10 @@ public class Transacao {
     @NotNull
     private LocalDateTime instante;
 
-    @ManyToOne
-    @NotNull
-    @Valid
-    private Compra compra;
+     @ManyToOne
+     @NotNull
+     @Valid
+     private Compra compra;
 
     @Deprecated
     public Transacao() {
@@ -36,12 +36,14 @@ public class Transacao {
     }
 
     public Transacao(@NotNull StatusTransacao status,
-                     @NotBlank String idTransacaoGateway, @NotNull @Valid Compra compra) {
-        this.status = status;
-        this.idTransacaoGateway = idTransacaoGateway;
-        this.compra = compra;
-        this.instante = LocalDateTime.now();
+                     @NotBlank String idTransacaoGateway, @NotNull @Valid Compra compra
+    ) {
+       this.status = status;
+       this.idTransacaoGateway = idTransacaoGateway;
+       this.compra = compra;
+       this.instante = LocalDateTime.now();
     }
+
 
     public boolean concluidaComSucesso() {
         return this.status.equals(StatusTransacao.sucesso);

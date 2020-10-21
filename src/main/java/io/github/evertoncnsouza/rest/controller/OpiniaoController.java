@@ -3,10 +3,8 @@ package io.github.evertoncnsouza.rest.controller;
 import io.github.evertoncnsouza.domain.entity.Opiniao;
 import io.github.evertoncnsouza.domain.entity.Produto;
 import io.github.evertoncnsouza.domain.entity.Usuario;
-import io.github.evertoncnsouza.domain.repository.Usuarios;
 import io.github.evertoncnsouza.rest.dto.OpiniaoRequest;
-import io.github.evertoncnsouza.seguranca.UsuarioLogado;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.github.evertoncnsouza.domain.service.UsuarioLogado;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +19,6 @@ public class OpiniaoController {
 
     @PersistenceContext
     private EntityManager manager;
-
-    @Autowired
-    private Usuarios usuarios;
 
     @PostMapping
     @Transactional

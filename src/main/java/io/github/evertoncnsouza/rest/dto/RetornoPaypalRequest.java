@@ -8,7 +8,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
-public class RetornoPaypalRequest implements RetornoGatewayPagamento {
+public class RetornoPaypalRequest implements RetornoGatewayPagamento{
 
 
     @Min(0)

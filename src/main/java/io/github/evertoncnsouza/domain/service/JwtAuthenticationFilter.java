@@ -1,4 +1,4 @@
-package io.github.evertoncnsouza.seguranca;
+package io.github.evertoncnsouza.domain.service;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -22,7 +22,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         this.tokenManager = tokenManager;
         this.usersService = usersService;
     }
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
@@ -39,7 +38,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
-
         chain.doFilter(request, response);
     }
 

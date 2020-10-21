@@ -24,11 +24,10 @@ public enum GatewayPagamento {
             String urlRetornoPaypal = uriComponentsBuilder
                     .path("/retorno-paypal/{id}").buildAndExpand(compra.getId())
                     .toString();
-
             return "paypal.com/" + compra.getId() + "?redirectUrl=" + urlRetornoPaypal;
         }
     };
 
-     public abstract String criaUrlRetorno(Compra compra,
-                                           UriComponentsBuilder uriComponentsBuilder);
+    public abstract String criaUrlRetorno(Compra compra, UriComponentsBuilder uriComponentsBuilder);
+
 }

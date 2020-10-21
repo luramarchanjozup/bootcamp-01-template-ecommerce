@@ -1,4 +1,4 @@
-package io.github.evertoncnsouza.rest.dto;
+package io.github.evertoncnsouza.domain.service;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

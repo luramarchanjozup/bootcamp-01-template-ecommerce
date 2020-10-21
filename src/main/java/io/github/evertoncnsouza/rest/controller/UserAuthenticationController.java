@@ -1,6 +1,6 @@
 package io.github.evertoncnsouza.rest.controller;
 
-import io.github.evertoncnsouza.seguranca.LoginInputDto;
+import io.github.evertoncnsouza.domain.service.LoginInputDto;
 import io.github.evertoncnsouza.domain.component.TokenManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

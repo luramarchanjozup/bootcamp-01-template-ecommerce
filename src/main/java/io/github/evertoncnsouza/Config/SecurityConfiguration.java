@@ -4,7 +4,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import io.github.evertoncnsouza.seguranca.JwtAuthenticationFilter;
+import io.github.evertoncnsouza.domain.service.JwtAuthenticationFilter;
 import io.github.evertoncnsouza.domain.component.TokenManager;
 import io.github.evertoncnsouza.domain.service.UsersService;
 import org.slf4j.Logger;
@@ -53,6 +53,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/produtos/{id:[0-9]+}").permitAll()
                 .antMatchers(HttpMethod.POST, "/usuarios").permitAll()
+                .antMatchers(HttpMethod.POST, "/notasfiscais").permitAll()
+                .antMatchers(HttpMethod.POST, "/ranking").permitAll()
+                .antMatchers(HttpMethod.POST, "retorno-pagseguro/{id:[0-9+}").permitAll()
+                .antMatchers(HttpMethod.POST, "retorno-paypal/{id:[0-9+}").permitAll()
+                .antMatchers(HttpMethod.GET, "compras").permitAll()
                 .antMatchers("/api/auth/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
