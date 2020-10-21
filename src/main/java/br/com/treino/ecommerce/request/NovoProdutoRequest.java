@@ -29,18 +29,8 @@ public class NovoProdutoRequest {
     @Deprecated
     public NovoProdutoRequest(){}
 
-     public NovoProdutoRequest(@NotBlank String nome, @Positive BigDecimal valor,
-                              @Min(1) Integer quantidade, @NotNull Long idCategoria,
-                              @Length(max = 1000) @NotBlank String descricao,
-                              @NotNull @Size(min = 3) List<NovaCaracteristicaRequest>
-                                       novaCaracteristica) {
-        this.nome = nome;
-        this.valor = valor;
-        this.quantidade = quantidade;
-        this.idCategoria = idCategoria;
-        this.descricao = descricao;
-        this.novaCaracteristica = novaCaracteristica;
-    }
+    //alguns parametros não estao sendo atribuidos pelo construtor (entao por enquanto vai por get,
+    // a verificar...)
 
     public String getNome() {
         return nome;

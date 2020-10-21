@@ -23,9 +23,9 @@ public class NovoUsuarioRequest {
         this.senha = senha;
     }
 
-    public String getEmail() {
+    /*public String getEmail() {
         return email;
-    }
+    }*/
 
     public Usuario toModel(){ //1
         return new Usuario(this.email, new SenhaEncoder(senha)); //2

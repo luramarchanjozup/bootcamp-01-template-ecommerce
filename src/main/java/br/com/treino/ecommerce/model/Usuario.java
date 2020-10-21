@@ -2,6 +2,7 @@ package br.com.treino.ecommerce.model;
 
 import br.com.treino.ecommerce.util.SenhaEncoder;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,6 +43,7 @@ public class Usuario {
         return email;
     }
 
+    @JsonIgnore
     public String getSenha() {
         return senha;
     }
@@ -51,7 +53,6 @@ public class Usuario {
         return "Usuario{" +
                 "id=" + id +
                 ", login='" + email + '\'' +
-                ", senha='" + senha + '\'' +
                 ", instanteCriacao=" + instanteCriacao +
                 '}';
     }

@@ -23,11 +23,11 @@ public class NovaCategoriaRequest {
 
     public Categoria toCategoria(EntityManager entityManager){
 
-        Categoria categoria = new Categoria(this.nome); //1
+        Categoria categoria = new Categoria(this.nome);
 
         Optional<Long> possivelid = Optional.ofNullable(idCategoriaMae);
 
-        if(possivelid.isPresent()){
+        if(possivelid.isPresent()){ //4
             Categoria categoriaMae = entityManager.find(Categoria.class, possivelid.get());
             categoria.setCategoriaMae(categoriaMae);
         }
