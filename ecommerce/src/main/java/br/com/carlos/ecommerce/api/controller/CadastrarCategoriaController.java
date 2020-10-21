@@ -25,7 +25,7 @@ public class CadastrarCategoriaController {
     public ResponseEntity<?> adicionar(@Valid @RequestBody RequestCategoriaDto request) {
         var categoria = request.toEntity(manager);
         manager.persist(categoria);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.ok().build();
     }
     
     
