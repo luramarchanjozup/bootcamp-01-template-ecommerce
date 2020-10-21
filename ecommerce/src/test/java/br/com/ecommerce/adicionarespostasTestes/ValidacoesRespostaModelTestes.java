@@ -1,7 +1,6 @@
 package br.com.ecommerce.adicionarespostasTestes;
 
 import br.com.ecommerce.adicionaresposta.Resposta;
-import br.com.ecommerce.cadastrocategoria.Categoria;
 import br.com.ecommerce.fazerpergunta.Pergunta;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
