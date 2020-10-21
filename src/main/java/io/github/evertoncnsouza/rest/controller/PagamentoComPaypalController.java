@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
@@ -32,7 +34,8 @@ public class PagamentoComPaypalController {
 
     @PostMapping(value = "retorno-paypal/{id}")
     @Transactional
-    public String processamentoPaypal(@PathVariable("id") Long idCompra, @Valid RetornoPaypalRequest request) {
+    public String processamentoPaypal(@PathVariable("id") Long idCompra, @Valid RetornoPaypalRequest request,
+                                      UriComponentsBuilder uriComponentsBuilder) {
 
         Compra compra = manager.find(Compra.class, idCompra);
         compra.adicionaTransacao(request);
@@ -47,6 +50,7 @@ public class PagamentoComPaypalController {
         }
         else{
             email.vendaFalhou(compra);
+            return compra.urlRedirecionamento(uriComponentsBuilder);
         }
 
         return compra.toString();

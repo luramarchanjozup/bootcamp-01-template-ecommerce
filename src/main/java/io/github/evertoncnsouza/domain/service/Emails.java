@@ -36,11 +36,13 @@ public class Emails {
     }
 
     public void vendaFalhou(Compra novaCompra) {
-        mailer.send("Infelizmente, sua compra falhou! ..." + novaCompra, "Tente novamente",
+        mailer.send("Infelizmente, sua compra falhou! ..." + novaCompra, "Tente novamente no link",
                 novaCompra.getDonoProduto().getEmail(),
                 "compras@nossomercadolivre.com",
                 novaCompra.getNavegador().getEmail());
     }
+
+
 
 
 }
