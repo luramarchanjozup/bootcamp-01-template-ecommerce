@@ -16,14 +16,18 @@ public class AutorizacaoDonoProduto {
 
     public boolean donoDoProduto(HttpServletRequest request, Produto produto){
 
+
        String emailDoUsuarioPeloToken = buscaEmailDoUsuarioPeloToken.buscaEmailDoUsuario(request);
+
 
         String emailDoUsuarioPeloProdutoId = produto
                 .getUsuario()
                 .getLogin();
 
+
         return emailDoUsuarioPeloToken
                 .equals(emailDoUsuarioPeloProdutoId);
+
 
     }
 

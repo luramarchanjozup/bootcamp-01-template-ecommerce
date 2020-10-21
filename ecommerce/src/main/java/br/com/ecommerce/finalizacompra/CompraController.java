@@ -17,51 +17,55 @@ import javax.validation.Valid;
 @RequestMapping("produtos/{produtoId}/compras")
 public class CompraController {
 
+    //pci = 9
 
     @Autowired
     private EntityManager entityManager;
 
-
+    //1 - acoplamento
     @Autowired
     private BuscaEmailDoUsuarioPeloToken buscaEmailDoUsuarioPeloToken;
 
-
+    //1 - acoplamento
     @Autowired
     private UsuarioRepository usuarioRepository;
 
 
     @PostMapping
-    @Transactional
+    @Transactional                                   //1 - classe específica do projeto
     public ResponseEntity<?> comprar(@RequestBody @Valid CompraRequest compraRequest, HttpServletRequest request,
                                      @PathVariable Long produtoId, UriComponentsBuilder uriComponentsBuilder){
 
 
         Long quantidadeSolicitada = compraRequest.getQuantidade();
 
+        //1 - classe específica do projeto
         Produto produtoASerComprado = entityManager.find(Produto.class, produtoId);
 
-
+        //1 - if
         if(produtoASerComprado.verificaDisponibilidadeEAtualiza(quantidadeSolicitada)){
-
 
             String emailComprador = buscaEmailDoUsuarioPeloToken
                     .buscaEmailDoUsuario(request);
 
-
+            //1 - classe específica do projeto
             Compra compra = compraRequest.toModel(
                     entityManager,
-                    usuarioRepository.findByLogin(emailComprador)
+                    usuarioRepository.findByLogin(emailComprador)  //1 - função como parâmetro
             );
 
 
             entityManager.persist(compra);
 
 
-            return ResponseEntity.ok(compra.urlRedirecionamento(uriComponentsBuilder));
+            return ResponseEntity       //1 - função como parâmetro
+                    .ok(compra.urlRedirecionamento(uriComponentsBuilder));
 
         }
 
-        return ResponseEntity.badRequest().build();
+        return ResponseEntity
+                .badRequest()
+                .build();
 
     }
 }
