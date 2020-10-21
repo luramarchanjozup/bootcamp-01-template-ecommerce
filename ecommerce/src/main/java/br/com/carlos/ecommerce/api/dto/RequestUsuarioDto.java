@@ -9,10 +9,16 @@ import javax.validation.constraints.NotBlank;
 
 public class RequestUsuarioDto {
 
-    @NotBlank @Email @Unique(domainClass = Usuario.class, fieldName = "login")
-    private String login;
+    @NotBlank @Email(message = "inválido")
+    @Unique(domainClass = Usuario.class, fieldName = "login")
+    private final String login;
     @NotBlank @Length(min = 6, message = "Tamanho mínimo de 6 carateres")
-    private String senha;
+    private final String senha;
+
+    public RequestUsuarioDto(@NotBlank @Email(message = "inválido") String login, @NotBlank @Length(min = 6, message = "Tamanho mínimo de 6 carateres") String senha) {
+        this.login = login;
+        this.senha = senha;
+    }
 
     public Usuario toModel(){
         return  new Usuario(this.login, this.senha);

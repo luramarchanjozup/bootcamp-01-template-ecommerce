@@ -1,8 +1,7 @@
 package br.com.carlos.ecommerce.api.controller;
 
 import br.com.carlos.ecommerce.api.dto.RequestUsuarioDto;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,9 +19,9 @@ public class CadastrarUsuarioController {
 
     @Transactional
     @PostMapping("usuarios")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void adicionar(@Valid @RequestBody RequestUsuarioDto request) {
+    public ResponseEntity<?> adicionar(@Valid @RequestBody RequestUsuarioDto request) {
     var uauario = request.toModel();
     manager.persist(uauario);
+    return ResponseEntity.ok().build();
     }
 }
