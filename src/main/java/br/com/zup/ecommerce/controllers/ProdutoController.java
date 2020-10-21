@@ -47,4 +47,9 @@ public class ProdutoController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Produto " +produto.getId()+" cadastrado.");
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<String> detalhesProduto(@PathVariable("id") Long id){
+        return ResponseEntity.ok("Dados detalhados do produto " + id + ". Em construção.");
+    }
+
 }
