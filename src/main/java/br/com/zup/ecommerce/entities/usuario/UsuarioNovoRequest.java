@@ -18,7 +18,7 @@ public class UsuarioNovoRequest {
     @ValorUnico(dominioClasse = Usuario.class, nomeCampo = "login")
     private String login;
     @NotBlank
-    @Size(min = 6, message = "deve ter tamanho igual ou maior que 6")
+    @Size(min = 6, message = "{usuario.senha}")
     private String senha;
 
     public String getLogin() {

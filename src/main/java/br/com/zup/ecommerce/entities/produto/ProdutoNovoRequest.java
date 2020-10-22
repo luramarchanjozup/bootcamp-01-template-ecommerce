@@ -33,7 +33,7 @@ public class ProdutoNovoRequest {
     @Min(0)
     private int qtdDisponivel;
 
-    @Size(min = 3, message = "deve ter tamanho igual ou maior que 3")
+    @Size(min = 3, message = "{produto.caracteristica}")
     //1
     private List<CaracteristicasProdutoNovoRequest> caracteristicas;
 

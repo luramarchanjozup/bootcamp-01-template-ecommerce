@@ -19,7 +19,7 @@ public class OpiniaoProdutoNovoRequest {
     private String titulo;
 
     @NotBlank
-    @Size(max = 500, message = "deve ter tamanho igual ou menor que 500")
+    @Size(max = 500, message = "{opiniao.descricao}")
     private String descricao;
 
     public int getNota() {
