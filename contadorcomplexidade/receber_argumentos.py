@@ -4,7 +4,9 @@ def recebe_argumentos():
 
     parser = argparse.ArgumentParser(description='Definir classe a ser analisada')
 
-    parser.add_argument('--controller', action="store", dest='controller')
+    parser.add_argument('--pasta_raiz=', action="store", dest='pasta_raiz')
+
+    parser.add_argument('--classe', action="store", dest='controller')
 
     parser.add_argument('--pasta', action="store", dest='pasta')
 

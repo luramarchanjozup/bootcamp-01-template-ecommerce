@@ -1,7 +1,7 @@
-import contador 
+import conta_indicadores_complexidade 
 import receber_argumentos
 import listagem_classes
-import re
+import conta_funcoes_como_parametro
 
 
 # lista as classes criadas no projeto analizado
@@ -10,7 +10,7 @@ import re
 lista_classes_projeto = listagem_classes.lista_classes_projeto
 
 
-# identificadores fáceis de serem localizados
+# identificadores fáceis de serem localizados (contador 1)
 
 
 indicadores_de_complexidade = [ 
@@ -22,32 +22,25 @@ indicadores_de_complexidade = [
 # ( --classe = CompraController --pasta = finalizacompra )
 
 
+
 classe_analisada = receber_argumentos.recebe_argumentos()
 
 
-# identificando funções passadas como parâmetro
 
-# a identificação é feita pelo padrão seguido pelos parênteses e pontos 
-# um '.()' significa uma função. Um '.(.())' significa uma função passado como parâmetro.
+# funções passadas como parâmetro (contador 2)
 
 
-regex1 = r'[)(.]' 
-
-padrao_parenteses = re.findall(regex1, classe_analisada)
-
-padrao_parenteses_string = ''.join(padrao_parenteses)
-
-funcoes_como_parametro = padrao_parenteses_string.count('.(.())')
+n_funcoes_como_parametro = conta_funcoes_como_parametro.funcoes_como_parametro(classe_analisada)
 
 
-# limpando a string
+# limpando a string -> remove ';' '}' '{' ')' '(' '@' '-' '.' ',' '\n'
 
 
-for char in ';}{)(@-.,\n':
-    classe_analisada=classe_analisada.replace(char,' ')
+for char in ';}{)(@-.,\n': classe_analisada=classe_analisada.replace(char,' ')
 
 
-# gerando as listas
+# depois classe ter virado uma lista de palavras, aqui é gerado uma sub-lista
+# utilizando apenas as palavras depois da anotação RestController
 
 
 lista_palavras_classe_inicial = classe_analisada.split()
@@ -61,13 +54,17 @@ for t in range(0, len(lista_palavras_classe_inicial)):
 
 
 # pontos de classes criadas no projetos
-
-pontos = set(lista_classes_projeto) & set(lista_palavras_classe)
-
-pontos_extras = len(pontos) + funcoes_como_parametro
+# aqui é comparadas as listas de todas as classes do projeto com a lista de palavra das classes
 
 
-# contando os pontos
+pontos_classes_criadas_especificamente_no_projeto = set(lista_classes_projeto) & set(lista_palavras_classe)
+
+pontos_extras = len(pontos_classes_criadas_especificamente_no_projeto) + n_funcoes_como_parametro
 
 
-contador.contar_pontos_listados(lista_palavras_classe, indicadores_de_complexidade, pontos_extras)
+# conta os pontos mais fáceis de serem identificados, soma tudo e printa
+
+
+conta_indicadores_complexidade.contar_pontos_listados(lista_palavras_classe, indicadores_de_complexidade, pontos_extras)
+
+print(f"As classes criadas especificamente nesse projeto, gerando complexidade, foram: {pontos_classes_criadas_especificamente_no_projeto}\n")
