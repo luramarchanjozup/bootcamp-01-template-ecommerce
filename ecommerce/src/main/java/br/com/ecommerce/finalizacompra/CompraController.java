@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -18,7 +19,7 @@ import javax.validation.Valid;
 @RequestMapping("produtos/{produtoId}/compras")
 public class CompraController {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
     //1
