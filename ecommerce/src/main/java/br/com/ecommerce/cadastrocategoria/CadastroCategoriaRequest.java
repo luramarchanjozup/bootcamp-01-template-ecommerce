@@ -1,5 +1,6 @@
 package br.com.ecommerce.cadastrocategoria;
 
+import br.com.ecommerce.cadastroproduto.CadastroProdutoRequest;
 import br.com.ecommerce.validacao.Unico;
 
 import javax.persistence.EntityManager;
@@ -23,5 +24,21 @@ public class CadastroCategoriaRequest {
 
      return new Categoria(nome);
 
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public Long getCategoriaId() {
+        return categoriaId;
+    }
+
+    public void setCategoriaId(Long categoriaId) {
+        this.categoriaId = categoriaId;
     }
 }

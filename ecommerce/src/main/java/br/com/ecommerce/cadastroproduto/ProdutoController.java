@@ -18,7 +18,6 @@ public class ProdutoController {
     @Autowired
     private EntityManager entityManager;
 
-
     @PostMapping
     @Transactional
     public ResponseEntity<?> criarProduto(@RequestBody @Valid CadastroProdutoRequest cadastroProdutoRequest){
