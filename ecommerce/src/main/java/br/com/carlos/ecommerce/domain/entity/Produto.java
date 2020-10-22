@@ -48,13 +48,6 @@ public class Produto {
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private Set<ImagemProduto> imagens = new HashSet<>();
-//
-//    @OneToMany(mappedBy = "produto")
-//    @OrderBy("titulo asc")
-//    private SortedSet<Pergunta> perguntas = new TreeSet<>();
-//
-//    @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
-//    private Set<Opiniao> opinioes = new HashSet<>();
 
     @CreationTimestamp
     private Date timestamp;
@@ -131,53 +124,5 @@ public class Produto {
 
     public BigDecimal getValor() {
         return valor;
-    }
-
-//    public <T> Set<T> mapeiaCaracteristicas(
-//            Function<CaracteristicaProduto, T> funcaoMapeadora) {
-//        return this.caracteristicas.stream().map(funcaoMapeadora)
-//                .collect(Collectors.toSet());
-//    }
-//
-//    public <T> Set<T> mapeiaImagens(Function<ImagemProduto, T> funcaoMapeadora) {
-//        return this.imagens.stream().map(funcaoMapeadora)
-//                .collect(Collectors.toSet());
-//    }
-//
-//    public <T extends Comparable<T>> SortedSet<T> mapeiaPerguntas(Function<Pergunta, T> funcaoMapeadora) {
-//        return this.perguntas.stream().map(funcaoMapeadora)
-//                .collect(Collectors.toCollection(TreeSet :: new));
-//    }
-//
-//    public Opinioes getOpinioes() {
-//        return new Opinioes(this.opinioes);
-//    }
-
-    public boolean abataEstoque(@Positive int quantidade) {
-        Assert.isTrue(quantidade > 0, "A quantidade deve ser maior que zero para abater o estoque "+quantidade);
-
-        if(quantidade <= this.quantidade) {
-            this.quantidade-=quantidade;
-            return true;
-
-        }
-
-        return false;
-    }
-
-    @Override
-    public String toString() {
-        return "Produto{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", quantidade=" + quantidade +
-                ", valor=" + valor +
-                ", categoria=" + categoria +
-                ", caracteristicas=" + caracteristicas +
-                ", comprador=" + comprador +
-                ", imagens=" + imagens +
-                ", timestamp=" + timestamp +
-                '}';
     }
 }
