@@ -88,13 +88,13 @@ Número de acoplamentos: 3
 
 ### gráfico 1
 
-![](/readme-images/grafico_pizza.jpg)
+![](/readme-images/variacao_pontos.jpg)
 
 
 ### gráfico 2
 
 
-![](/readme-images/variacao_pontos.jpg)
+![](/readme-images/grafico_pizza.jpg)
 
 
 - Obviamente o contador ainda precisa de diversas melhorias, ainda não tem uma precisão alta garantida. Mas já consegue identificar boa parte dos pontos em algumas classes.
