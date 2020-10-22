@@ -48,7 +48,7 @@ public class ProdutoAtualizacaoController {
         atualizacaoProduto.validaDonoProduto(manager, produto, user);
 
         //Envia as imagens para um repositorio e retorna a lista dos links dessas imagens
-        Set<String> links = atualizacaoProduto.getEnvioImagem().enviaImagem(novasImagens);
+        Set<String> links = atualizacaoProduto.enviaImagem(novasImagens);
         produto.incluirImagens(links);
 
         manager.merge(produto);
@@ -85,7 +85,7 @@ public class ProdutoAtualizacaoController {
         manager.merge(produto);
 
         //Envia e-mail da pergunta para o dono do produto
-        atualizacaoProduto.getEnvioPergunta().enviaEmail(produto, pergunta.getTitulo());
+        atualizacaoProduto.enviaEmail(produto, pergunta.getTitulo());
 
         //Definir tipo application/json
         final HttpHeaders httpHeaders= new HttpHeaders();
