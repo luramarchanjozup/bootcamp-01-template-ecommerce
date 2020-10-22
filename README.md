@@ -9,11 +9,11 @@
 
 ```
 
-    @RestController
+@RestController
 @RequestMapping("produtos/{produtoId}/compras")
 public class CompraController {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
     //1
