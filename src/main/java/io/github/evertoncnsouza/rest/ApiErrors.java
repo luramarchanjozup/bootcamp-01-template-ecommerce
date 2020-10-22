@@ -1,4 +1,4 @@
-package io.github.evertoncnsouza;
+package io.github.evertoncnsouza.rest;
 
 import java.util.List;
 

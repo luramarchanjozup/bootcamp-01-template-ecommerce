@@ -25,20 +25,25 @@ public class PagamentoComPagSeguroController {
 
     @Autowired
     private NotaFiscal notaFiscal;
+    //PCI 1
 
     @Autowired
     private Ranking ranking;
+    //PCI 2
 
     @Autowired
     private Emails email;
+    //PCI 3
 
     @PostMapping(value = "retorno-pagseguro/{id}")
     @Transactional
-    public String processamentoPagSeguro(@PathVariable("id") Long idCompra, @Valid RetornoPagSeguroRequest request,
+    public String processamentoPagSeguro(@PathVariable("id") Long idCompra,
+                                         @Valid RetornoPagSeguroRequest request,
                                          UriComponentsBuilder uriComponentsBuilder) {
        Compra compra = manager.find(Compra.class, idCompra);
             compra.adicionaTransacao(request);
             manager.merge(compra);
+            //PCI 4, 5 e 6
 
             if (compra.processadaComSucesso()) {
 
@@ -46,10 +51,11 @@ public class PagamentoComPagSeguroController {
             ranking.processa(compra);
              email.novaVenda(compra);
 
+             //PCI 7
             }
             else{
-                email.vendaFalhou(compra);
-                return compra.urlRedirecionamento(uriComponentsBuilder);
+                email.vendaFalhou(compra, uriComponentsBuilder);
+
             }
 
             return compra.toString();

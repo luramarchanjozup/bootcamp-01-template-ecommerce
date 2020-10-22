@@ -4,6 +4,7 @@ import io.github.evertoncnsouza.domain.enums.GatewayPagamento;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+//1 PCI
 public class CompraRequest {
 
     @Positive

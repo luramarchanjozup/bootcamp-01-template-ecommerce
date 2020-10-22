@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-// 9 PCI's?
+// 5 PCI's?
 @Entity
 public class  Compra {
 
@@ -26,6 +26,7 @@ public class  Compra {
     @Valid
     private Produto produtoEscolhido;
 
+
     @Positive
     private int quantidade;
 
@@ -34,15 +35,19 @@ public class  Compra {
     @Valid
     private Usuario navegador;
 
+
     @NotNull
     private GatewayPagamento gateway ;
+
 
     @OneToMany(mappedBy = "compra", cascade = CascadeType.MERGE)
     private Set<Transacao> transacoes = new HashSet<>();
 
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private StatusCompra statusCompra;
+
 
     @Deprecated
     public Compra() {
@@ -75,25 +80,24 @@ public class  Compra {
             UriComponentsBuilder uriComponentsBuilder) {
         return this.gateway.criaUrlRetorno(this, uriComponentsBuilder);
     }
+    //PCI 1
+
 
     public void adicionaTransacao(@Valid RetornoGatewayPagamento request) {
         Transacao novaTransacao = request.toTransacao(this);
-
-        //1
+        //PCI 2
         Assert.state(!this.transacoes.contains(novaTransacao),
                 "Já existe uma transacao igual a essa processada "
                         + novaTransacao);
-        //1
+        //PCI 3
         Assert.state(transacoesConcluidasComSucesso().isEmpty(),"Esse compra já foi concluída com sucesso");
-
         this.transacoes.add(novaTransacao);
     }
-
+    //PCI 3 e 4
     private Set<Transacao> transacoesConcluidasComSucesso() {
         Set<Transacao> transacoesConcluidasComSucesso = this.transacoes.stream()
                 .filter(Transacao::concluidaComSucesso)
                 .collect(Collectors.toSet());
-
         Assert.isTrue(transacoesConcluidasComSucesso.size() <= 1,
                 "Existe mais de uma transacao concluida com sucesso aqui nesta compra "+this.id);
         return transacoesConcluidasComSucesso;
@@ -112,7 +116,8 @@ public class  Compra {
                 '}';
     }
 
-    public boolean processadaComSucesso() {
+    //PCI 5
+        public boolean processadaComSucesso() {
         return !transacoesConcluidasComSucesso().isEmpty();
     }
 }

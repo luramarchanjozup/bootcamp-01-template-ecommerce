@@ -3,5 +3,5 @@ package io.github.evertoncnsouza.domain.enums;
 
 public enum StatusCompra {
 
-    INICIADA
+    INICIADA, CONCLUÍDA
 }

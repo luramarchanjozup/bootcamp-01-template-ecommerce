@@ -1,8 +1,8 @@
 package io.github.evertoncnsouza.rest.dto;
 
 import io.github.evertoncnsouza.domain.entity.Categoria;
-import io.github.evertoncnsouza.validation.constraintvalidation.ExistsId;
-import io.github.evertoncnsouza.validation.constraintvalidation.UniqueValue;
+import io.github.evertoncnsouza.validation.ExistsId;
+import io.github.evertoncnsouza.validation.UniqueValue;
 import org.springframework.util.Assert;
 import javax.persistence.EntityManager;
 import javax.validation.constraints.NotBlank;

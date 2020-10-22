@@ -7,6 +7,7 @@ import io.github.evertoncnsouza.domain.entity.Transacao;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+//4 PCI
 public class RetornoPagSeguroRequest implements RetornoGatewayPagamento {
 
     @NotBlank

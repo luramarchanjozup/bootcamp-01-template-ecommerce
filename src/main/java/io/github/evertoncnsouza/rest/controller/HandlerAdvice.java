@@ -1,6 +1,6 @@
 package io.github.evertoncnsouza.rest.controller;
 
-import io.github.evertoncnsouza.ApiErrors;
+import io.github.evertoncnsouza.rest.ApiErrors;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

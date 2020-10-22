@@ -2,7 +2,7 @@ package io.github.evertoncnsouza.Config;
 
 import io.github.evertoncnsouza.domain.entity.Usuario;
 import io.github.evertoncnsouza.domain.repository.UserDetailsMapper;
-import io.github.evertoncnsouza.domain.service.UsuarioLogado;
+import io.github.evertoncnsouza.domain.service.impl.UsuarioLogado;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetails;
 

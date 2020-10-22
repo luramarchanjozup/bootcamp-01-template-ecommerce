@@ -14,6 +14,7 @@ import javax.persistence.PersistenceContext;
 @RequestMapping("completo")
 @RestController
 public class ProdutoCompletoController {
+
     @PersistenceContext
     private EntityManager manager;
 

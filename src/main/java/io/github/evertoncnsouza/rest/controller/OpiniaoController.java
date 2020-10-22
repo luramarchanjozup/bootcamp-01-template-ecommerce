@@ -4,7 +4,7 @@ import io.github.evertoncnsouza.domain.entity.Opiniao;
 import io.github.evertoncnsouza.domain.entity.Produto;
 import io.github.evertoncnsouza.domain.entity.Usuario;
 import io.github.evertoncnsouza.rest.dto.OpiniaoRequest;
-import io.github.evertoncnsouza.domain.service.UsuarioLogado;
+import io.github.evertoncnsouza.domain.service.impl.UsuarioLogado;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;

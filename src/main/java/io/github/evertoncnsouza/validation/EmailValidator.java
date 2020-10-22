@@ -1,4 +1,4 @@
-package io.github.evertoncnsouza.validation.constraintvalidation;
+package io.github.evertoncnsouza.validation;
 
 import io.github.evertoncnsouza.domain.entity.Usuario;
 import io.github.evertoncnsouza.domain.repository.Usuarios;

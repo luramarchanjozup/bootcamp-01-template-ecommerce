@@ -6,7 +6,7 @@ import io.github.evertoncnsouza.domain.entity.Usuario;
 import io.github.evertoncnsouza.domain.repository.Usuarios;
 import io.github.evertoncnsouza.domain.service.Emails;
 import io.github.evertoncnsouza.rest.dto.PerguntaRequest;
-import io.github.evertoncnsouza.domain.service.UsuarioLogado;
+import io.github.evertoncnsouza.domain.service.impl.UsuarioLogado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;

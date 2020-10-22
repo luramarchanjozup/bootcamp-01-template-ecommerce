@@ -1,4 +1,4 @@
-package io.github.evertoncnsouza.validation.constraintvalidation;
+package io.github.evertoncnsouza.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

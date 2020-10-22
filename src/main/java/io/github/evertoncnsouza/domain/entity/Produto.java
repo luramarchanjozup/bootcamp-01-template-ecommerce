@@ -20,7 +20,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-//7 PCI's
+//10 PCI's- Contabilizei 10,  com os atributos Categoria e dono.
 @Entity
 public class Produto {
 
@@ -52,23 +52,26 @@ public class Produto {
     @Valid
     @ManyToOne
     private Usuario dono;
-    //PCI 2;
+    //PCI 2
+
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
     private Set<CaracteristicaProduto> caracteristicas = new HashSet<>();
-    //PCI 3;
+    //PCI 3
 
     private final LocalDateTime horaCriacao = LocalDateTime.now();
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private Set<ImagemProduto> imagens = new HashSet<>();
-    //PCI 4;
+    //PCI 4
 
-    @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+   @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private Set<Opiniao> opinioes = new HashSet<>();
+   //PCI 5
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private Set<Pergunta> perguntas = new HashSet<>();
+    //PCI 6
 
     @Deprecated
     public Produto() {
@@ -89,7 +92,6 @@ public class Produto {
         this.caracteristicas.addAll(caracteristicas.stream()
                 .map(caracteristica -> caracteristica.toModel(this))
                 .collect(Collectors.toSet()));
-        //PCI 5 e PCI 6;
         Assert.isTrue(this.caracteristicas.size() >= 3,
                 "Todo produto ter no minimo 3 caracteristicas");
     }
@@ -153,17 +155,20 @@ public class Produto {
         return this.caracteristicas.stream().map(funcaoMapeadora)
                 .collect(Collectors.toSet());
     }
+    //PCI 7
 
     public <T> Set<T> mapeiaImagens(Function<ImagemProduto, T> funcaMapeadora) {
         return this.imagens.stream().map(funcaMapeadora)
                 .collect(Collectors.toSet());
     }
+    //PCI 8
 
     public void associaImagens(Set<String> links) {
         links.stream().map(link -> new ImagemProduto(this, link))
                 .collect(Collectors.toSet());
         this.imagens.addAll(imagens);
     }
+    //PCI 9
 
     public SiteOpiniaoResponse getOpinioes() {
         return new SiteOpiniaoResponse(this.opinioes);
@@ -186,8 +191,9 @@ public class Produto {
 
                 '}';
     }
-    //PCI 7;
-    public boolean abataEstoque(@Positive int quantidade) {
+
+    //PCI 10
+        public boolean abataEstoque(@Positive int quantidade) {
         Assert.isTrue(quantidade>0, "Quantidade necessita ser maior que zero");
         if(quantidade<= this.quantidade) {
             this.quantidade-=quantidade;

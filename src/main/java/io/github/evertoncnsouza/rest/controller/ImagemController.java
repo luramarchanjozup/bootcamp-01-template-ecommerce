@@ -18,7 +18,7 @@ import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 import java.util.Set;
 
-//7 PCI's;
+//6 PCI's;
 @RestController
 @RequestMapping("produtos/{id}/imagens")
 public class ImagemController {

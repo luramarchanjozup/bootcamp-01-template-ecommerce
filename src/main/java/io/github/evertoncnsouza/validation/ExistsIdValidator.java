@@ -1,4 +1,4 @@
-package io.github.evertoncnsouza.validation.constraintvalidation;
+package io.github.evertoncnsouza.validation;
 
 import org.springframework.util.Assert;
 import javax.persistence.EntityManager;

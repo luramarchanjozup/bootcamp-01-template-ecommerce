@@ -15,6 +15,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("categorias")
 public class CategoriaController {
+
     @PersistenceContext
     private EntityManager manager;
 

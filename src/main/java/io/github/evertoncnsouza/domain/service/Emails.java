@@ -5,6 +5,8 @@ import io.github.evertoncnsouza.domain.entity.Pergunta;
 import io.github.evertoncnsouza.domain.repository.Mailer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -35,9 +37,9 @@ public class Emails {
                 novaCompra.getNavegador().getEmail());
     }
 
-    public void vendaFalhou(Compra novaCompra) {
+    public void vendaFalhou(Compra novaCompra, UriComponentsBuilder uriComponentsBuilder) {
         mailer.send("Infelizmente, sua compra falhou! ..." + novaCompra, "Tente novamente no link",
-                novaCompra.getDonoProduto().getEmail(),
+        novaCompra.urlRedirecionamento(uriComponentsBuilder),
                 "compras@nossomercadolivre.com",
                 novaCompra.getNavegador().getEmail());
     }

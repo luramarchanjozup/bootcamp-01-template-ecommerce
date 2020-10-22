@@ -1,4 +1,4 @@
-package io.github.evertoncnsouza.domain.service;
+package io.github.evertoncnsouza.domain.service.impl;
 
 import io.github.evertoncnsouza.domain.entity.Usuario;
 import org.springframework.security.core.GrantedAuthority;

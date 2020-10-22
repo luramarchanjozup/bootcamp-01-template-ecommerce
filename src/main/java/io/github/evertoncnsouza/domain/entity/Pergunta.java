@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-//2 PCI's
+
 @Entity
 public class Pergunta  {
 

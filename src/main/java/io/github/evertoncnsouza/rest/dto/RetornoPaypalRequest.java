@@ -8,6 +8,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
+//4 PCI
 public class RetornoPaypalRequest implements RetornoGatewayPagamento{
 
 

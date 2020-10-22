@@ -34,9 +34,9 @@ public class PagamentoComPaypalController {
 
     @PostMapping(value = "retorno-paypal/{id}")
     @Transactional
-    public String processamentoPaypal(@PathVariable("id") Long idCompra, @Valid RetornoPaypalRequest request,
+    public String processamentoPaypal(@PathVariable("id") Long idCompra,
+                                      @Valid RetornoPaypalRequest request,
                                       UriComponentsBuilder uriComponentsBuilder) {
-
         Compra compra = manager.find(Compra.class, idCompra);
         compra.adicionaTransacao(request);
         manager.merge(compra);
@@ -46,13 +46,10 @@ public class PagamentoComPaypalController {
             notaFiscal.processa(compra);
             ranking.processa(compra);
             email.novaVenda(compra);
-
         }
         else{
-            email.vendaFalhou(compra);
-            return compra.urlRedirecionamento(uriComponentsBuilder);
+            email.vendaFalhou(compra, uriComponentsBuilder);
         }
-
         return compra.toString();
     }
 

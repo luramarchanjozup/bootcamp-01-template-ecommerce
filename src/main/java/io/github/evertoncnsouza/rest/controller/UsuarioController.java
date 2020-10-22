@@ -2,7 +2,7 @@ package io.github.evertoncnsouza.rest.controller;
 
 import io.github.evertoncnsouza.domain.entity.Usuario;
 import io.github.evertoncnsouza.rest.dto.UsuarioRequest;
-import io.github.evertoncnsouza.validation.constraintvalidation.EmailValidator;
+import io.github.evertoncnsouza.validation.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +19,7 @@ public class UsuarioController {
 
     @PersistenceContext
     private EntityManager manager;
+
     @Autowired
     private EmailValidator emailValidator;
 
