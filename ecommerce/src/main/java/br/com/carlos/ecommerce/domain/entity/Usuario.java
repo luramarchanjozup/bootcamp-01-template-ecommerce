@@ -28,4 +28,12 @@ public class Usuario {
         this.login = login;
         this.senha = new BCryptPasswordEncoder().encode(senha);
     }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
 }

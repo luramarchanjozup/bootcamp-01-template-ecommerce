@@ -18,7 +18,7 @@ public class CadastrarUsuarioController {
     private EntityManager manager;
 
     @Transactional
-    @PostMapping("usuarios")
+    @PostMapping(value = "/usuarios")
     public ResponseEntity<?> adicionar(@Valid @RequestBody RequestUsuarioDto request) {
     var usuario = request.toModel();
     manager.persist(usuario);
