@@ -86,9 +86,12 @@ print(f"Número de acoplamentos: {acoplamentos}\n")
 
 # gera gráfico de distribuição por critério de complexidade
 
+lista_pontos = [n_funcoes_como_parametro, len(pontos_classes_criadas_especificamente_no_projeto) - acoplamentos, pontos_complexidade_intrinseca[0], acoplamentos]
+lista_pontos.sort()
+
 # gráfico 1
 
-plt.plot(['f(f(x))', 'classes especificas ao projeto', 'branches', 'acoplamentos'],[n_funcoes_como_parametro, len(pontos_classes_criadas_especificamente_no_projeto) - acoplamentos, pontos_complexidade_intrinseca[0], acoplamentos])
+plt.plot(['f(f(x))', 'classes especificas ao projeto', 'branches', 'acoplamentos'], [lista_pontos[0], lista_pontos[1], lista_pontos[2], lista_pontos[3]])
 plt.title("Variação de pontos por critério")
 plt.show()
 
@@ -96,8 +99,8 @@ plt.show()
 # gráfico 2
 
 labels = 'f(f(x))', 'classes específicas do projeto', 'branches', 'acoplamentos'
-sizes = [n_funcoes_como_parametro, len(pontos_classes_criadas_especificamente_no_projeto) - acoplamentos, pontos_complexidade_intrinseca[0], acoplamentos]
-explode = (0.1, 0.1, 0.12, 0.12)  
+sizes = [lista_pontos[0], lista_pontos[1], lista_pontos[2], lista_pontos[3]]
+explode = (0.12, 0.12, 0.12, 0.12)  
 
 fig1, ax1 = plt.subplots()
 ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
