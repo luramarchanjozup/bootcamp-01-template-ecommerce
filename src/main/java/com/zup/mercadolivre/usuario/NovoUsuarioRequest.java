@@ -34,4 +34,12 @@ public class NovoUsuarioRequest {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    @Override
+    public String toString() {
+        return "NovoUsuarioRequest{" +
+                "email='" + email + '\'' +
+                ", senha='" + senha + '\'' +
+                '}';
+    }
 }
