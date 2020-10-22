@@ -2,6 +2,7 @@ package br.com.zup.ecommerce.controllers;
 
 import br.com.zup.ecommerce.entities.produto.Produto;
 import br.com.zup.ecommerce.entities.produto.ProdutoNovoRequest;
+import br.com.zup.ecommerce.entities.produto.ProdutoRetornoDetalhe;
 import br.com.zup.ecommerce.security.UsuarioLogado;
 import br.com.zup.ecommerce.validations.produto.CaracteristicasSemRepeticaoValidacao;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,7 +19,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 /**
- * Contagem de carga intrínseca da classe: 4
+ * Contagem de carga intrínseca da classe: 6
  */
 
 @RestController
@@ -48,8 +50,18 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> detalhesProduto(@PathVariable("id") Long id){
-        return ResponseEntity.ok("Dados detalhados do produto " + id + ". Em construção.");
+    //1
+    public ResponseEntity<ProdutoRetornoDetalhe> detalhesProduto(@PathVariable("id") Long id){
+
+        Produto produto = manager.find(Produto.class, id);
+        //1
+        if(produto == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        ProdutoRetornoDetalhe produtoRetornoDetalhe = new ProdutoRetornoDetalhe(produto);
+
+        return ResponseEntity.ok(produtoRetornoDetalhe);
     }
 
 }
