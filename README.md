@@ -1,3 +1,10 @@
-# Por favor faça um Fork desse projeto!
+# Desafio Ecommerce!
 
-## Está em dúvida de como fazer um Fork? Não tem problema! [Aqui tem uma explicação do que entendemos que você deve considerar!](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo)
+## Pontos de complexidade
+
+- Utilizei esse pequeno projeto para automatizar a contagem dos pontos de complexidade: [contar pontos de complexidade](https://github.com/MarceloAmorim25/cdd-complexity-pointer)
+
+## Documentação da API - Swagger
+
+## Sobre os testes
+

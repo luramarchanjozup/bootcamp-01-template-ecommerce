@@ -18,42 +18,43 @@ import javax.validation.Valid;
 @RequestMapping("produtos/{produtoId}/compras")
 public class CompraController {
 
-
     @Autowired
     private EntityManager entityManager;
 
-
+    //1
     @Autowired
     private BuscaEmailDoUsuarioPeloToken buscaEmailDoUsuarioPeloToken;
 
-
+    //1
     @Autowired
     private UsuarioRepository usuarioRepository;
 
 
     @PostMapping
-    @Transactional
+    @Transactional                                                              //1
     public ResponseEntity<?> comprar(@RequestBody @Valid CompraRequest compraRequest, HttpServletRequest request,
                                      @PathVariable Long produtoId, UriComponentsBuilder uriComponentsBuilder){
 
 
         Long quantidadeSolicitada = compraRequest.getQuantidade();
 
-
+                        //1                
         Produto produtoASerComprado = entityManager.find(Produto.class, produtoId);
 
-
+        //1                                    
         if(produtoASerComprado.verificaDisponibilidadeEAtualiza(quantidadeSolicitada)){
 
-
+                                            //1
             String emailComprador = buscaEmailDoUsuarioPeloToken.buscaEmailDoUsuario(request);
 
+                    //1
             Usuario comprador = usuarioRepository.findByLogin(emailComprador);
 
+                    //1
             Compra compra = compraRequest.toModel(entityManager, comprador);
 
             entityManager.persist(compra);
-
+               
             String urlRedirecionamento = compra.urlRedirecionamento(uriComponentsBuilder);
 
             return ResponseEntity
