@@ -47,7 +47,8 @@ public class ProdutoAtualizacaoController {
         //Lança uma ResponseStatusException se usuário for inválido
         atualizacaoProduto.validaDonoProduto(manager, produto, user);
 
-        Set<String> links = atualizacaoProduto.getAtualizacaoImagem().enviaImagem(novasImagens);
+        //Envia as imagens para um repositorio e retorna a lista dos links dessas imagens
+        Set<String> links = atualizacaoProduto.getEnvioImagem().enviaImagem(novasImagens);
         produto.incluirImagens(links);
 
         manager.merge(produto);

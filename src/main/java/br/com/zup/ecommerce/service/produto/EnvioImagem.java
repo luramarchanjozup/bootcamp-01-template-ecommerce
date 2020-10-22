@@ -12,7 +12,7 @@ import java.util.Set;
  */
 
 @Component
-public class AtualizacaoImagem {
+public class EnvioImagem {
 
     @Autowired
     //1

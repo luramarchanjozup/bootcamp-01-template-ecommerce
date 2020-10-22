@@ -6,7 +6,7 @@ import br.com.zup.ecommerce.security.UsuarioLogado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.EntityManager;
@@ -15,19 +15,19 @@ import javax.persistence.EntityManager;
  * Contagem de carga intrínseca da classe: 7
  */
 
-@Service
+@Component
 public class AtualizacaoProduto {
 
     @Autowired
     //1
-    private AtualizacaoImagem atualizacaoImagem;
+    private EnvioImagem envioImagem;
 
     @Autowired
     //1
     private EnvioPergunta envioPergunta;
 
-    public AtualizacaoImagem getAtualizacaoImagem() {
-        return atualizacaoImagem;
+    public EnvioImagem getEnvioImagem() {
+        return envioImagem;
     }
 
     public EnvioPergunta getEnvioPergunta() {
