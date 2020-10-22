@@ -20,7 +20,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Contagem de carga intrínseca da classe: 9
+ * Contagem de carga intrínseca da classe: 10
  */
 
 @Entity
@@ -172,5 +172,15 @@ public class Produto {
 
     public boolean isDonoLogado(EntityManager manager, Usuario usuario) {
         return this.dono.equals(usuario);
+    }
+
+    public boolean abateEstoque(int quantidade) {
+        int novoEstoque = this.qtdDisponivel - quantidade;
+        //1
+        if (novoEstoque < 0) {
+            return false;
+        }
+        this.qtdDisponivel = novoEstoque;
+        return true;
     }
 }
