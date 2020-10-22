@@ -78,9 +78,9 @@ public class PerguntaProduto {
     @Override
     public String toString() {
         return "{" +
-                "\"id\"=" + id +
-                ", \"titulo\"=\"" + titulo + "\"" +
-                ", \"dataCadastro\"=\"" + dataCadastro + "\"" +
+                "\"id\": " + id +
+                ", \"titulo\": \"" + titulo + "\"" +
+                ", \"dataCadastro\": \"" + dataCadastro + "\"" +
                 '}';
     }
 }
