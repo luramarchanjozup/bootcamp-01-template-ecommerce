@@ -122,7 +122,6 @@ public class Produto {
                 ", caracteristicas=" + caracteristicas +
                 ", dono=" + dono +
                 ", imagemProduto=" + imagemProduto +
-                ", instanteCriacao=" + instanteCriacao +
                 ", perguntas=" + perguntas +
                 ", opinioes=" + opinioes +
                 '}';

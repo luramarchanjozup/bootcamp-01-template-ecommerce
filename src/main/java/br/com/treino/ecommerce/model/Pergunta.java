@@ -54,7 +54,6 @@ public class Pergunta {
                 "id=" + id +
                 ", mensagem='" + mensagem + '\'' +
                 ", usuario=" + interessado +
-                ", localDateTime=" + instanteCriacao +
                 '}';
     }
 

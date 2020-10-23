@@ -16,8 +16,8 @@ public class OpinioesResponse {
     public double media(){
         OptionalDouble notas = this.opinioes.stream()
                 .map(o -> o.getNota())
-                .mapToInt(nota -> nota).average(); //2 //3
-        return notas.orElse(0.0);
+                .mapToDouble(nota -> nota).average(); //2 //3
+        return  notas.orElse(0.0);
     }
 
     public int total(){

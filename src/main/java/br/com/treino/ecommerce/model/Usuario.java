@@ -48,15 +48,10 @@ public class Usuario {
         return senha;
     }
 
-    @JsonIgnore
-    public LocalDateTime getInstanteCriacao() {
-        return instanteCriacao;
-    }
-
     @Override
     public String toString() {
         return "Usuario{" +
-                ", login='" + email + '\'' +
+                " email='" + email + '\'' +
                 '}';
     }
 
