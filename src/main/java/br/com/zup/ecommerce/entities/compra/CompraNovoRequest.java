@@ -1,13 +1,16 @@
 package br.com.zup.ecommerce.entities.compra;
 
 import br.com.zup.ecommerce.entities.produto.Produto;
+import br.com.zup.ecommerce.entities.usuario.Usuario;
 import br.com.zup.ecommerce.validations.existeId.ExisteId;
+import org.springframework.util.Assert;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 /**
- * Contagem de carga intrínseca da classe: 3
+ * Contagem de carga intrínseca da classe: 5
  */
 
 public class CompraNovoRequest {
@@ -21,9 +24,9 @@ public class CompraNovoRequest {
     private int quantidade;
     @NotNull
     //1
-    private TipoPagamento tipoPagamento;
+    private TipoPagamentoEnum tipoPagamento;
 
-    public CompraNovoRequest(Long idProduto, int quantidade, TipoPagamento tipoPagamento) {
+    public CompraNovoRequest(Long idProduto, int quantidade, TipoPagamentoEnum tipoPagamento) {
         this.idProduto = idProduto;
         this.quantidade = quantidade;
         this.tipoPagamento = tipoPagamento;
@@ -37,7 +40,16 @@ public class CompraNovoRequest {
         return quantidade;
     }
 
-    public TipoPagamento getTipoPagamento() {
+    public TipoPagamentoEnum getTipoPagamento() {
         return tipoPagamento;
+    }
+    
+    //2
+    public Compra toModel(@NotNull @Valid Produto produto, @NotNull @Valid Usuario comprador){
+        
+        Assert.notNull(produto, "Produto não encontrado");
+        Assert.notNull(comprador, "Usuário comprador não encontrado");
+        
+        return new Compra(produto, this.quantidade, this.tipoPagamento, comprador);
     }
 }

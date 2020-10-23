@@ -1,5 +1,6 @@
 package br.com.zup.ecommerce.controllers;
 
+import br.com.zup.ecommerce.entities.compra.Compra;
 import br.com.zup.ecommerce.entities.compra.CompraNovoRequest;
 import br.com.zup.ecommerce.entities.compra.CompraRetorno;
 import br.com.zup.ecommerce.entities.produto.Produto;
@@ -17,10 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 /**
- * Contagem de carga intrínseca da classe: 6
+ * Contagem de carga intrínseca da classe: 7
  */
 
 @RestController
@@ -35,6 +37,7 @@ public class CompraController {
     private EnviarEmail enviarEmail;
 
     @PostMapping
+    @Transactional
     //1
     public ResponseEntity<CompraRetorno> realizarCompra(@RequestBody @Valid CompraNovoRequest compraNova, @AuthenticationPrincipal UserDetails user) {
 
@@ -51,13 +54,15 @@ public class CompraController {
         //1
         Usuario usuario = userDetails.getUsuario();
 
+        //1
+        Compra compra = compraNova.toModel(produto, usuario);
+
+        manager.persist(compra);
+        manager.persist(produto);
+
         enviarEmail.enviarEmail(produto.getDono().getLogin(),"Interesse na compra do produto", "Há um interessado na compra do produto");
 
-        CompraRetorno compraRetorno = new CompraRetorno(
-                compraNova.getTipoPagamento(),
-                produto.getNome(),
-                compraNova.getQuantidade(),
-                usuario.getLogin());
+        CompraRetorno compraRetorno = new CompraRetorno(compra);
 
         return ResponseEntity.ok(compraRetorno);
     }
