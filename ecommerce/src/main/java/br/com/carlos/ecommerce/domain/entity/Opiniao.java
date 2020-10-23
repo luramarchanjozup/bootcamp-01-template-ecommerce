@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 @Entity
+@Table(name = "opnioes")
 public class Opiniao {
 
     @Id
@@ -33,6 +34,7 @@ public class Opiniao {
         this.produto = produto;
         this.consumidor = consumidor;
     }
+
 
     public String getTitulo() {
         return titulo;
