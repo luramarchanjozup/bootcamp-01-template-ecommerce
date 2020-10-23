@@ -1,5 +1,7 @@
 package br.com.treino.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -16,7 +18,7 @@ public class Pergunta {
     @ManyToOne
     private @NotNull @Valid Produto produto; //1
     @ManyToOne
-    private @NotNull @Valid Usuario usuario; //2
+    private @NotNull @Valid Usuario interessado; //2
     private LocalDateTime instanteCriacao;
 
     @Deprecated
@@ -25,7 +27,7 @@ public class Pergunta {
     public Pergunta(String mensagem, Produto produto, Usuario usuario) {
         this.mensagem = mensagem;
         this.produto = produto;
-        this.usuario = usuario;
+        this.interessado = usuario;
         this.instanteCriacao = LocalDateTime.now();
     }
 
@@ -33,8 +35,17 @@ public class Pergunta {
         return mensagem;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    @JsonIgnore
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public Usuario getInteressado() {
+        return interessado;
+    }
+
+    public Usuario getDonoProduto() {
+        return produto.getDono();
     }
 
     @Override
@@ -42,8 +53,7 @@ public class Pergunta {
         return "Pergunta{" +
                 "id=" + id +
                 ", mensagem='" + mensagem + '\'' +
-                ", produto=" + produto +
-                ", usuario=" + usuario +
+                ", usuario=" + interessado +
                 ", localDateTime=" + instanteCriacao +
                 '}';
     }

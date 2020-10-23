@@ -35,6 +35,13 @@ public class Produto {
     private Set<ImagemProduto> imagemProduto = new HashSet<>(); //4
     private @NotNull LocalDateTime instanteCriacao;
 
+    //perguntas
+    @OneToMany(mappedBy = "produto")
+    private List<Pergunta> perguntas = new ArrayList<>(); //6
+    //opiniao
+    @OneToMany(mappedBy = "produto")
+    private List<Opiniao> opinioes = new ArrayList<>(); //7
+
     @Deprecated
     public Produto(){}
 
@@ -52,6 +59,46 @@ public class Produto {
         this.instanteCriacao = LocalDateTime.now();
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public List<Caracteristica> getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public Set<ImagemProduto> getImagemProduto() {
+        return imagemProduto;
+    }
+
+    public Usuario getDono() {
+        return dono;
+    }
+
+    public List<Pergunta> getPerguntas() {
+        return perguntas;
+    }
+
+    public List<Opiniao> getOpinioes() {
+        return opinioes;
+    }
+
     public void associarImagem(Set<String> links) {
         Set<ImagemProduto> imagens = links.stream()
                 .map(link -> new ImagemProduto(link)) //5
@@ -63,21 +110,21 @@ public class Produto {
         return dono.getEmail().equals(email);
     }
 
+
     @Override
     public String toString() {
         return "Produto{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
+                "nome='" + nome + '\'' +
                 ", valor=" + valor +
                 ", quantidade=" + quantidade +
                 ", categoria=" + categoria +
                 ", descricao='" + descricao + '\'' +
                 ", caracteristicas=" + caracteristicas +
                 ", dono=" + dono +
+                ", imagemProduto=" + imagemProduto +
                 ", instanteCriacao=" + instanteCriacao +
+                ", perguntas=" + perguntas +
+                ", opinioes=" + opinioes +
                 '}';
     }
-
-
-
 }

@@ -1,6 +1,6 @@
 package br.com.treino.ecommerce.request;
 
-import br.com.treino.ecommerce.util.SenhaEncoder;
+import br.com.treino.ecommerce.shared.util.SenhaEncoder;
 import br.com.treino.ecommerce.model.Usuario;
 import br.com.treino.ecommerce.shared.validations.ValorUnico;
 

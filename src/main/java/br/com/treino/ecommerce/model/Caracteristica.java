@@ -17,6 +17,14 @@ public class Caracteristica {
         this.especificacao = especificacao;
     }
 
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getEspecificacao() {
+        return especificacao;
+    }
+
     @Override
     public String toString() {
         return "Caracteristica{" +

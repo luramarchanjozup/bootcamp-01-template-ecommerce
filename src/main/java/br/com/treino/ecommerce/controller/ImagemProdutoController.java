@@ -1,10 +1,10 @@
 package br.com.treino.ecommerce.controller;
 
-import br.com.treino.ecommerce.model.ImagemProduto;
 import br.com.treino.ecommerce.model.Produto;
 import br.com.treino.ecommerce.request.NovaImagemRequest;
 import br.com.treino.ecommerce.shared.UsuarioLogado;
-import br.com.treino.ecommerce.util.UploaderFake;
+import br.com.treino.ecommerce.shared.util.UploaderFake;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,13 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -29,7 +26,8 @@ public class ImagemProdutoController {
 
     @PersistenceContext
     private EntityManager entityManager;
-    private UploaderFake uploaderFake = new UploaderFake(); //1
+    @Autowired
+    private UploaderFake uploaderFake; //1
 
     @PostMapping("/{id}/imagens")
     @Transactional
@@ -52,7 +50,7 @@ public class ImagemProdutoController {
         Set<String> links = uploaderFake.enviar(request.getImagens());
 
         possivelProduto.get().associarImagem(links);
-        entityManager.merge(possivelProduto);
+        entityManager.merge(possivelProduto.get());
 
         return new ResponseEntity(HttpStatus.CREATED);
     }

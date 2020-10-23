@@ -19,7 +19,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/produtos")
-public class ProdutoController {
+public class NovoProdutoController {
 
     @PersistenceContext
     private EntityManager entityManager;

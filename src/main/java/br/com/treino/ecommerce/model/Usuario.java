@@ -1,6 +1,6 @@
 package br.com.treino.ecommerce.model;
 
-import br.com.treino.ecommerce.util.SenhaEncoder;
+import br.com.treino.ecommerce.shared.util.SenhaEncoder;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -48,12 +48,15 @@ public class Usuario {
         return senha;
     }
 
+    @JsonIgnore
+    public LocalDateTime getInstanteCriacao() {
+        return instanteCriacao;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +
-                "id=" + id +
                 ", login='" + email + '\'' +
-                ", instanteCriacao=" + instanteCriacao +
                 '}';
     }
 

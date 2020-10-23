@@ -4,8 +4,10 @@ import br.com.treino.ecommerce.model.Pergunta;
 import br.com.treino.ecommerce.model.Produto;
 import br.com.treino.ecommerce.request.NovaPerguntaRequest;
 import br.com.treino.ecommerce.shared.UsuarioLogado;
+import br.com.treino.ecommerce.shared.util.Email;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,6 +25,8 @@ public class PerguntaController {
 
     @PersistenceContext
     private EntityManager entityManager;
+    @Autowired
+    private Email email;
 
     Logger logger = LoggerFactory.getLogger(PerguntaController.class);
 
@@ -42,6 +46,8 @@ public class PerguntaController {
                 .toPergunta(possivelProduto.get(), interessado); //5
 
         entityManager.persist(novaPergunta);
+
+        email.enviarPergunta(novaPergunta); //6
 
         return new ResponseEntity(novaPergunta, HttpStatus.CREATED);
     }
