@@ -100,7 +100,27 @@ Número de acoplamentos: 3
 - Obviamente o contador ainda precisa de diversas melhorias, ainda não tem uma precisão alta garantida. Mas já consegue identificar boa parte dos pontos em algumas classes.
 
 
-## Documentação da API - Swagger
 
 ## Sobre os testes
 
+- Utilizei o Pitest para ver a cobertura dos meus testes. Tendo em vista que iniciei a implementação há pouco tempo, a cobertura ainda está muito baixa. Mas o direcionamento do Pitest está colaborando bastante para saber melhor o que preciso testar.
+
+![](/readme-images/coberturatestes.jpg)
+
+
+
+## Sobre a segurança
+
+- Utilizei a ferramenta OpenSource Horusec (https://github.com/ZupIT/horusec) para tentar identificar falhas na API.
+
+- Esse foi o resultado geral: 
+
+![](/readme-images/segurancageral.jpg)
+
+
+- Essa foi uma das falhas mais importantes identificada, cabe ver alguma alternativa, tendo em vista que a hash não parece possuir grau alto de segurança.
+
+![](/readme-images/possivelfalhaseguranca1.jpg)
+
+
+## Documentação da API - Swagger
