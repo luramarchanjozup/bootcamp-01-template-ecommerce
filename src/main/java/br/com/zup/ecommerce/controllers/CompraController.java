@@ -7,14 +7,13 @@ import br.com.zup.ecommerce.entities.produto.Produto;
 import br.com.zup.ecommerce.entities.usuario.Usuario;
 import br.com.zup.ecommerce.security.UsuarioLogado;
 import br.com.zup.ecommerce.service.email.EnviarEmail;
+import br.com.zup.ecommerce.validations.compra.EstoqueDisponivelValidador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -36,18 +35,24 @@ public class CompraController {
     //1
     private EnviarEmail enviarEmail;
 
+    @Autowired
+    //1
+    private EstoqueDisponivelValidador estoqueDisponivelValidador;
+
+    @InitBinder
+    public void init(WebDataBinder binder) {
+        binder.addValidators(estoqueDisponivelValidador);
+    }
+
     @PostMapping
     @Transactional
     //1
-    public ResponseEntity<CompraRetorno> realizarCompra(@RequestBody @Valid CompraNovoRequest compraNova, @AuthenticationPrincipal UserDetails user) {
+    public ResponseEntity<String> realizarCompra(@RequestBody @Valid CompraNovoRequest compraNova, @AuthenticationPrincipal UserDetails user) {
 
         //1
         Produto produto = manager.find(Produto.class, compraNova.getIdProduto());
 
-        //1
-        if (!produto.abateEstoque(compraNova.getQuantidade())) {
-            return ResponseEntity.badRequest().build();
-        }
+        produto.abateEstoque(compraNova.getQuantidade());
 
         //1
         UsuarioLogado userDetails = (UsuarioLogado) user;
@@ -64,6 +69,6 @@ public class CompraController {
 
         CompraRetorno compraRetorno = new CompraRetorno(compra);
 
-        return ResponseEntity.ok(compraRetorno);
+        return ResponseEntity.ok("Compra etapa 1");
     }
 }

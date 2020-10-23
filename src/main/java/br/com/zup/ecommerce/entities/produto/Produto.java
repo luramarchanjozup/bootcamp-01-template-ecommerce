@@ -20,7 +20,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Contagem de carga intrínseca da classe: 10
+ * Contagem de carga intrínseca da classe: 9
  */
 
 @Entity
@@ -165,13 +165,7 @@ public class Produto {
         return this.dono.equals(usuario);
     }
 
-    public boolean abateEstoque(int quantidade) {
-        int novoEstoque = this.qtdDisponivel - quantidade;
-        //1
-        if (novoEstoque < 0) {
-            return false;
-        }
-        this.qtdDisponivel = novoEstoque;
-        return true;
+    public void abateEstoque(int quantidade) {
+        this.qtdDisponivel = this.qtdDisponivel - quantidade;
     }
 }
