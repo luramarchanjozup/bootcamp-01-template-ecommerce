@@ -1,15 +1,13 @@
 package com.zup.mercadolivre.controller.dto;
 
-import com.zup.mercadolivre.model.products.ProductQuestions;
-
 public class QuestionDto {
     
     private String title;
     private UserDTO owner;
 
-    public QuestionDto(ProductQuestions questions) {
-        this.title = questions.getTitle();
-        this.owner = questions.getUser().toDto();
+    public QuestionDto(String title, UserDTO owner) {
+        this.title = title;
+        this.owner = owner;
     }
 
     public String getTitle() {

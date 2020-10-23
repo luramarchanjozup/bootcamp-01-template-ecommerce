@@ -5,6 +5,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.zup.mercadolivre.model.Category;
+import com.zup.mercadolivre.services.validations.ExistsId;
+import com.zup.mercadolivre.services.validations.UniqueValue;
 
 /**
  * Handles the incoming {@link Category} creation information.
@@ -14,28 +16,14 @@ import com.zup.mercadolivre.model.Category;
 public class CategoryForm {
     @NotBlank
     @NotNull
+    @UniqueValue(domainClass = Category.class, fieldName = "name")
     private String name;
     @NotNull
+    @ExistsId(domainClass = Category.class, fieldName = "name")
     private String parentCategory;
 
     public CategoryForm(String name, String parentCategory) {
         this.name = name;
-        this.parentCategory = parentCategory;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getParentCategory() {
-        return this.parentCategory;
-    }
-
-    public void setParentCategory(String parentCategory) {
         this.parentCategory = parentCategory;
     }
 

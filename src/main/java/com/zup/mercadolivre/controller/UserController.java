@@ -29,9 +29,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @Autowired
-    private BCryptPasswordEncoder encoder;
-
-    @Autowired
     private EntityManager manager;
     @Autowired
     private CheckDuplicatedEmail checkDuplicatedEmail;
@@ -44,7 +41,7 @@ public class UserController {
     @PostMapping
     @Transactional
     public ResponseEntity<?> createUser(@RequestBody @Valid UserForm form) {
-        manager.persist(form.toUser(encoder));
+        manager.persist(form.toUser());
 
         return ResponseEntity.ok().build();
     }

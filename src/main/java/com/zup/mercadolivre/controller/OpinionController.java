@@ -39,7 +39,7 @@ public class OpinionController {
         Product product = manager.find(Product.class, id);
         product.setOpinions(form.toOpinion(manager, product));
 
-        manager.persist(product);
+        manager.merge(product);
 
         return ResponseEntity.ok().body(product.toDto());
     }

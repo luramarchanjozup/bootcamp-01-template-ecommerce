@@ -23,20 +23,8 @@ public class ProductImages {
         this.product = product;
     }
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getImagePath() {
         return this.imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
     }
 
 }

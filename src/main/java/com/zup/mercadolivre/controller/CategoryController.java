@@ -5,13 +5,10 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import com.zup.mercadolivre.controller.form.CategoryForm;
-import com.zup.mercadolivre.services.validations.CheckDuplicatedCategory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,14 +30,6 @@ public class CategoryController {
     
     @Autowired
     private EntityManager manager;
-    @Autowired
-    //1
-    private CheckDuplicatedCategory checkDuplicatedCategory;
-    
-    @InitBinder
-    public void init(WebDataBinder binder) {
-        binder.addValidators(checkDuplicatedCategory);
-    }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping

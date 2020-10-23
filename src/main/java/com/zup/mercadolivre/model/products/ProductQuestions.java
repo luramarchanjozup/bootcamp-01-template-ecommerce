@@ -36,47 +36,7 @@ public class ProductQuestions {
         this.timeOfCreation = LocalDateTime.now();
     }
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return this.title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public LocalDateTime getTimeOfCreation() {
-        return this.timeOfCreation;
-    }
-
-    public void setTimeOfCreation(LocalDateTime timeOfCreation) {
-        this.timeOfCreation = timeOfCreation;
-    }
-
-    public User getUser() {
-        return this.user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Product getProduct() {
-        return this.product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
     public QuestionDto toDto() {
-        return new QuestionDto(this);
+        return new QuestionDto(this.title, this.user.toDto());
     }
 }
