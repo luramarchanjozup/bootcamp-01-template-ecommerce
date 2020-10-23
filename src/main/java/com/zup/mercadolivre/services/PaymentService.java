@@ -2,6 +2,7 @@ package com.zup.mercadolivre.services;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import com.zup.mercadolivre.model.Purchase;
 import com.zup.mercadolivre.model.enums.PurchaseStatus;
@@ -18,7 +19,7 @@ public class PaymentService {
     
     @PersistenceContext
     private EntityManager manager;
-    
+
     @Autowired
     //1
     private MailService mailService;
@@ -29,6 +30,7 @@ public class PaymentService {
     //1
     private RankingClient rankingClient;
 
+    @Transactional
     //1
     public ResponseEntity<?> paymentResponse(boolean isApproved, Long purchaseId) {
         //1
