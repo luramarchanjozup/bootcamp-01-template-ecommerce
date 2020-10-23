@@ -2,6 +2,7 @@ package br.com.zup.ecommerce.entities.compra;
 
 import br.com.zup.ecommerce.entities.produto.Produto;
 import br.com.zup.ecommerce.entities.usuario.Usuario;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 /**
- * Contagem de carga intrínseca da classe: 4
+ * Contagem de carga intrínseca da classe: 5
  */
 
 @Entity
@@ -75,5 +76,29 @@ public class Compra {
 
     public StatusPagamentoEnum getStatus() {
         return status;
+    }
+
+    public String getLinkPagamento(){
+        String host = ServletUriComponentsBuilder.fromCurrentServletMapping().toUriString();
+        String linkPagamento = "";
+        String linkRetornoPosPagamento = host + "/compras/" + this.id;
+
+        //1
+        switch (this.tipoPagamento) {
+            case PAYPAL:
+                linkPagamento = String.format("http://paypal.com/%d?redirectUrl=%s",
+                        this.id,
+                        linkRetornoPosPagamento
+                );
+                break;
+            case PAGSEGURO:
+                linkPagamento = String.format("http://pagseguro.com?returnId=%d&redirectUrl=%s",
+                        this.id,
+                        linkRetornoPosPagamento
+                );
+                break;
+        }
+
+        return linkPagamento;
     }
 }
