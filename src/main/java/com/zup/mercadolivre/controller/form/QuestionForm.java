@@ -27,14 +27,6 @@ public class QuestionForm {
         this.title = title;
     }
 
-    public String getTitle() {
-        return this.title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     /**
      * Creates a new {@link ProductQuestions} and checks if the 
      * logged {@link User} if the owner of the {@link Product}.

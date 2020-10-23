@@ -38,7 +38,7 @@ public class QuestionsController {
         Product product = manager.find(Product.class, id);
 
         product.setQuestions(form.toQuestion(manager, product));
-        manager.persist(product);
+        manager.merge(product);
         // Uncomment for mail functionality in production
         //mailService.newQuestionToSeller(product.getOwner().getEmail(), product.getName());
 

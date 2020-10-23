@@ -2,10 +2,9 @@ package com.zup.mercadolivre.controller.dto;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 import com.zup.mercadolivre.model.Category;
-import com.zup.mercadolivre.model.products.Product;
 import com.zup.mercadolivre.model.products.ProductCharacteristics;
 import com.zup.mercadolivre.model.products.ProductOpinion;
 
@@ -16,32 +15,34 @@ public class ProductDTO {
     private Integer quantityInStock;
     private Float avarageNote;
     private Integer numberOfNotes;
-    private List<ProductCharacteristics> characteristics;
+    private Set<ProductCharacteristics> characteristics;
     private String description;
     private Category category;
     private LocalDateTime registrationTime;
     private UserDTO owner;
     private List<String> imagePaths;
 
-    public ProductDTO(Product product) {
-        this.id = product.getId();
-        this.name = product.getName();
-        this.price = product.getPrice();
-        this.quantityInStock = product.getQuantityInStock();
-        this.avarageNote = getNoteAvarage(product);
-        this.numberOfNotes = product.getOpinions().size();
-        this.characteristics = product.getCharacteristics();
-        this.description = product.getDescription();
-        this.category = product.getCategory();
-        this.registrationTime = product.getRegistrationTime();
-        this.owner = product.getOwner().toDto();
-        this.imagePaths = product.getImages().stream().map(x -> x.getImagePath()).collect(Collectors.toList());
+    public ProductDTO(Long id, String name, Double price, Integer quantityInStock, Integer numberOfNotes, 
+        Set<ProductCharacteristics> characteristics, String description, Category category, LocalDateTime registrationTime,
+        UserDTO owner, List<String> imagePaths, Set<ProductOpinion> opinions) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.quantityInStock = quantityInStock;
+        this.avarageNote = getNoteAvarage(opinions);
+        this.numberOfNotes = numberOfNotes;
+        this.characteristics = characteristics;
+        this.description = description;
+        this.category = category;
+        this.registrationTime = registrationTime;
+        this.owner = owner;
+        this.imagePaths = imagePaths;
     }
 
-    private Float getNoteAvarage(Product product) {
+    private Float getNoteAvarage(Set<ProductOpinion> opinions) {
         Integer notesSum = 0;
-        Integer noteSize = product.getOpinions().size();
-        for (ProductOpinion opinion : product.getOpinions()) {
+        Integer noteSize = opinions.size();
+        for (ProductOpinion opinion : opinions) {
             notesSum += opinion.getNote();
         }
         float result = notesSum.floatValue() / noteSize.floatValue();
@@ -64,7 +65,7 @@ public class ProductDTO {
         return this.quantityInStock;
     }
 
-    public List<ProductCharacteristics> getCharacteristics() {
+    public Set<ProductCharacteristics> getCharacteristics() {
         return this.characteristics;
     }
 

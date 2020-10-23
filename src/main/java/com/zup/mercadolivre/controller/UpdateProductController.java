@@ -45,7 +45,7 @@ public class UpdateProductController {
         boolean noErrorsOcurred = product.saveImages(images);
         //1
         if (noErrorsOcurred) {
-            manager.persist(product);
+            manager.merge(product);
             return ResponseEntity.ok().body(product.toDto());
         } /*1*/ else {
             return ResponseEntity.badRequest().build();

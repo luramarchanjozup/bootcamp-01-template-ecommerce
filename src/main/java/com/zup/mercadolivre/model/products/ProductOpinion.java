@@ -40,55 +40,11 @@ public class ProductOpinion {
         this.product = product;
     }
 
-    public Long getId() {
-        return this.id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Integer getNote() {
         return this.note;
     }
 
-    public void setNote(Integer note) {
-        this.note = note;
-    }
-
-    public String getTitle() {
-        return this.title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public User getOpnionOwner() {
-        return this.opnionOwner;
-    }
-
-    public void setOpnionOwner(User opnionOwner) {
-        this.opnionOwner = opnionOwner;
-    }
-
-    public Product getProduct() {
-        return this.product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
     public OpinionDTO toDto() {
-        return new OpinionDTO(this);
+        return new OpinionDTO(this.id, this.note, this.title, this.description, this.opnionOwner.toDto());
     }
 }

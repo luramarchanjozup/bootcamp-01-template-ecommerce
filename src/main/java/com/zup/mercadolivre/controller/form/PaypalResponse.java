@@ -20,10 +20,6 @@ public class PaypalResponse {
         return this.paymentId;
     }
 
-    public Integer getStatus() {
-        return this.status;
-    }
-
 	public boolean isApproved() {
 		if(this.status.equals(1)) {
             return true;

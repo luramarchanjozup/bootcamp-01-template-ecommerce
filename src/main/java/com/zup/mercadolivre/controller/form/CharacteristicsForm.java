@@ -3,6 +3,9 @@ package com.zup.mercadolivre.controller.form;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.zup.mercadolivre.model.products.Product;
+import com.zup.mercadolivre.model.products.ProductCharacteristics;
+
 public class CharacteristicsForm {
     
     @NotNull @NotBlank
@@ -19,16 +22,11 @@ public class CharacteristicsForm {
         return this.name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescription() {
         return this.description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public ProductCharacteristics toCharacteristic(Product product) {
+        return new ProductCharacteristics(this.name, this.description, product);
     }
-
 }

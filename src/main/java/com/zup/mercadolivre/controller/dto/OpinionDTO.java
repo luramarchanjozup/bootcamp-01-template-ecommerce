@@ -1,7 +1,5 @@
 package com.zup.mercadolivre.controller.dto;
 
-import com.zup.mercadolivre.model.products.ProductOpinion;
-
 public class OpinionDTO {
     private Long id;
     private Integer note;
@@ -9,12 +7,12 @@ public class OpinionDTO {
     private String description;
     private UserDTO opinionOwner;
 
-    public OpinionDTO(ProductOpinion opinion) {
-        this.id = opinion.getId();
-        this.note = opinion.getNote();
-        this.title = opinion.getTitle();
-        this.description = opinion.getDescription();
-        this.opinionOwner = opinion.getOpnionOwner().toDto();
+    public OpinionDTO(Long id, Integer note, String title, String description, UserDTO owner) {
+        this.id = id;
+        this.note = note;
+        this.title = title;
+        this.description = description;
+        this.opinionOwner = owner;
     }
 
     public Long getId() {

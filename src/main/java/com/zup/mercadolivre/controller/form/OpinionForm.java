@@ -33,30 +33,6 @@ public class OpinionForm {
         this.description = description;
     }
 
-    public Integer getNote() {
-        return this.note;
-    }
-
-    public void setNote(Integer note) {
-        this.note = note;
-    }
-
-    public String getTitle() {
-        return this.title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     /**
      * Gets the logged user and creates a new {@link ProductOpinion}.
      * 

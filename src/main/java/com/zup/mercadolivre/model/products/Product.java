@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
@@ -18,15 +20,18 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 import com.zup.mercadolivre.controller.dto.OpinionListDto;
 import com.zup.mercadolivre.controller.dto.ProductDTO;
 import com.zup.mercadolivre.controller.dto.QuestionListDto;
+import com.zup.mercadolivre.controller.form.CharacteristicsForm;
 import com.zup.mercadolivre.model.Category;
 import com.zup.mercadolivre.model.User;
 
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity
@@ -44,12 +49,14 @@ public class Product {
     @Min(0)
     private Integer quantityInStock;
     @NotNull
-    @Size(min = 3) @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ProductCharacteristics> characteristics;
+    @Size(min = 3)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private Set<ProductCharacteristics> characteristics = new HashSet<>();
     @NotNull
     @Size(max = 1000)
     private String description;
-    @NotNull @ManyToOne
+    @NotNull
+    @ManyToOne
     private Category category;
     @NotNull
     private LocalDateTime registrationTime;
@@ -58,20 +65,20 @@ public class Product {
     private User owner;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ProductOpinion> opinions;
+    private Set<ProductOpinion> opinions = new HashSet<>();
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ProductQuestions> questions;
+    private Set<ProductQuestions> questions = new HashSet<>();
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ProductImages> images;
+    private Set<ProductImages> images = new HashSet<>();
 
     @Deprecated
     public Product() {
     }
 
-    public Product(String name, Double price, Integer quantityInStock, 
-            String description, Category category, User owner) {
+    public Product(String name, Double price, Integer quantityInStock, String description,
+            Collection<CharacteristicsForm> characteristics, Category category, User owner) {
         this.name = name;
         this.price = price;
         this.quantityInStock = quantityInStock;
@@ -80,108 +87,41 @@ public class Product {
         this.registrationTime = LocalDateTime.now();
         this.owner = owner;
 
-        this.opinions = new ArrayList<>();
-        this.questions = new ArrayList<>();
-        this.images = new ArrayList<>();
+        this.characteristics.addAll(characteristics.stream().map(c -> c.toCharacteristic(this))
+        .collect(Collectors.toSet()));
+
+        Assert.isTrue(this.characteristics.size() >= 3, "Every product must have at least 3 or more characteristics.");
     }
 
     public Long getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return this.name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Double getPrice() {
-        return this.price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public Integer getQuantityInStock() {
-        return this.quantityInStock;
-    }
-
-    public void addQuantityInStock(Integer amount) {
-        this.quantityInStock += amount;
-    }
-
-    public void subQuantityInStock(Integer amount) {
-        if (this.quantityInStock < amount) {
-            throw new IllegalArgumentException("No stock available");
+    public boolean subQuantityInStock(@Positive Integer amount) {
+        Assert.isTrue(amount > 0, "The amount must be greater than 0");
+        
+        if (amount <= this.quantityInStock) {
+            this.quantityInStock -= amount;
+            return true;
         }
-        this.quantityInStock -= amount;
-    }
 
-    public List<ProductCharacteristics> getCharacteristics() {
-        return this.characteristics;
-    }
-
-    public void setCharacteristics(List<ProductCharacteristics> characteristics) {
-        this.characteristics = characteristics;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Category getCategory() {
-        return this.category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public LocalDateTime getRegistrationTime() {
-        return this.registrationTime;
-    }
-
-    public void setRegistrationTime(LocalDateTime registrationTime) {
-        this.registrationTime = registrationTime;
+        return false;
     }
 
     public User getOwner() {
         return this.owner;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
-
-    public List<ProductImages> getImages() {
-        return this.images;
-    }
-
     public void setImages(ProductImages image) {
         this.images.add(image);
     }
 
-    public List<ProductOpinion> getOpinions() {
-        return this.opinions;
-    }
-
     public void setOpinions(ProductOpinion opinions) {
         this.opinions.add(opinions);
-    }
-
-    public List<ProductQuestions> getQuestions() {
-        return this.questions;
     }
 
     public void setQuestions(ProductQuestions questions) {
@@ -205,17 +145,19 @@ public class Product {
     }
 
     public ProductDTO toDto() {
-        return new ProductDTO(this);
+        return new ProductDTO(this.id, this.name, this.price, this.quantityInStock, this.opinions.size(), 
+            this.characteristics, this.description, this.category, this.registrationTime, this.owner.toDto(), 
+            this.images.stream().map(x -> x.getImagePath()).collect(Collectors.toList()), this.opinions);
     }
 
     public QuestionListDto questionToDto() {
         return new QuestionListDto(this.questions.stream().map(q -> q.toDto()).collect(Collectors.toList()));
     }
 
-	public OpinionListDto opinionsDto() {
-		return new OpinionListDto(this.opinions.stream().map(o -> o.toDto()).collect(Collectors.toList()));
+    public OpinionListDto opinionsDto() {
+        return new OpinionListDto(this.opinions.stream().map(o -> o.toDto()).collect(Collectors.toList()));
     }
-    
+
     public boolean saveImages(List<MultipartFile> images) {
         String assetsPath = Paths.get("src\\main\\java\\com\\zup\\mercadolivre\\assets").toAbsolutePath().toString();
         File imgFolder = new File(assetsPath + "\\" + "product_" + this.id);
@@ -223,14 +165,26 @@ public class Product {
 
         for (MultipartFile img : images) {
             try {
-                File imgFile = new File(assetsPath + "\\" + "product_" + this.id + "\\" + this.id + "_img" + 
-                        (this.images.size() + 1) + "." + img.getOriginalFilename().split("\\.")[1]);
+                File imgFile = new File(assetsPath + "\\" + "product_" + this.id + "\\" + this.id + "_img"
+                        + (this.images.size() + 1) + "." + img.getOriginalFilename().split("\\.")[1]);
                 img.transferTo(imgFile);
                 this.images.add(new ProductImages(imgFile.toPath().toAbsolutePath().toString(), this));
             } catch (IOException e) {
                 return false;
             }
         }
+        return true;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+        if(obj == null) return false;
+        if(getClass() != obj.getClass()) return false;
+        Product other = (Product)obj;
+        if(name == null) {
+            if(other.name != null) return false;
+        } else if (!name.equals(other.name)) return false;
         return true;
     }
 }

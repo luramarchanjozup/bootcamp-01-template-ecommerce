@@ -20,6 +20,10 @@ import javax.validation.constraints.Size;
 import com.zup.mercadolivre.controller.dto.UserDTO;
 import com.zup.mercadolivre.model.enums.Profiles;
 
+import org.springframework.util.StringUtils;
+
+import io.jsonwebtoken.lang.Assert;
+
 @Entity
 public class User {
 
@@ -45,9 +49,17 @@ public class User {
         addProfile(Profiles.USER);
     }
 
-    public User(String email, String password) {
+    /**
+     * 
+     * @param email with email format
+     * @param cleanPassword in plain text
+     */
+    public User(String email, CleanPassword cleanPassword) {
+        Assert.isTrue(StringUtils.hasLength(email), "email can't be blank");
+        Assert.notNull(cleanPassword, "the object of type ClearPassword can't be null");
+
         this.email = email;
-        this.password = password;
+        this.password = cleanPassword.hash();
         this.timeOfCreation = LocalDateTime.now();
         addProfile(Profiles.USER);
         // Used for testing
@@ -58,32 +70,12 @@ public class User {
         return this.id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getEmail() {
         return this.email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPassword() {
         return this.password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public LocalDateTime getTimeOfCreation() {
-        return this.timeOfCreation;
-    }
-
-    public void setTimeOfCreation(LocalDateTime timeOfCreation) {
-        this.timeOfCreation = timeOfCreation;
     }
 
     public Set<Profiles> getProfiles() {
@@ -97,4 +89,8 @@ public class User {
     public UserDTO toDto() {
         return new UserDTO(this);
     }
+
+	public LocalDateTime getTimeOfCreation() {
+		return this.timeOfCreation;
+	}
 }
