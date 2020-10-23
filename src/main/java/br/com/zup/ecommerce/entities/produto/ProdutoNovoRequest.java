@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Contagem de carga intrínseca da classe: 9
+ * Contagem de carga intrínseca da classe: 8
  */
 
 public class ProdutoNovoRequest {
@@ -70,7 +70,7 @@ public class ProdutoNovoRequest {
         return categoriaId;
     }
 
-    //2
+    //1
     public Produto toModel(EntityManager manager, Usuario dono){
 
         Categoria categoria = manager.find(Categoria.class, this.categoriaId);

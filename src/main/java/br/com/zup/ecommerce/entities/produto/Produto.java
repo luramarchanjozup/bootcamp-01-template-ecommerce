@@ -93,15 +93,6 @@ public class Produto {
         this.dono = dono;
     }
 
-    public Produto(@NotBlank String nome, @NotNull @Positive BigDecimal valor, @NotNull @Min(0) int qtdDisponivel, @NotBlank @Size(max = 1000) String descricao, @NotNull Categoria categoria, @NotNull @Valid Usuario dono) {
-        this.nome = nome;
-        this.valor = valor;
-        this.qtdDisponivel = qtdDisponivel;
-        this.descricao = descricao;
-        this.categoria = categoria;
-        this.dono = dono;
-    }
-
     public Long getId() {
         return id;
     }
@@ -160,12 +151,12 @@ public class Produto {
     }
 
 
-    public void incluirOpinioes(OpiniaoProduto opiniao) {
+    public void incluirOpiniao(OpiniaoProduto opiniao) {
         opiniao.setProduto(this);
         this.opinioes.add(opiniao);
     }
 
-    public void incluirPerguntas(PerguntaProduto pergunta) {
+    public void incluirPergunta(PerguntaProduto pergunta) {
         pergunta.setProduto(this);
         this.perguntas.add(pergunta);
     }

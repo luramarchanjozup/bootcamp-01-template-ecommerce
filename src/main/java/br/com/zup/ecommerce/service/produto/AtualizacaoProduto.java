@@ -1,16 +1,20 @@
 package br.com.zup.ecommerce.service.produto;
 
 import br.com.zup.ecommerce.entities.produto.Produto;
-import br.com.zup.ecommerce.entities.produto.imagem.ImagensNovoRequest;
 import br.com.zup.ecommerce.entities.usuario.Usuario;
 import br.com.zup.ecommerce.security.UsuarioLogado;
+import br.com.zup.ecommerce.service.email.EnviarEmail;
+import br.com.zup.ecommerce.service.uploader.Uploader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -22,11 +26,11 @@ public class AtualizacaoProduto {
 
     @Autowired
     //1
-    private EnvioImagem envioImagem;
+    private Uploader uploader;
 
     @Autowired
     //1
-    private EnvioPergunta envioPergunta;
+    private EnviarEmail enviarEmail;
 
     //1
     public Produto getProduto(Long id, EntityManager manager) {
@@ -53,11 +57,33 @@ public class AtualizacaoProduto {
         }
     }
 
-    public Set<String> enviaImagem(ImagensNovoRequest novasImagens) {
-        return envioImagem.enviaImagem(novasImagens);
+    public Set<String> enviaImagem(List<MultipartFile> novasImagens) {
+        return uploader.enviaImagens(novasImagens);
     }
 
-    public void enviaEmail(Produto produto, String pergunta) {
-        envioPergunta.enviaEmail(produto, pergunta);
+    public void enviaEmailPergunta(Produto produto, String pergunta) {
+        String assunto = this.montarAssuntoEmailPergunta(produto);
+        String mensagem = this.montarCorpoEmailPergunta(produto, pergunta);
+        enviarEmail.enviarEmail(produto.getDono().getLogin(), assunto, mensagem);
+    }
+
+    private String montarAssuntoEmailPergunta(Produto produto) {
+        return String.format(
+                "Pergunta sobre o produto %d - %s",
+                produto.getId(), produto.getNome());
+    }
+
+    private String montarCorpoEmailPergunta(Produto produto, String pergunta){
+
+        String host = ServletUriComponentsBuilder.fromCurrentServletMapping().toUriString();
+        String linkProduto = String.format("%s/produtos/%d", host, produto.getId());
+
+        return String.format(
+                "Pergunta sobre o produto %d - %s\n\n" +
+                        "Pergunta: %s\n\n" +
+                        "Link do produto: %s",
+                produto.getId(), produto.getNome(),
+                pergunta,
+                linkProduto);
     }
 }

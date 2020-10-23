@@ -48,7 +48,7 @@ public class ProdutoAtualizacaoController {
         atualizacaoProduto.validaDonoProduto(manager, produto, user);
 
         //Envia as imagens para um repositorio e retorna a lista dos links dessas imagens
-        Set<String> links = atualizacaoProduto.enviaImagem(novasImagens);
+        Set<String> links = atualizacaoProduto.enviaImagem(novasImagens.getImagens());
         produto.incluirImagens(links);
 
         manager.merge(produto);
@@ -65,7 +65,7 @@ public class ProdutoAtualizacaoController {
         //1
         OpiniaoProduto opiniao = novaOpiniao.toModelSemProduto(atualizacaoProduto.getUsuarioLogado(user));
 
-        produto.incluirOpinioes(opiniao);
+        produto.incluirOpiniao(opiniao);
         manager.merge(produto);
 
         Long opiniaoId = produto.getOpinioes().get(produto.getOpinioes().size() - 1).getId();
@@ -80,12 +80,12 @@ public class ProdutoAtualizacaoController {
 
         //1
         PerguntaProduto pergunta = novasPerguntas.toModelSemProduto(atualizacaoProduto.getUsuarioLogado(user));
-        produto.incluirPerguntas(pergunta);
+        produto.incluirPergunta(pergunta);
 
         manager.merge(produto);
 
         //Envia e-mail da pergunta para o dono do produto
-        atualizacaoProduto.enviaEmail(produto, pergunta.getTitulo());
+        atualizacaoProduto.enviaEmailPergunta(produto, pergunta.getTitulo());
 
         //Definir tipo application/json
         final HttpHeaders httpHeaders= new HttpHeaders();
