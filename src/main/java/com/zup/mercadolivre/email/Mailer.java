@@ -1,4 +1,4 @@
-package com.zup.mercadolivre.produto.pergunta;
+package com.zup.mercadolivre.email;
 
 import com.zup.mercadolivre.usuario.Usuario;
 
@@ -15,5 +15,5 @@ public interface Mailer {
      * @param to email de destino
      */
     void send(@NotBlank String body, @NotBlank String subject, @NotBlank String nameFrom,
-              @NotBlank @Email String from, @NotBlank @Email Usuario to);
+              @NotBlank @Email String from, @NotBlank @Email String to);
 }

@@ -1,4 +1,4 @@
-package com.zup.mercadolivre.compra;
+package com.zup.mercadolivre.fluxocompra;
 
 import com.zup.mercadolivre.produto.Produto;
 import com.zup.mercadolivre.usuario.Usuario;
@@ -43,6 +43,10 @@ public class Compra {
 
     public Usuario getComprador() {
         return comprador;
+    }
+
+    public Usuario getDonoProduto() {
+        return produtoEscolhido.getDono();
     }
 
     public String urlRedirecionamento(UriComponentsBuilder uriComponentsBuilder) {

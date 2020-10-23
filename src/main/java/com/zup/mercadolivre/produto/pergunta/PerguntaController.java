@@ -1,5 +1,6 @@
 package com.zup.mercadolivre.produto.pergunta;
 
+import com.zup.mercadolivre.email.Emails;
 import com.zup.mercadolivre.produto.Produto;
 import com.zup.mercadolivre.usuario.Usuario;
 import com.zup.mercadolivre.usuario.UsuarioRepository;
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

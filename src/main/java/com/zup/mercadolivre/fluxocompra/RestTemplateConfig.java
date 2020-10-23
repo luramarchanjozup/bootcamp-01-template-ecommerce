@@ -1,4 +1,4 @@
-package com.zup.mercadolivre.compra;
+package com.zup.mercadolivre.fluxocompra;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

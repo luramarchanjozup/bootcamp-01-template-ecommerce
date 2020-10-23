@@ -1,4 +1,4 @@
-package com.zup.mercadolivre.compra;
+package com.zup.mercadolivre.fluxocompra;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;

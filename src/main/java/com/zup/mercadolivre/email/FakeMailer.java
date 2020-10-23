@@ -1,4 +1,4 @@
-package com.zup.mercadolivre.produto.pergunta;
+package com.zup.mercadolivre.email;
 
 import com.zup.mercadolivre.usuario.Usuario;
 import org.springframework.context.annotation.Primary;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Primary
 public class FakeMailer implements Mailer {
     @Override
-    public void send(String body, String subject, String nameFrom, String from, Usuario to) {
+    public void send(String body, String subject, String nameFrom, String from, String to) {
         System.out.println(body);
         System.out.println(subject);
         System.out.println(nameFrom);

@@ -1,5 +1,6 @@
-package com.zup.mercadolivre.compra;
+package com.zup.mercadolivre.fluxocompra;
 
+import com.zup.mercadolivre.email.Emails;
 import com.zup.mercadolivre.produto.Produto;
 import com.zup.mercadolivre.usuario.Usuario;
 import com.zup.mercadolivre.usuario.UsuarioRepository;
@@ -23,6 +24,8 @@ public class CompraParte1Controller {
     private EntityManager manager;
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
+    private Emails emails;
 
     @GetMapping
     @Transactional
@@ -37,6 +40,7 @@ public class CompraParte1Controller {
             GatewayPagamento gateway = request.getGateway();
             Compra novaCompra = new Compra(produtoEscolhido, quantidade, comprador, gateway);
             manager.persist(novaCompra);
+            emails.novaCompra(novaCompra);
             return novaCompra.urlRedirecionamento(uriComponentsBuilder);
         }
         BindException problemaComEstoque = new BindException(request, "novaCompraRequest");

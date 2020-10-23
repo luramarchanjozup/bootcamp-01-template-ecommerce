@@ -1,4 +1,4 @@
-package com.zup.mercadolivre.compra;
+package com.zup.mercadolivre.fluxocompra;
 
 import javax.persistence.*;
 import javax.validation.Valid;

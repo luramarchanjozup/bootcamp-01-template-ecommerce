@@ -50,6 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         .antMatchers(HttpMethod.POST, "/usuarios").permitAll()
                         .antMatchers(HttpMethod.POST, "/retorno-paypal").permitAll()
                         .antMatchers(HttpMethod.POST, "/notas-fiscais").permitAll()
+                        .antMatchers(HttpMethod.POST, "/ranking").permitAll()
                         .antMatchers(HttpMethod.POST, "/retorno-pagseguro/{id:[0-9]+}").permitAll()
                         .antMatchers(HttpMethod.POST, "/retorno-paypal/{id:[0-9]+}").permitAll()
                         .antMatchers("/api/auth/**").permitAll()

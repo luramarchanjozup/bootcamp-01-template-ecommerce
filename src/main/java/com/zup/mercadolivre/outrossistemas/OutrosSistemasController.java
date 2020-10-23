@@ -13,4 +13,10 @@ public class OutrosSistemasController {
         System.out.println("Criando nota" + request);
         Thread.sleep(150);
     }
+
+    @PostMapping("/ranking")
+    public void ranking(@Valid @RequestBody RankingNovaCompraRequest request) throws  InterruptedException {
+        System.out.println("Criando ranking " + request);
+        Thread.sleep(150);
+    }
 }
