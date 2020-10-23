@@ -150,17 +150,6 @@ public class Produto {
         this.imagens.addAll(imagensProduto);
     }
 
-
-    public void incluirOpiniao(OpiniaoProduto opiniao) {
-        opiniao.setProduto(this);
-        this.opinioes.add(opiniao);
-    }
-
-    public void incluirPergunta(PerguntaProduto pergunta) {
-        pergunta.setProduto(this);
-        this.perguntas.add(pergunta);
-    }
-
     public boolean isDonoLogado(EntityManager manager, Usuario usuario) {
         return this.dono.equals(usuario);
     }

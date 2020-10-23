@@ -1,11 +1,12 @@
 package br.com.zup.ecommerce.entities.produto.pergunta;
 
+import br.com.zup.ecommerce.entities.produto.Produto;
 import br.com.zup.ecommerce.entities.usuario.Usuario;
 
 import javax.validation.constraints.NotBlank;
 
 /**
- * Contagem de carga intrínseca da classe: 2
+ * Contagem de carga intrínseca da classe: 3
  */
 
 public class PerguntaProdutoNovoRequest {
@@ -20,8 +21,8 @@ public class PerguntaProdutoNovoRequest {
         return titulo;
     }
 
-    //2
-    public PerguntaProduto toModelSemProduto(Usuario usuario){
-        return new PerguntaProduto(titulo, usuario);
+    //3
+    public PerguntaProduto toModel(Produto produto, Usuario usuarioLogado) {
+        return new PerguntaProduto(titulo, usuarioLogado, produto);
     }
 }

@@ -19,6 +19,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -62,14 +63,12 @@ public class ProdutoAtualizacaoController {
     public ResponseEntity<String> envioOpnioes(@PathVariable("id") Long id, @RequestBody @Valid OpiniaoProdutoNovoRequest novaOpiniao, @AuthenticationPrincipal UserDetails user) {
 
         Produto produto = atualizacaoProduto.getProduto(id,manager);
+
         //1
-        OpiniaoProduto opiniao = novaOpiniao.toModelSemProduto(atualizacaoProduto.getUsuarioLogado(user));
+        OpiniaoProduto opiniaoProduto = novaOpiniao.toModel(produto, atualizacaoProduto.getUsuarioLogado(user));
+        manager.persist(opiniaoProduto);
 
-        produto.incluirOpiniao(opiniao);
-        manager.merge(produto);
-
-        Long opiniaoId = produto.getOpinioes().get(produto.getOpinioes().size() - 1).getId();
-        return ResponseEntity.ok("Opinião " + opiniaoId  +" cadastrada.");
+        return ResponseEntity.ok("Opinião " + opiniaoProduto.getId()  +" cadastrada.");
     }
 
     @PostMapping("/perguntas")
@@ -79,10 +78,8 @@ public class ProdutoAtualizacaoController {
         Produto produto = atualizacaoProduto.getProduto(id,manager);
 
         //1
-        PerguntaProduto pergunta = novasPerguntas.toModelSemProduto(atualizacaoProduto.getUsuarioLogado(user));
-        produto.incluirPergunta(pergunta);
-
-        manager.merge(produto);
+        PerguntaProduto pergunta = novasPerguntas.toModel(produto, atualizacaoProduto.getUsuarioLogado(user));
+        manager.persist(pergunta);
 
         //Envia e-mail da pergunta para o dono do produto
         atualizacaoProduto.enviaEmailPergunta(produto, pergunta.getTitulo());
@@ -91,7 +88,11 @@ public class ProdutoAtualizacaoController {
         final HttpHeaders httpHeaders= new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 
-        return ResponseEntity.ok().headers(httpHeaders).body(produto.getPerguntas().toString());
+        //Adiciona a nova pergunta para retornar a lista completa
+        List<PerguntaProduto> listaPerguntas = produto.getPerguntas();
+        listaPerguntas.add(pergunta);
+
+        return ResponseEntity.ok().headers(httpHeaders).body(listaPerguntas.toString());
     }
 
 }

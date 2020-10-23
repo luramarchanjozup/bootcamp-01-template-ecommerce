@@ -38,11 +38,6 @@ public class CaracteristicasProduto {
         this.produto = produto;
     }
 
-    public CaracteristicasProduto(@NotBlank String nome, @NotBlank String descricao) {
-        this.nome = nome;
-        this.descricao = descricao;
-    }
-
     public String getNome() {
         return nome;
     }

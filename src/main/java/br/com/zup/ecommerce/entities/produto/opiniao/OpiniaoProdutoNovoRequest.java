@@ -1,5 +1,6 @@
 package br.com.zup.ecommerce.entities.produto.opiniao;
 
+import br.com.zup.ecommerce.entities.produto.Produto;
 import br.com.zup.ecommerce.entities.usuario.Usuario;
 
 import javax.validation.constraints.*;
@@ -35,7 +36,7 @@ public class OpiniaoProdutoNovoRequest {
     }
 
     //2
-    public OpiniaoProduto toModelSemProduto(Usuario usuario) {
-        return new OpiniaoProduto(nota,titulo,descricao,usuario);
+    public OpiniaoProduto toModel(Produto produto, Usuario usuarioLogado) {
+        return new OpiniaoProduto(nota, titulo, descricao, usuarioLogado, produto);
     }
 }

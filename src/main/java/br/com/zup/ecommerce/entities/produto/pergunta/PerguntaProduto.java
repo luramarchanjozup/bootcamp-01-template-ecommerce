@@ -46,15 +46,6 @@ public class PerguntaProduto {
         this.produto = produto;
     }
 
-    public PerguntaProduto(@NotBlank String titulo, @NotNull @Valid Usuario usuario) {
-        this.titulo = titulo;
-        this.usuario = usuario;
-    }
-
-    public void setProduto(Produto produto) {
-        this.produto = produto;
-    }
-
     public Long getId() {
         return id;
     }
