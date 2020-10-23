@@ -14,35 +14,32 @@ import java.util.Set;
 
 import static org.junit.Assert.assertFalse;
 
-public class ValidacoesCategoriaModelTestes {
+public class NomeDaCategoriaNaoPodeSerNulo {
+
 
     private Validator validator;
 
-    private Categoria categoriaSemNome;
-
-    private Categoria categoriaMae;
+    private Categoria categoriaTeste;
 
 
     @BeforeEach
     public void setUp() {
 
-        categoriaMae = new Categoria("categoria Mãe", null);
-
-        categoriaSemNome = new Categoria("", categoriaMae);
+        categoriaTeste = new Categoria(" ");
 
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+
         validator = factory.getValidator();
 
     }
 
 
     @Test
-    public void categoriaSemNomeNaoDeveSerCadastrada(){
+    public void loginNaoDeveSerEmBrancoNoCadastro(){
 
-        Set<ConstraintViolation<Categoria>> violations = validator.validate(categoriaSemNome);
+        Set<ConstraintViolation<Categoria>> violations = validator.validate(categoriaTeste);
 
         assertFalse(violations.isEmpty());
 
     }
-
 }

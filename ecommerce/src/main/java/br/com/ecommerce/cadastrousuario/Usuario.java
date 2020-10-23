@@ -1,6 +1,7 @@
 package br.com.ecommerce.cadastrousuario;
 
 import br.com.ecommerce.adicionaropiniao.Opiniao;
+import br.com.ecommerce.cadastrocategoria.Categoria;
 import br.com.ecommerce.cadastroproduto.Produto;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -47,6 +48,10 @@ public class Usuario {
 
     }
 
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +
@@ -70,4 +75,10 @@ public class Usuario {
     public void setLogin(String login) {
         this.login = login;
     }
+
+    public OffsetDateTime getInstanteCadastro() {
+        return instanteCadastro;
+    }
+
+
 }

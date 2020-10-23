@@ -3,10 +3,7 @@ package br.com.ecommerce.adicionaropiniao;
 import br.com.ecommerce.cadastroproduto.Produto;
 import br.com.ecommerce.cadastrousuario.Usuario;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 
 @Entity
@@ -16,7 +13,7 @@ public class Opiniao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @NotNull @Max(5) @Min(1)
     private Double nota;
 
     @NotBlank

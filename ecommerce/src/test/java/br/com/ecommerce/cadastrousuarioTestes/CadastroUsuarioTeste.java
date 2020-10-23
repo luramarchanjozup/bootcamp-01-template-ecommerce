@@ -12,6 +12,8 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Random;
+
 import static io.restassured.RestAssured.*;
 import static io.restassured.matcher.RestAssuredMatchers.*;
 import static org.hamcrest.Matchers.*;
@@ -26,7 +28,11 @@ public class CadastroUsuarioTeste {
     @Test
     public void deveRetornarOkQuandoCadastrarUsuario(){
 
-        Usuario usuario = new Usuario("teste12345@email.com", new SenhaLimpa("teste12345"));
+        Random instanciaRandom = new Random();
+
+        int aleatorio = instanciaRandom.nextInt(1000000);
+
+        Usuario usuario = new Usuario("teste" + String.format(String.valueOf(aleatorio)) + "@email.com", new SenhaLimpa("teste12345"));
 
         given()
                 .basePath("/usuario")
@@ -39,4 +45,5 @@ public class CadastroUsuarioTeste {
                     .statusCode(HttpStatus.OK.value());
 
     }
+
 }

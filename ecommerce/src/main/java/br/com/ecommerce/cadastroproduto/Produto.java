@@ -35,6 +35,7 @@ public class Produto {
     private Long quantidadeDisponivel;
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
+    @Size(min = 3)
     private List<Caracteristica> caracteristicas = new ArrayList<>();
 
     @OneToMany(mappedBy = "produto")
@@ -50,6 +51,7 @@ public class Produto {
     @Size(max = 1000)
     private String descricao;
 
+    @NotNull
     @ManyToOne
     private Categoria categoria;
 
@@ -158,4 +160,8 @@ public class Produto {
         return descricao;
     }
 
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }
