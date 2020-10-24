@@ -88,13 +88,13 @@ Número de acoplamentos: 3
 
 ### gráfico 1
 
-![](/readme-images/polarCompraController.jpg)
+![](/readme-images/polarCompraController.png)
 
 
 ### gráfico 2
 
 
-![](/readme-images/barraCompraController.jpg)
+![](/readme-images/barraCompraController.png)
 
 
 - Obviamente o contador ainda precisa de diversas melhorias, ainda não tem uma precisão alta garantida. Mas já consegue identificar boa parte dos pontos em algumas classes.
