@@ -2,6 +2,7 @@ import conta_indicadores_complexidade
 import receber_argumentos
 import listagem_classes
 import conta_funcoes_como_parametro
+import gera_graficos
 import matplotlib.pyplot as plt
 import numpy as np
 import os
@@ -109,47 +110,5 @@ if(not os.path.isdir(f"./{receber_argumentos.nome_da_classe.pasta}")):
 
 
 
-# gráfico 1 barra
-#retirado da documentação do MatPlotLib
+gera_graficos.gerar_graficos(lista_pontos, receber_argumentos)
 
-
-plt.bar(['f(f(x))', 'classes específicas' , 'indicadores' , 'acoplamento'], [lista_pontos[0], lista_pontos[1], lista_pontos[2], lista_pontos[3]])
-plt.title("Variação de pontos por critério")
-
-plt.ylim(0, 6)
-
-plt.grid(True)
-
-plt.savefig(f"./{receber_argumentos.nome_da_classe.pasta}/barra{receber_argumentos.nome_da_classe.classe}.png")
-
-
-
-# gráfico 3 pizza
-
-labels = 'f(f(x))', 'classes específicas' , 'indicadores' , 'acoplamento'
-sizes = [lista_pontos[0], lista_pontos[1], lista_pontos[2], lista_pontos[3]]
-explode = (0.12, 0.12, 0.12, 0.12)  
-
-fig1, ax1 = plt.subplots()
-ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',shadow=True, startangle=90)
-ax1.axis('equal')  
-
-plt.savefig(f"./{receber_argumentos.nome_da_classe.pasta}/grafico_pizza{receber_argumentos.nome_da_classe.classe}.png")
-
-
-# gráfico 3 polar
-#retirado da documentação do MatPlotLib
-
-radii = 10 * np.random.rand(20)
-colors = plt.cm.viridis(radii / 10.)
-
-
-ax = plt.subplot(111, projection='polar')
-ax.bar(['f(f(x))', 'classes específicas' , 'indicadores' , 'acoplamento'], [lista_pontos[0], lista_pontos[1], lista_pontos[2], lista_pontos[3]], color=colors, alpha=0.8)
-plt.title("Variação de pontos por critério")
-
-plt.ylim(0, 5)
-
-plt.grid(True)
-
-plt.savefig(f"./{receber_argumentos.nome_da_classe.pasta}/polar{receber_argumentos.nome_da_classe.classe}.png")
