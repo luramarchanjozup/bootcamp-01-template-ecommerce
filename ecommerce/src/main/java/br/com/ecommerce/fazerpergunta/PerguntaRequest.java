@@ -4,16 +4,18 @@ import br.com.ecommerce.cadastroproduto.Produto;
 import br.com.ecommerce.cadastrousuario.Usuario;
 
 import javax.persistence.EntityManager;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class PerguntaRequest {
 
-
+    @NotBlank
     private String titulo;
 
-
+    @NotNull
     private Long usuarioId;
 
-
+    @NotNull
     private Long produtoId;
 
 

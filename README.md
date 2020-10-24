@@ -84,7 +84,7 @@ Número de acoplamentos: 3
 
 ```
 
-- Um gráfico de variação de complexidade por critério também é gerada ao fim do programa(utilizei o critério de branches, classes específicas ao projeto gerando complexidade, acoplamentos e funções como parâmetro). Outro gráfico mostra a distribuição percentual dos pontos.
+- Um gráfico de variação de complexidade por critério também é gerada ao fim do programa(utilizei o critério de branches, classes específicas ao projeto gerando complexidade, acoplamentos e funções como parâmetro). Outro gráfico mostra a distribuição percentual dos pontos. Aqui abro uma observação sobre a geração de gráficos. 
 
 ### gráfico 1
 
@@ -103,7 +103,7 @@ Número de acoplamentos: 3
 
 ## Sobre os testes
 
-- Utilizei o Pitest para ver a cobertura dos meus testes. Tendo em vista que iniciei a implementação há pouco tempo, a cobertura ainda está muito baixa. Mas o direcionamento do Pitest está colaborando bastante para saber melhor o que preciso testar.
+- Utilizei o Pitest para ver a cobertura dos meus testes. Tendo em vista que iniciei a implementação há pouco tempo, a cobertura ainda está muito baixa. Mas o direcionamento do Pitest está colaborando bastante para saber melhor o que preciso testar. A única observação é que encontrei problemas para gerar o JWT com o rest assured. Então coloquei o token nas classes de teste por meio de uma anotação ligando ao application properties. Para rodar os testes, tem que gerar o token no Insomnia/Postman e definir o ecommerce.jwt.testes = colocar_token_aqui.
 
 ![](/readme-images/coberturatestes.jpg)
 

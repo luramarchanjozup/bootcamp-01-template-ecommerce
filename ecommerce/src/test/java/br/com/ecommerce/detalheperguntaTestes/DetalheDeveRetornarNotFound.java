@@ -1,4 +1,5 @@
-package br.com.ecommerce.adicionaropiniaoTestes;
+package br.com.ecommerce.detalheperguntaTestes;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,41 +12,36 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application.properties")
-public class DevePossuirUmUsuario {
-
-    @LocalServerPort
-    private int port;
+public class DetalheDeveRetornarNotFound {
 
     @Value("${ecommerce.jwt.testes}")
     private String token;
 
+    @LocalServerPort
+    private int port;
+
+
     @Test
-    public void opiniaoDevePossuirUsuarioId() throws JSONException {
-
-
-        JSONObject opiniao = new JSONObject()
-                .put("nota",3)
-                .put("titulo","Teste")
-                .put("descricao","descrição teste")
-                .put("usuarioId",null)
-                .put("produtoId",1);
+    public void deveRetornarNotFoundQuandoIdNaoExiste() throws JSONException {
 
 
         given()
-                .basePath("/opinioes")
+                .basePath("/detalhe/100123123")
                 .port(port)
                 .header("Content-Type", "application/json")
                 .header("Authorization", token)
-                .body(opiniao.toString())
                 .when()
-                .post()
+                .get()
                 .then()
-                .statusCode(HttpStatus.BAD_REQUEST.value());
+                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+
 
     }
 }

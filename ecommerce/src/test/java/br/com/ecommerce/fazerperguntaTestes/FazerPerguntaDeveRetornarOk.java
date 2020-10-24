@@ -1,4 +1,5 @@
-package br.com.ecommerce.adicionaropiniaoTestes;
+package br.com.ecommerce.fazerperguntaTestes;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,12 +12,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application.properties")
-public class DevePossuirUmUsuario {
+public class FazerPerguntaDeveRetornarOk {
+
 
     @LocalServerPort
     private int port;
@@ -25,27 +29,25 @@ public class DevePossuirUmUsuario {
     private String token;
 
     @Test
-    public void opiniaoDevePossuirUsuarioId() throws JSONException {
+    public void deveRetornarOkQuandoPerguntaForAdicionaComSucesso() throws JSONException {
 
 
-        JSONObject opiniao = new JSONObject()
-                .put("nota",3)
-                .put("titulo","Teste")
-                .put("descricao","descrição teste")
-                .put("usuarioId",null)
-                .put("produtoId",1);
+        JSONObject pergunta = new JSONObject()
+                .put("titulo","teste")
+                .put("usuarioId",1)
+                .put("produtoId", 1);
 
 
         given()
-                .basePath("/opinioes")
+                .basePath("/pergunta")
                 .port(port)
                 .header("Content-Type", "application/json")
                 .header("Authorization", token)
-                .body(opiniao.toString())
-                .when()
+                .body(pergunta.toString())
+                    .when()
                 .post()
-                .then()
-                .statusCode(HttpStatus.BAD_REQUEST.value());
+                    .then()
+                .statusCode(HttpStatus.OK.value());
 
     }
 }

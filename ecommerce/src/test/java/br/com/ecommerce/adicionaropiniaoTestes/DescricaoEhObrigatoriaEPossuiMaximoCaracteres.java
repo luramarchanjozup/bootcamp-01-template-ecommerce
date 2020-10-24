@@ -7,9 +7,18 @@ import br.com.ecommerce.cadastroproduto.Produto;
 import br.com.ecommerce.cadastrousuario.SenhaLimpa;
 import br.com.ecommerce.cadastrousuario.Usuario;
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -20,73 +29,75 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import static io.restassured.RestAssured.given;
+
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource(locations = "classpath:application.properties")
 public class DescricaoEhObrigatoriaEPossuiMaximoCaracteres {
 
-    private Validator validador;
 
-    private Categoria categoria;
-
-    private Usuario usuario;
-
-    private Produto produto;
-
-    private List<Caracteristica> caracteristicas;
+    @Value("${ecommerce.jwt.testes}")
+    private String token;
 
 
-
-    @Before
-    public void SetUp(){
-
-
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-
-        validador = factory.getValidator();
+    @LocalServerPort
+    private int port;
 
 
-        categoria = new Categoria("Testando");
+    @Test
+    public void descricaoEhObrigatoria() throws JSONException {
 
-        usuario = new Usuario("usuariotesteproduto@email.com", new SenhaLimpa("testando"));
+
+        JSONObject opiniao = new JSONObject()
+                .put("nota",3)
+                .put("titulo","teste")
+                .put("descricao","  ")
+                .put("usuarioId",1)
+                .put("produtoId",1);
 
 
-        caracteristicas = Arrays.asList(
-                new Caracteristica("teste 1", new BigDecimal(120)),
-                new Caracteristica("teste 2", new BigDecimal(120)),
-                new Caracteristica("teste 3", new BigDecimal(120))
-        );
-
-        produto = new Produto("Produto Teste", new BigDecimal(90), Long.parseLong("120"),
-                caracteristicas, "Descrição", categoria, usuario);
+        given()
+                .basePath("/opinioes")
+                .port(port)
+                .header("Content-Type", "application/json")
+                .header("Authorization", token)
+                .body(opiniao.toString())
+                .when()
+                .post()
+                .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value());
 
 
     }
 
     @Test
-    public void descricaoEhObrigatoria(){
+    public void descricaoPossuiMaximoDeCaracteres() throws JSONException {
 
 
-        Opiniao opiniao = new Opiniao(Double.parseDouble("3"), "Opinião teste", "", usuario, produto);
-
-        Set<ConstraintViolation<Opiniao>> errosDeValidacao = validador.validate(opiniao);
+        String maisDeMilCaracateres = StringUtils.repeat("*", 1001);
 
 
-        Assert.assertTrue(errosDeValidacao.size() >= 1);
+        JSONObject opiniao = new JSONObject()
+                .put("nota",3)
+                .put("titulo","teste")
+                .put("descricao",maisDeMilCaracateres)
+                .put("usuarioId",1)
+                .put("produtoId",1);
+
+
+
+        given()
+                .basePath("/opinioes")
+                .port(port)
+                .header("Content-Type", "application/json")
+                .header("Authorization", token)
+                .body(opiniao.toString())
+                .when()
+                .post()
+                .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value());
 
     }
-
-    @Test
-    public void descricaoPossuiMaximoDeCaracteres(){
-
-        String descricaoComMaisDe500Caracteres = StringUtils.repeat("*", 501);
-
-
-        Opiniao opiniao = new Opiniao(Double.parseDouble("3"), "Opinião teste", descricaoComMaisDe500Caracteres, usuario, produto);
-
-        Set<ConstraintViolation<Opiniao>> errosDeValidacao = validador.validate(opiniao);
-
-
-        Assert.assertTrue(errosDeValidacao.size() >= 1);
-
-    }
-
-
 }

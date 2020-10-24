@@ -1,12 +1,9 @@
-package br.com.ecommerce.cadastrocategoriaTestes;
+package br.com.ecommerce.detalheperguntaTestes;
 
-import br.com.ecommerce.cadastrocategoria.Categoria;
-import br.com.ecommerce.cadastrousuario.SenhaLimpa;
-import br.com.ecommerce.cadastrousuario.Usuario;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,49 +12,35 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-import java.util.Set;
-
-import static io.restassured.RestAssured.given;
-import static org.junit.Assert.assertFalse;
+import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.*;
+import static org.hamcrest.Matchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application.properties")
-public class NomeDaCategoriaNaoPodeSerNulo {
-
+public class DetalheDeveRetornarOk {
 
     @LocalServerPort
     private int port;
 
-
     @Value("${ecommerce.jwt.testes}")
     private String token;
 
-
     @Test
-    public void deveRetornarBadRequestQuandoCategoriaEhAdicionadaSemNome() throws JSONException {
-
-
-        JSONObject categoria = new JSONObject()
-                .put("nome","  ")
-                .put("categoriaId",1);
-
+    public void deveRetornarOkQuandoIdForValido() throws JSONException {
 
         given()
-                .basePath("/categorias")
+                .basePath("/detalhe/1")
                 .port(port)
                 .header("Content-Type", "application/json")
                 .header("Authorization", token)
-                .body(categoria.toString())
                 .when()
-                .post()
+                .get()
                 .then()
-                .statusCode(HttpStatus.BAD_REQUEST.value());
+                .statusCode(HttpStatus.OK.value());
 
 
     }
+
 }

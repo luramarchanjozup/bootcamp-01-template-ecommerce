@@ -4,6 +4,7 @@ import listagem_classes
 import conta_funcoes_como_parametro
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 
 # lista as classes criadas no projeto analizado
@@ -16,7 +17,14 @@ lista_classes_projeto = listagem_classes.lista_classes_projeto
 
 
 indicadores_de_complexidade = [ 
-    "if", "else", "try", "?", ":", "switch", "case", "forEach" 
+    "if", 
+    "else", 
+    "try", 
+    "?", 
+    ":", 
+    "switch", 
+    "case", 
+    "forEach" 
 ]
 
 
@@ -24,9 +32,7 @@ indicadores_de_complexidade = [
 # ( --classe = CompraController --pasta = finalizacompra )
 
 
-
-classe_analisada = receber_argumentos.recebe_argumentos()
-
+classe_analisada = receber_argumentos.classe_analisada
 
 
 # funções passadas como parâmetro (critério 2)
@@ -47,7 +53,7 @@ for char in ';}{)(@-.,\n': classe_analisada=classe_analisada.replace(char,' ')
 
 lista_palavras_classe_inicial = classe_analisada.split()
 
-rest_controller_index = lista_palavras_classe_inicial.index('RestController')
+rest_controller_index = lista_palavras_classe_inicial.index('public')
 
 lista_palavras_classe = []
 
@@ -66,6 +72,7 @@ for x in range(0,len(lista_palavras_classe_inicial)):
 
 # pontos de classes criadas no projetos
 # aqui é comparadas as listas de todas as classes do projeto com a lista de palavra das classes
+
 
 
 pontos_classes_criadas_especificamente_no_projeto = set(lista_classes_projeto) & set(lista_palavras_classe)
@@ -88,40 +95,61 @@ print(f"Número de acoplamentos: {acoplamentos}\n")
 
 lista_pontos = [n_funcoes_como_parametro, len(pontos_classes_criadas_especificamente_no_projeto) - acoplamentos, pontos_complexidade_intrinseca[0], acoplamentos]
 
-lista_pontos_registro = []
-lista_pontos_registro = lista_pontos[:]
 
-lista_pontos.sort()
+stringPontos = ''.join(str(x) for x in lista_pontos)
 
-lista_labels = []
 
-# varia labels nos gráficos
+file = open("estatisticasgerais.txt", "a") 
+file.write(stringPontos) 
+file.close()
 
-for z in range(0,len(lista_pontos)):
-    index = lista_pontos_registro.index(lista_pontos[z])
-    if index == 0: lista_labels.append('f(f(x))')
-    elif index == 1: lista_labels.append('classes específicas')
-    elif index == 2: lista_labels.append('branches')
-    elif index == 3: lista_labels.append('acoplamentos')
+
+if(not os.path.isdir(f"./{receber_argumentos.nome_da_classe.pasta}")):
+    os.mkdir(f"./{receber_argumentos.nome_da_classe.pasta}")
 
 
 
-# gráfico 1
+# gráfico 1 barra
+#retirado da documentação do MatPlotLib
 
-plt.plot([lista_labels[0],lista_labels[1] ,lista_labels[2] , lista_labels[3]], [lista_pontos[0], lista_pontos[1], lista_pontos[2], lista_pontos[3]])
+
+plt.bar(['f(f(x))', 'classes específicas' , 'indicadores' , 'acoplamento'], [lista_pontos[0], lista_pontos[1], lista_pontos[2], lista_pontos[3]])
 plt.title("Variação de pontos por critério")
-plt.show()
+
+plt.ylim(0, 6)
+
+plt.grid(True)
+
+plt.savefig(f"./{receber_argumentos.nome_da_classe.pasta}/barra{receber_argumentos.nome_da_classe.classe}.png")
 
 
-# gráfico 2
 
-labels = lista_labels[0],lista_labels[1] ,lista_labels[2] , lista_labels[3]
+# gráfico 3 pizza
+
+labels = 'f(f(x))', 'classes específicas' , 'indicadores' , 'acoplamento'
 sizes = [lista_pontos[0], lista_pontos[1], lista_pontos[2], lista_pontos[3]]
 explode = (0.12, 0.12, 0.12, 0.12)  
 
 fig1, ax1 = plt.subplots()
-ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
-        shadow=True, startangle=90)
+ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',shadow=True, startangle=90)
 ax1.axis('equal')  
 
-plt.show()
+plt.savefig(f"./{receber_argumentos.nome_da_classe.pasta}/grafico_pizza{receber_argumentos.nome_da_classe.classe}.png")
+
+
+# gráfico 3 polar
+#retirado da documentação do MatPlotLib
+
+radii = 10 * np.random.rand(20)
+colors = plt.cm.viridis(radii / 10.)
+
+
+ax = plt.subplot(111, projection='polar')
+ax.bar(['f(f(x))', 'classes específicas' , 'indicadores' , 'acoplamento'], [lista_pontos[0], lista_pontos[1], lista_pontos[2], lista_pontos[3]], color=colors, alpha=0.8)
+plt.title("Variação de pontos por critério")
+
+plt.ylim(0, 5)
+
+plt.grid(True)
+
+plt.savefig(f"./{receber_argumentos.nome_da_classe.pasta}/polar{receber_argumentos.nome_da_classe.classe}.png")
