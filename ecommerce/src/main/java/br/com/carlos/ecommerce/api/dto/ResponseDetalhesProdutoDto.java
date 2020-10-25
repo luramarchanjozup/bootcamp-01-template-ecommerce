@@ -3,7 +3,7 @@ package br.com.carlos.ecommerce.api.dto;
 import br.com.carlos.ecommerce.domain.entity.ImagemProduto;
 import br.com.carlos.ecommerce.domain.entity.Pergunta;
 import br.com.carlos.ecommerce.domain.entity.Produto;
-import br.com.carlos.ecommerce.domain.service.OpinioesService;
+import br.com.carlos.ecommerce.domain.service.impl.OpinioesServiceImpl;
 
 import java.math.BigDecimal;
 import java.util.Map;
@@ -33,7 +33,7 @@ public class ResponseDetalhesProdutoDto {
         //1
         this.perguntas = produto.mapeiaPerguntas(Pergunta::getTitulo);
         //1
-        OpinioesService opinioes = produto.getOpinioes();
+        OpinioesServiceImpl opinioes = produto.getOpinioes();
         //1
         this.opinioes = opinioes.mapeiaOpinioes(opiniao -> Map.of("titulo",opiniao.getTitulo(),"descricao",opiniao.getDescricao()));
 

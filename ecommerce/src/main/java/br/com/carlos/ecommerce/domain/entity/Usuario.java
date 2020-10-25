@@ -29,6 +29,9 @@ public class Usuario {
         this.senha = new BCryptPasswordEncoder().encode(senha);
     }
 
+    public Long getId() {
+        return id;
+    }
     public String getLogin() {
         return login;
     }

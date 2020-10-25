@@ -1,4 +1,4 @@
-package br.com.carlos.ecommerce.domain.service;
+package br.com.carlos.ecommerce.domain.service.impl;
 
 import br.com.carlos.ecommerce.domain.entity.Opiniao;
 
@@ -7,11 +7,11 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class OpinioesService {
+public class OpinioesServiceImpl {
 
     private final Set<Opiniao> opinioes;
 
-    public OpinioesService(Set<Opiniao> opinioes) {
+    public OpinioesServiceImpl(Set<Opiniao> opinioes) {
         this.opinioes = opinioes;
     }
 

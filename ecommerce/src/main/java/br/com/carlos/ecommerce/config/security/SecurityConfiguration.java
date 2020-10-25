@@ -1,6 +1,6 @@
 package br.com.carlos.ecommerce.config.security;
 
-import br.com.carlos.ecommerce.domain.service.UsersService;
+import br.com.carlos.ecommerce.domain.service.impl.UsersServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ import java.io.IOException;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UsersService usersService;
+    private UsersServiceImpl usersService;
 
     @Autowired
     private TokenManager tokenManager;
@@ -51,6 +51,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/produtos/{id:[0-9]+}").permitAll()
                 .antMatchers(HttpMethod.POST, "/usuarios").permitAll()
+                .antMatchers(HttpMethod.POST, "/notas-fiscais").permitAll()
+                .antMatchers(HttpMethod.POST, "/ranking").permitAll()
                 .antMatchers("/api/auth/**").permitAll()
                 .anyRequest().authenticated()
                 .and()

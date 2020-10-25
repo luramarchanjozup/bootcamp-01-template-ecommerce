@@ -1,4 +1,4 @@
-package br.com.carlos.ecommerce.domain.service;
+package br.com.carlos.ecommerce.domain.service.impl;
 
 import br.com.carlos.ecommerce.domain.entity.Usuario;
 import br.com.carlos.ecommerce.domain.repository.UsuarioRepository;
@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
-public class UsersService implements UserDetailsService {
+public class UsersServiceImpl implements UserDetailsService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 

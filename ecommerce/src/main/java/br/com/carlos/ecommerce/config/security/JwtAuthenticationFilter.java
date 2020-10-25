@@ -1,7 +1,7 @@
 package br.com.carlos.ecommerce.config.security;
 
 
-import br.com.carlos.ecommerce.domain.service.UsersService;
+import br.com.carlos.ecommerce.domain.service.impl.UsersServiceImpl;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,9 +17,9 @@ import java.util.Optional;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private TokenManager tokenManager;
-    private UsersService usersService;
+    private UsersServiceImpl usersService;
 
-    public JwtAuthenticationFilter(TokenManager tokenManager, UsersService usersService) {
+    public JwtAuthenticationFilter(TokenManager tokenManager, UsersServiceImpl usersService) {
         this.tokenManager = tokenManager;
         this.usersService = usersService;
     }

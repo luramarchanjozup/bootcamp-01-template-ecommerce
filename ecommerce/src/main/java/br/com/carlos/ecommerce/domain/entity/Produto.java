@@ -1,7 +1,7 @@
 package br.com.carlos.ecommerce.domain.entity;
 
 import br.com.carlos.ecommerce.api.dto.RequestCaracteristicaDto;
-import br.com.carlos.ecommerce.domain.service.OpinioesService;
+import br.com.carlos.ecommerce.domain.service.impl.OpinioesServiceImpl;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.util.Assert;
@@ -41,22 +41,22 @@ public class Produto {
     private Categoria categoria;
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
-    private Set<CaracteristicaProduto> caracteristicas = new HashSet<>();
+    private final Set<CaracteristicaProduto> caracteristicas = new HashSet<>();
 
     @Valid @NotNull @ManyToOne
-    private Usuario comprador;
+    private Usuario dono;
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
-    private Set<ImagemProduto> imagens = new HashSet<>();
+    private final Set<ImagemProduto> imagens = new HashSet<>();
 
     @OneToMany(mappedBy = "produto")
     @OrderBy("titulo asc")
-    private SortedSet<Pergunta> perguntas = new TreeSet<>();
+    private final SortedSet<Pergunta> perguntas = new TreeSet<>();
 
 
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
-    private Set<Opiniao> opinioes  = new HashSet<>();
+    private final Set<Opiniao> opinioes  = new HashSet<>();
 
     @CreationTimestamp
     private LocalDateTime timestamp;
@@ -67,7 +67,7 @@ public class Produto {
 
     public Produto(@NotBlank String nome, @NotBlank @Length(max = 1000) String descricao, @Positive int quantidade,
                    @Positive BigDecimal valor, Categoria categoria, Collection<RequestCaracteristicaDto> caracteristicas,
-                   @Valid @NotNull Usuario comprador) {
+                   @Valid @NotNull Usuario dono) {
         this.nome = nome;
         this.descricao = descricao;
         this.quantidade = quantidade;
@@ -78,7 +78,7 @@ public class Produto {
                 .collect(Collectors.toSet()));
         Assert.isTrue(this.caracteristicas.size() >= 3,
                 "Todo produto precisa ter no mínimo 3 ou mais características");
-        this.comprador = comprador;
+        this.dono = dono;
     }
 
 
@@ -96,19 +96,23 @@ public class Produto {
     }
 
     public boolean pertenceAoUsuario(Usuario possivelDono) {
-        return this.comprador.equals(possivelDono);
+        return this.dono.equals(possivelDono);
     }
 
     public Long getId() {
         return id;
     }
 
-    public Usuario getComprador() {
-        return this.comprador;
+    public Usuario getDono() {
+        return this.dono;
     }
 
     public String getDescricao() {
         return descricao;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
     }
 
     public String getNome() {
@@ -123,8 +127,8 @@ public class Produto {
         return imagens;
     }
 
-    public OpinioesService getOpinioes() {
-        return new OpinioesService(this.opinioes);
+    public OpinioesServiceImpl getOpinioes() {
+        return new OpinioesServiceImpl(this.opinioes);
     }
 
     public <T> Set<T> mapeiaCaracteristicas(
@@ -150,9 +154,7 @@ public class Produto {
         if(quantidade <= this.quantidade) {
             this.quantidade-=quantidade;
             return true;
-
         }
-
         return false;
     }
 
