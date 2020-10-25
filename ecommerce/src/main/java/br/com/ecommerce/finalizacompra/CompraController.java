@@ -19,7 +19,7 @@ import javax.validation.Valid;
 @RequestMapping("produtos/{produtoId}/compras")
 public class CompraController {
 
-    @PersistenceContext
+    @Autowired
     private EntityManager entityManager;
 
     //1
@@ -55,7 +55,7 @@ public class CompraController {
             Compra compra = compraRequest.toModel(entityManager, comprador);
 
             entityManager.persist(compra);
-               
+                                                                        
             String urlRedirecionamento = compra.urlRedirecionamento(uriComponentsBuilder);
 
             return ResponseEntity

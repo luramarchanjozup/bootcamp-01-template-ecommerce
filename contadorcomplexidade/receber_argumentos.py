@@ -3,11 +3,13 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Definir classe a ser analisada')
 
-parser.add_argument('--pasta_raiz=', action="store", dest='pasta_raiz')
 
 parser.add_argument('--classe', action="store", dest='classe')
 
 parser.add_argument('--pasta', action="store", dest='pasta')
+
+parser.add_argument('--camada', action="store", dest='camada')
+
 
 nome_da_classe = parser.parse_args()
 

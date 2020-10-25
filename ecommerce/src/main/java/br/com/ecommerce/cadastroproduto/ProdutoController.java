@@ -19,9 +19,10 @@ public class ProdutoController {
     private EntityManager entityManager;
 
     @PostMapping
-    @Transactional
+    @Transactional                                                  //1
     public ResponseEntity<?> criarProduto(@RequestBody @Valid CadastroProdutoRequest cadastroProdutoRequest){
-
+            
+        //1
         Produto produtoCadastrado = cadastroProdutoRequest.converteParaTipoProduto(entityManager);
 
         entityManager.persist(produtoCadastrado);

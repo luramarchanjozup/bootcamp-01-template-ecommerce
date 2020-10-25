@@ -19,9 +19,10 @@ public class PerguntaController {
     private EntityManager entityManager;
 
     @PostMapping
-    @Transactional
+    @Transactional                                                  //1
     public ResponseEntity<?> criarPergunta(@RequestBody @Valid PerguntaRequest perguntaRequest){
 
+        //1
         Pergunta pergunta = perguntaRequest.converteParaTipoPergunta(entityManager);
 
         entityManager.persist(pergunta);

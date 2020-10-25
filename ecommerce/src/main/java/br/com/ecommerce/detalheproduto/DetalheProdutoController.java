@@ -17,11 +17,13 @@ public class DetalheProdutoController {
     @Autowired
     private EntityManager entityManager;
 
-    @GetMapping("/{produtoId}")
+    @GetMapping("/{produtoId}")                                                                                            
     public ResponseEntity<DetalheProdutoResponse> detalharProduto(@PathVariable Long produtoId){
 
+        //1
         Produto produto = entityManager.find(Produto.class, produtoId);
 
+        //1
         DetalheProdutoResponse DetalhamentoDoProduto = new DetalheProdutoResponse(produto);
 
         return ResponseEntity

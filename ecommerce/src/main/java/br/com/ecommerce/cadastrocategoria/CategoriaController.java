@@ -19,9 +19,10 @@ public class CategoriaController {
     private EntityManager entityManager;
 
     @PostMapping
-    @Transactional
+    @Transactional                                                          //1
     public ResponseEntity<?> criarCategoria(@RequestBody @Valid CadastroCategoriaRequest cadastroCategoriaRequest){
 
+        //1
         Categoria categoria = cadastroCategoriaRequest.converterParaTipoCategoria(entityManager);
 
         entityManager.persist(categoria);

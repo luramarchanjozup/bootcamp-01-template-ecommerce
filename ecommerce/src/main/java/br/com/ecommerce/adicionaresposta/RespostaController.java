@@ -18,18 +18,21 @@ public class RespostaController {
     @Autowired
     private EntityManager entityManager;
 
+    //1
     @Autowired
     private AutorizacaoDonoProduto autorizacaoDonoProduto;
 
     @PostMapping
-    @Transactional
+    @Transactional                                            //1
     public ResponseEntity<?> responder(@RequestBody @Valid RespostaRequest respostaRequest,
                                        HttpServletRequest request, @PathVariable Long produtoId){
-
+           //1                             
         Produto produto = entityManager.find(Produto.class, produtoId);
 
+        //1                             //1
         if(autorizacaoDonoProduto.donoDoProduto(request, produto)){
 
+            //1
             Resposta resposta = respostaRequest.converteParaTipoResposta(entityManager);
 
             entityManager.persist(resposta);

@@ -19,24 +19,24 @@ public class ImagemController {
     @Autowired
     private EntityManager entityManager;
 
-
+    //1
     @Autowired
     private ImagemUploader imagemUploader;
 
-
+    //1
     @Autowired
     private AutorizacaoDonoProduto autorizacaoDonoProduto;
 
 
-    @PostMapping
-    @Transactional
+    @PostMapping        
+    @Transactional                                                                          //1             
     public ResponseEntity<?> adicionarFotos(@PathVariable Long produtoId, @Valid AdicionarImagemRequest arquivosEnviados,
                                             HttpServletRequest request) {
 
-
+         //1                                       
         Produto produto = entityManager.find(Produto.class, produtoId);
 
-
+         //1                  //1                     
         if(!autorizacaoDonoProduto.donoDoProduto(request, produto)){
 
             return ResponseEntity
@@ -47,8 +47,10 @@ public class ImagemController {
 
         List<MultipartFile> imagens = arquivosEnviados.getArquivos();
 
+                                        //1
         List<String> listaLinks = imagemUploader.envia(imagens);
 
+        //1
         produto.associaImagens(listaLinks);
 
         entityManager.merge(produto);

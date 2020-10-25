@@ -19,9 +19,10 @@ public class OpiniaoController {
     private EntityManager entityManager;
 
     @PostMapping
-    @Transactional
+    @Transactional                                                  //1
     public ResponseEntity<?> criarOpiniao(@RequestBody @Valid OpiniaoRequest opiniaoRequest){
 
+        //1
         Opiniao opiniao = opiniaoRequest
                 .converteParaTipoOpiniao(entityManager);
 
