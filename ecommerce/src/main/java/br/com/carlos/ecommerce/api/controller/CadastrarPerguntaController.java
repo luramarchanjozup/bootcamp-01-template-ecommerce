@@ -7,6 +7,7 @@ import br.com.carlos.ecommerce.domain.entity.Produto;
 import br.com.carlos.ecommerce.domain.repository.UsuarioRepository;
 import br.com.carlos.ecommerce.domain.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,7 +40,7 @@ public class CadastrarPerguntaController {
         Produto produto = manager.find(Produto.class, id);
         //1
         if(produto == null){
-            return ResponseEntity.status(404).body("Produto não encontrado");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Produto não encontrado");
         }
 
         var usuarioLogado = tokenManager.getUserName(servletRequest.getHeader("Authorization"));
