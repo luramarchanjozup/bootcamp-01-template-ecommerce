@@ -12,7 +12,7 @@ public class CaracteristicaRequest {
 
     public Caracteristica toModel(Produto produto){
 
-        return new Caracteristica(this.nome, this.valor, produto);
+        return new Caracteristica(nome, valor, produto);
 
     }
 

@@ -23,7 +23,7 @@ public class CategoriaController {
     public ResponseEntity<?> criarCategoria(@RequestBody @Valid CadastroCategoriaRequest cadastroCategoriaRequest){
 
         //1
-        Categoria categoria = cadastroCategoriaRequest.converterParaTipoCategoria(entityManager);
+        Categoria categoria = cadastroCategoriaRequest.converterParaTipoCategoria();
 
         entityManager.persist(categoria);
 

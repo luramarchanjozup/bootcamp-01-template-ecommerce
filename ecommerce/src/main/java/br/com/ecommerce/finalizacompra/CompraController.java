@@ -37,10 +37,12 @@ public class CompraController {
                                      @PathVariable Long produtoId, UriComponentsBuilder uriComponentsBuilder){
 
 
+
         Long quantidadeSolicitada = compraRequest.getQuantidade();
 
                         //1                
         Produto produtoASerComprado = entityManager.find(Produto.class, produtoId);
+
 
         //1                                    
         if(produtoASerComprado.verificaDisponibilidadeEAtualiza(quantidadeSolicitada)){

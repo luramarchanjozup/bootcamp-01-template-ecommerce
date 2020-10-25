@@ -58,7 +58,7 @@ public class CadastroProdutoRequest {
         Usuario usuario = entityManager.find(Usuario.class, usuarioId);
 
 
-        return new Produto(this.nome, this.valor, this.quantidadeDisponivel, this.caracteristicasCadastro, this.descricao, categoria, usuario);
+        return new Produto(nome, valor, quantidadeDisponivel, caracteristicasCadastro, descricao, categoria, usuario);
 
 
     }

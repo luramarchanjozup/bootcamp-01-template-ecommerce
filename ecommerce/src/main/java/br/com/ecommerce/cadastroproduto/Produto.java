@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -61,6 +62,7 @@ public class Produto {
     @ManyToOne
     private Usuario usuario;
 
+
     private OffsetDateTime instanteCadastro;
 
 
@@ -86,6 +88,26 @@ public class Produto {
         this.instanteCadastro = OffsetDateTime.now();
 
     }
+
+    //1
+    public Integer total(){
+
+        return this
+                .opinioes
+                .size();
+    }
+
+    //1
+    public OptionalDouble media(){
+
+        return   this
+                    .opinioes
+                    .stream()
+                    .map(opiniao -> opiniao.getNota())
+                    .mapToDouble(x -> x)
+                    .average();
+    }
+
 
     //1
     public List<String> listarLinks(Function<ImagemProduto, String> funcaoDeListagem){

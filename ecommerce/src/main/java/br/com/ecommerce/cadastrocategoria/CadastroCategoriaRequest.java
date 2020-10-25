@@ -19,10 +19,9 @@ public class CadastroCategoriaRequest {
         this.categoriaId = categoriaId;
     }
 
-    public Categoria converterParaTipoCategoria(EntityManager entityManager){
+    public Categoria converterParaTipoCategoria(){
 
-
-     return new Categoria(nome);
+        return new Categoria(nome);
 
     }
 

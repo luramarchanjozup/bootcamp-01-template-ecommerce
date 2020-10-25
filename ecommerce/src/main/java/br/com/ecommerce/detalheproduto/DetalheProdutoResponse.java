@@ -50,30 +50,13 @@ public class DetalheProdutoResponse {
                                                                             //1
         this.caracteristicas = produto.listarCaracteristicas(DetalheProdutoCaracteristica::new);
 
-        this.totalDeNotas = total(produto);
+        this.totalDeNotas = produto.total();
 
-        this.mediaDeNotas = media(produto);
+        this.mediaDeNotas = produto.media();
 
 
     }
-    //1
-    public Integer total(Produto produto){
 
-        return produto
-                .getOpinioes()
-                .size();
-    }
-
-    //1
-    public OptionalDouble media(Produto produto){
-
-        return   produto
-                    .getOpinioes()
-                    .stream()
-                    .map(opiniao -> opiniao.getNota())
-                    .mapToDouble(x -> x)
-                    .average();
-    }
 
     public String getNome() {
         return nome;
