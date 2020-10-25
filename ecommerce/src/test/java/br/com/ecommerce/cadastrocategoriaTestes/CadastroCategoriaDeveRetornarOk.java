@@ -1,12 +1,9 @@
 package br.com.ecommerce.cadastrocategoriaTestes;
 
-import br.com.ecommerce.cadastrocategoria.Categoria;
-import br.com.ecommerce.cadastrousuario.SenhaLimpa;
-import br.com.ecommerce.cadastrousuario.Usuario;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,20 +12,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
-import java.util.Set;
+import java.nio.charset.Charset;
+import java.util.Random;
 
 import static io.restassured.RestAssured.given;
-import static org.junit.Assert.assertFalse;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application.properties")
-public class NomeDaCategoriaNaoPodeSerNulo {
-
+public class CadastroCategoriaDeveRetornarOk {
 
     @LocalServerPort
     private int port;
@@ -39,12 +31,16 @@ public class NomeDaCategoriaNaoPodeSerNulo {
 
 
     @Test
-    public void deveRetornarBadRequestQuandoCategoriaEhAdicionadaSemNome() throws JSONException {
+    public void deveRetornaroKQuandoCadastrarCategoria() throws JSONException {
+
+        byte[] array = new byte[10];
+        new Random().nextBytes(array);
+        String stringAleatoria = new String(array, Charset.forName("UTF-8"));
 
 
         JSONObject categoria = new JSONObject()
-                .put("nome","  ")
-                .put("categoriaId",1);
+                .put("nome",stringAleatoria)
+                .put("categoriaId", 2);
 
 
         given()
@@ -56,7 +52,7 @@ public class NomeDaCategoriaNaoPodeSerNulo {
                 .when()
                 .post()
                 .then()
-                .statusCode(HttpStatus.BAD_REQUEST.value());
+                .statusCode(HttpStatus.OK.value());
 
 
     }

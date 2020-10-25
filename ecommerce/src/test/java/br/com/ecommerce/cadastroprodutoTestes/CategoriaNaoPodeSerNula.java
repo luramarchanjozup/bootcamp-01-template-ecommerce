@@ -2,6 +2,7 @@ package br.com.ecommerce.cadastroprodutoTestes;
 
 import br.com.ecommerce.cadastrocategoria.Categoria;
 import br.com.ecommerce.cadastroproduto.Caracteristica;
+import br.com.ecommerce.cadastroproduto.CaracteristicaRequest;
 import br.com.ecommerce.cadastroproduto.Produto;
 import br.com.ecommerce.cadastrousuario.SenhaLimpa;
 import br.com.ecommerce.cadastrousuario.Usuario;
@@ -25,7 +26,7 @@ public class CategoriaNaoPodeSerNula {
 
     private Usuario usuario;
 
-    private List<Caracteristica> caracteristicas;
+    private List<CaracteristicaRequest> caracteristicas;
 
 
     @Before
@@ -39,9 +40,9 @@ public class CategoriaNaoPodeSerNula {
 
 
         caracteristicas = Arrays.asList(
-                new Caracteristica("teste 1", new BigDecimal(120)),
-                new Caracteristica("teste 2", new BigDecimal(120)),
-                new Caracteristica("teste 3", new BigDecimal(120))
+                new CaracteristicaRequest("teste 1", "120"),
+                new CaracteristicaRequest("teste 2", "120"),
+                new CaracteristicaRequest("teste 3", "120")
         );
 
     }
@@ -51,15 +52,18 @@ public class CategoriaNaoPodeSerNula {
     public void CategoriaDoProdutoNaoPodeSerNula(){
 
 
-        Produto produtoComCategoriaNula = new Produto("Produto Teste", new BigDecimal(30), Long.parseLong("120"),
+        Produto produto = new Produto("Produto Teste", new BigDecimal(30), Long.parseLong("120"),
                 caracteristicas, "descricao do produto", null, usuario);
 
 
-        Set<ConstraintViolation<Produto>> errosDeValidacao = validador.validate(produtoComCategoriaNula);
+        Set<ConstraintViolation<Produto>> errosDeValidacao = validador.validate(produto);
 
 
         Assert.assertTrue(errosDeValidacao.size() >= 1);
-
+        Assert.assertTrue(produto.getNome() != null);
+        Assert.assertTrue(produto.getDescricao() != null);
+        Assert.assertTrue(produto.getUsuario() != null);
+        Assert.assertTrue(produto.getValor() != null);
 
     }
 }

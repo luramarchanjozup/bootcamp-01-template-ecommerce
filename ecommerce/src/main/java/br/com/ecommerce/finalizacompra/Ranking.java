@@ -16,14 +16,16 @@ public class Ranking implements EventoCompraSucesso {
         Assert.isTrue(compra.processadaComSucesso(),"opa opa opa compra nao processada com sucesso "+compra);
 
 
-
         Map<String, Object> request = Map.of("idCompra", compra.getId(),
                 "idDonoProduto", compra.getUsuario().getId());
 
+        /*
+            A requisição tá recebendo forbidden por causa do spring security
+
+        * */
 
 
         WebClient client = WebClient.create("http://localhost:8080");
-
 
 
         Mono<Void> result = client.post()
@@ -32,10 +34,10 @@ public class Ranking implements EventoCompraSucesso {
                 .retrieve()
                 .bodyToMono(Void.class);
 
-
-        //coloquei o println apenas para saber o resultado da requisição, mas vou apagar depois
-
-        System.out.println(result.log());
+        result
+                .then()
+                .doOnNext(x -> System.out.println("OK"))
+                .subscribe();
 
     }
 }

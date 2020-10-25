@@ -10,14 +10,25 @@ public class Caracteristica {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     private String nome;
 
-    private BigDecimal valor;
+
+    private String valor;
 
     @ManyToOne
     private Produto produto;
 
-    public Caracteristica(String nome, BigDecimal valor) {
+    @Deprecated
+    public Caracteristica(){}
+
+    public Caracteristica(String nome, String valor, Produto produto) {
+        this.nome = nome;
+        this.valor = valor;
+        this.produto = produto;
+    }
+
+    public Caracteristica(String nome, String valor) {
         this.nome = nome;
         this.valor = valor;
     }
@@ -37,4 +48,13 @@ public class Caracteristica {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
+
+    public String getValor() {
+        return valor;
+    }
+
+    public void setValor(String valor) {
+        this.valor = valor;
+    }
+
 }

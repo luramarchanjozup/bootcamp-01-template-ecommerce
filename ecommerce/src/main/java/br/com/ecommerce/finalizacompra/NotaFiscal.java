@@ -1,11 +1,13 @@
 package br.com.ecommerce.finalizacompra;
 
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.Map;
 
+@Service
 public class NotaFiscal implements EventoCompraSucesso {
 
     @Override
@@ -19,6 +21,12 @@ public class NotaFiscal implements EventoCompraSucesso {
                 "idDonoProduto", compra.getUsuario().getId());
 
 
+       /*
+            A requisição tá recebendo forbidden por causa do spring security
+
+        * */
+
+
         WebClient client = WebClient.create("http://localhost:8080");
 
 
@@ -28,10 +36,11 @@ public class NotaFiscal implements EventoCompraSucesso {
                 .retrieve()
                 .bodyToMono(Void.class);
 
-        //coloquei o println apenas para saber o resultado da requisição, mas vou apagar depois
 
-        System.out.println(result.log());
-
+        result
+                .then()
+                .doOnNext(x -> System.out.println("OK"))
+                .subscribe();
 
     }
 }

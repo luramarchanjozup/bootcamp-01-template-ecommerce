@@ -1,9 +1,9 @@
-package br.com.ecommerce.finalizacompraTestes;
+package br.com.ecommerce.cadastroprodutoTestes;
 
-import br.com.ecommerce.finalizacompra.Compra;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,40 +13,36 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.File;
+
 import static io.restassured.RestAssured.given;
-
-
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application.properties")
-public class QuantidadeEhObrigatoriaEPositiva {
+public class CadastrarImagemDeveRetornarOk {
+
 
     @LocalServerPort
     private int port;
 
+
     @Value("${ecommerce.jwt.testes}")
     private String token;
 
+
     @Test
-    public void quantidadeDeveDoProdutoCompradoDeveSerPositiva() throws JSONException {
+    public void deveRetornaroKQuandoCadastrarImagem() {
 
-        JSONObject compra = new JSONObject()
-                .put("quantidade",-10)
-                .put("gatewayPagamento","paypal")
-                .put("produtoId", 1);
-
-
-        given()
-                .basePath("/produtos/1/compras")
+        given().
+                basePath("/imagens/1")
                 .port(port)
-                .header("Content-Type", "application/json")
                 .header("Authorization", token)
-                .body(compra.toString())
+                .multiPart("arquivos", new File("/home/marceloamorim/Imagens/testes.jpg"))
                 .when()
                 .post()
                 .then()
-                .statusCode(HttpStatus.BAD_REQUEST.value());
-    }
+                .statusCode(HttpStatus.OK.value());
 
+    }
 }

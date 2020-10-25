@@ -6,8 +6,12 @@ public enum StatusRetornoPagseguro {
 
     public StatusTransacao normaliza() {
 
-        return this.equals(SUCESSO) ? StatusTransacao.sucesso : StatusTransacao.erro;
+        if(this.equals(SUCESSO))
+        {
+            return StatusTransacao.sucesso;
+        }
+
+        return StatusTransacao.erro;
 
     }
-
 }

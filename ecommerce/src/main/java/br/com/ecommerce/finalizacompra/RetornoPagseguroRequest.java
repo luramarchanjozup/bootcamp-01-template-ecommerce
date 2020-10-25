@@ -6,11 +6,9 @@ import javax.validation.constraints.NotNull;
 public class RetornoPagseguroRequest implements RetornoGatewayPagamento {
 
 
-    @NotBlank
     private Long transacaoId;
 
 
-    @NotNull
     private StatusRetornoPagseguro status;
 
 

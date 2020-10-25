@@ -2,6 +2,7 @@ package br.com.ecommerce.cadastroprodutoTestes;
 
 import br.com.ecommerce.cadastrocategoria.Categoria;
 import br.com.ecommerce.cadastroproduto.Caracteristica;
+import br.com.ecommerce.cadastroproduto.CaracteristicaRequest;
 import br.com.ecommerce.cadastroproduto.Produto;
 import br.com.ecommerce.cadastrousuario.SenhaLimpa;
 import br.com.ecommerce.cadastrousuario.Usuario;
@@ -29,7 +30,7 @@ public class DescricaoNaoPodeSerNula {
 
     private Usuario usuario;
 
-    private List<Caracteristica> caracteristicas;
+    private List<CaracteristicaRequest> caracteristicas;
 
 
 
@@ -46,9 +47,9 @@ public class DescricaoNaoPodeSerNula {
 
 
         caracteristicas = Arrays.asList(
-                new Caracteristica("teste 1", new BigDecimal(120)),
-                new Caracteristica("teste 2", new BigDecimal(120)),
-                new Caracteristica("teste 3", new BigDecimal(120))
+                new CaracteristicaRequest("teste 1", "120"),
+                new CaracteristicaRequest("teste 2", "120"),
+                new CaracteristicaRequest("teste 3", "120")
         );
 
     }

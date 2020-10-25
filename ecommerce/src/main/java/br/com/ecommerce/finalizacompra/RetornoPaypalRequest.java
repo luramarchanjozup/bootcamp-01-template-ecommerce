@@ -10,12 +10,12 @@ public class RetornoPaypalRequest implements RetornoGatewayPagamento {
     private int status;
 
 
-    private Long idTransacao;
+    private Long transacaoId;
 
 
-    public RetornoPaypalRequest(int status, Long idTransacao) {
+    public RetornoPaypalRequest(int status, Long transacaoId) {
         this.status = status;
-        this.idTransacao = idTransacao;
+        this.transacaoId = transacaoId;
     }
 
 
@@ -36,7 +36,7 @@ public class RetornoPaypalRequest implements RetornoGatewayPagamento {
 
         }
 
-        return new Transacao(statusDaTransacao, idTransacao, compra);
+        return new Transacao(statusDaTransacao, transacaoId, compra);
 
     }
 }

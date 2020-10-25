@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CadastroProdutoRequest {
@@ -26,7 +27,7 @@ public class CadastroProdutoRequest {
     private Long quantidadeDisponivel;
 
     @Size(min = 3)
-    private List<Caracteristica> caracteristicas;
+    private List<CaracteristicaRequest> caracteristicasCadastro = new ArrayList<>();
 
     @NotBlank
     @Size(max = 1000)
@@ -38,14 +39,12 @@ public class CadastroProdutoRequest {
     @NotNull
     private Long usuarioId;
 
-    public CadastroProdutoRequest(@NotBlank String nome, @NotBlank @Positive BigDecimal valor, @NotBlank @Positive Long quantidadeDisponivel,
-                                  @Size(min = 3) List<Caracteristica> caracteristicas, @NotBlank @Size(max = 1000) String descricao,
-                                  @NotNull Long categoriaId, @NotNull Long usuarioId) {
-
+    public CadastroProdutoRequest(@NotBlank String nome, @NotNull @Positive BigDecimal valor, @NotNull @Positive Long quantidadeDisponivel,
+                                  @Size(min = 3) List<CaracteristicaRequest> caracteristicasCadastro, @NotBlank @Size(max = 1000) String descricao, @NotNull Long categoriaId, @NotNull Long usuarioId) {
         this.nome = nome;
         this.valor = valor;
         this.quantidadeDisponivel = quantidadeDisponivel;
-        this.caracteristicas = caracteristicas;
+        this.caracteristicasCadastro = caracteristicasCadastro;
         this.descricao = descricao;
         this.categoriaId = categoriaId;
         this.usuarioId = usuarioId;
@@ -53,13 +52,16 @@ public class CadastroProdutoRequest {
 
     public Produto converteParaTipoProduto(EntityManager entityManager) {
 
+
         Categoria categoria = entityManager.find(Categoria.class, categoriaId);
 
         Usuario usuario = entityManager.find(Usuario.class, usuarioId);
 
-        return new Produto(nome, valor, quantidadeDisponivel, caracteristicas, descricao, categoria, usuario);
+        return new Produto(nome, valor, quantidadeDisponivel, caracteristicasCadastro, descricao, categoria, usuario);
+
 
     }
+
 
     public String getNome() {
         return nome;
@@ -67,30 +69,6 @@ public class CadastroProdutoRequest {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public BigDecimal getValor() {
-        return valor;
-    }
-
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
-
-    public Long getQuantidadeDisponivel() {
-        return quantidadeDisponivel;
-    }
-
-    public void setQuantidadeDisponivel(Long quantidadeDisponivel) {
-        this.quantidadeDisponivel = quantidadeDisponivel;
-    }
-
-    public List<Caracteristica> getCaracteristicas() {
-        return caracteristicas;
-    }
-
-    public void setCaracteristicas(List<Caracteristica> caracteristicas) {
-        this.caracteristicas = caracteristicas;
     }
 
     public String getDescricao() {
@@ -116,4 +94,5 @@ public class CadastroProdutoRequest {
     public void setUsuarioId(Long usuarioId) {
         this.usuarioId = usuarioId;
     }
+
 }

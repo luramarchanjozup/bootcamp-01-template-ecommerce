@@ -8,8 +8,10 @@ import javax.persistence.EntityManager;
 @Component
 public class ProcessaCompra {
 
+
     @Autowired
     private EventosNovaCompra eventosNovaCompra;
+
 
     public String processa(Long idCompra, RetornoGatewayPagamento retornoGatewayPagamento,
                            EntityManager entityManager) {

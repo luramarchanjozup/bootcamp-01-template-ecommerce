@@ -103,7 +103,7 @@ Número de acoplamentos: 3
 
 ## Sobre os testes
 
-- Utilizei o Pitest para ver a cobertura dos meus testes. Tendo em vista que iniciei a implementação há pouco tempo, a cobertura ainda está muito baixa. Mas o direcionamento do Pitest está colaborando bastante para saber melhor o que preciso testar. A única observação é que encontrei problemas para gerar o JWT com o rest assured. Então coloquei o token nas classes de teste por meio de uma anotação ligando ao application properties. Para rodar os testes, tem que gerar o token no Insomnia/Postman e definir o ecommerce.jwt.testes = colocar_token_aqui.
+- Os testes cobriram porcentagem significativa do software. A única observação é que encontrei problemas para gerar o JWT com o rest assured. Então coloquei o token nas classes de teste por meio de uma anotação ligando ao application properties. Para rodar os testes, tem que gerar o token no Insomnia/Postman e definir o ecommerce.jwt.testes = colocar_token_aqui.
 
 ![](/readme-images/coberturatestes.jpg)
 

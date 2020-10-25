@@ -7,6 +7,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.persistence.*;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -24,9 +25,11 @@ public class Compra {
     @Enumerated
     private GatewayPagamento gatewayPagamento;
 
+    @NotNull
     @ManyToOne
     private Produto produto;
 
+    @NotNull
     @ManyToOne
     private Usuario usuario;
 
@@ -70,8 +73,7 @@ public class Compra {
     @Override
     public String toString() {
         return "Compra [id=" + id + ", produtoEscolhido=" + produto
-                + ", quantidade=" + quantidade + ", comprador=" + usuario
-                + ", gatewayPagamento=" + gatewayPagamento + ", transacoes="
+                + ", quantidade=" + quantidade + ", gatewayPagamento=" + gatewayPagamento + ", transacoes="
                 + transacoes + "]";
     }
 
@@ -86,16 +88,15 @@ public class Compra {
 
     public void adicionaTransacao(@Valid RetornoGatewayPagamento request) {
 
+
         Transacao novaTransacao = request.toTransacao(this);
 
         boolean naoExisteTransacaoIgual = !this.transacoes.contains(novaTransacao);
 
-        Assert.state(naoExisteTransacaoIgual,
-                "Já existe uma transacao igual a essa processada"
-                        + novaTransacao
-        );
+        Assert.state(naoExisteTransacaoIgual, "Já existe uma transacao igual a essa processada" + novaTransacao);
 
-        Assert.state(transacoesConcluidasComSucesso().isEmpty(),"Esse compra já foi concluída com sucesso");
+        Assert.state(transacoesConcluidasComSucesso().isEmpty(), "Esse compra já foi concluída com sucesso");
+
 
         this.transacoes.add(novaTransacao);
 

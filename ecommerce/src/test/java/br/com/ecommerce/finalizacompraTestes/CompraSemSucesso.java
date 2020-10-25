@@ -19,8 +19,6 @@ import static org.hamcrest.Matchers.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CompraSemSucesso {
 
-    /*Caso a compra não tenha sido concluída com sucesso, precisamos:
-    enviar um email para o usuário informando que o pagamento falhou com o link para que a pessoa possa tentar de novo.*/
 
 
     @Value("${ecommerce.jwt.testes}")

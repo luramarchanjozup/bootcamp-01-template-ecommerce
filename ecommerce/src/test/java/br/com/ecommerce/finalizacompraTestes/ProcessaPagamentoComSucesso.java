@@ -1,4 +1,4 @@
-package br.com.ecommerce.adicionarrespostaTestes;
+package br.com.ecommerce.finalizacompraTestes;
 
 
 import org.json.JSONException;
@@ -12,66 +12,67 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static io.restassured.RestAssured.*;
-import static io.restassured.matcher.RestAssuredMatchers.*;
-import static org.hamcrest.Matchers.*;
+import java.util.UUID;
+
+import static io.restassured.RestAssured.given;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application.properties")
-public class AdicionarRespostaDeveRetornarBadRequest {
+public class ProcessaPagamentoComSucesso {
+
 
     @LocalServerPort
     private int port;
 
+
     @Value("${ecommerce.jwt.testes}")
     private String token;
 
+
     @Test
-    public void deveRetornaroKQuandoEnviadaResposta() throws JSONException {
+    public void deveRetornarUrlPaypalAoProcessarPagamento() throws JSONException {
 
 
-        JSONObject resposta = new JSONObject()
-                .put("conteudo","resposta")
-                .put("perguntaId",1);
+        JSONObject processaPagamento = new JSONObject()
+                .put("status",1)
+                .put("transacaoId",1);
 
 
         given()
-                .basePath("/produtos/1/resposta")
+                .basePath("/retorno-paypal/55")
                 .port(port)
                 .header("Content-Type", "application/json")
                 .header("Authorization", token)
-                .body(resposta.toString())
+                .body(processaPagamento.toString())
                 .when()
                 .post()
                 .then()
                 .statusCode(HttpStatus.OK.value());
 
-
     }
 
-
     @Test
-    public void deveRetornarBadRequestQuandoConteudoEhNulo() throws JSONException {
+    public void deveRetornarUrlPagseguroAoProcessarPagamento() throws JSONException {
 
 
-        JSONObject resposta = new JSONObject()
-                .put("conteudo"," ")
-                .put("perguntaId",1);
+
+
+        JSONObject processaPagamento = new JSONObject()
+                .put("status",1)
+                .put("transacaoId",1);
 
 
         given()
-                .basePath("/produtos/1/resposta")
+                .basePath("/retorno-pagseguro/51")
                 .port(port)
                 .header("Content-Type", "application/json")
                 .header("Authorization", token)
-                .body(resposta.toString())
+                .body(processaPagamento.toString())
                 .when()
                 .post()
                 .then()
-                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
-
+                .statusCode(HttpStatus.OK.value());
 
     }
-
 }

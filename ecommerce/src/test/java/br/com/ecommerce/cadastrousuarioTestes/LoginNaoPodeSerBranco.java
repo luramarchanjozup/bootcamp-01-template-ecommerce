@@ -12,6 +12,7 @@ import javax.validation.ValidatorFactory;
 import java.util.Set;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 
 public class LoginNaoPodeSerBranco {
@@ -40,7 +41,8 @@ public class LoginNaoPodeSerBranco {
 
         assertFalse(violations.isEmpty());
 
+        assertTrue(!usuarioValidacaoLogin.toString().isBlank());
+        assertTrue(!usuarioValidacaoLogin.getSenha().isBlank());
+
     }
-
-
 }

@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -35,16 +36,15 @@ public class Produto {
     private Long quantidadeDisponivel;
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
-    @Size(min = 3)
     private List<Caracteristica> caracteristicas = new ArrayList<>();
 
-    @OneToMany(mappedBy = "produto")
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private List<Opiniao> opinioes = new ArrayList<>();
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private List<ImagemProduto> imagens = new ArrayList<>();
 
-    @OneToMany(mappedBy = "produto")
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private List<Pergunta> perguntas = new ArrayList<>();
 
     @NotBlank
@@ -64,19 +64,24 @@ public class Produto {
     public Produto(){};
 
     public Produto(@NotBlank String nome, @NotNull @Positive BigDecimal valor, @NotNull @Positive Long quantidadeDisponivel,
-                   List<Caracteristica> caracteristicas, @NotBlank @Size(max = 1000) String descricao,
+                   List<CaracteristicaRequest> caracteristicas, @NotBlank @Size(max = 1000) String descricao,
                    Categoria categoria, Usuario usuario) {
 
         this.nome = nome;
         this.valor = valor;
         this.quantidadeDisponivel = quantidadeDisponivel;
-        this.caracteristicas = caracteristicas;
+
+        this.caracteristicas.addAll(caracteristicas.stream()
+                .map(caracteristica -> caracteristica.toModel(this))
+                .collect(Collectors.toList()));
+
         this.descricao = descricao;
         this.categoria = categoria;
         this.usuario = usuario;
         this.instanteCadastro = OffsetDateTime.now();
 
     }
+
 
     public List<String> listarLinks(Function<ImagemProduto, String> funcaoDeListagem){
 
@@ -87,12 +92,13 @@ public class Produto {
 
     }
 
-    public List<String> listarCaracteristicas(Function<Caracteristica, String> funcaoDeListagem){
+    public <T> List<T> listarCaracteristicas(Function<Caracteristica, T> funcaoDeListagem){
 
         return this.caracteristicas
                 .stream()
                 .map(funcaoDeListagem)
                 .collect(Collectors.toList());
+
     }
 
     public List<String> listarOpinioes(Function<Opiniao, String> funcaoDeListagem){
@@ -133,6 +139,78 @@ public class Produto {
 
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
+
+    public Long getQuantidadeDisponivel() {
+        return quantidadeDisponivel;
+    }
+
+    public void setQuantidadeDisponivel(Long quantidadeDisponivel) {
+        this.quantidadeDisponivel = quantidadeDisponivel;
+    }
+
+    public List<Caracteristica> getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public void setCaracteristicas(List<Caracteristica> caracteristicas) {
+        this.caracteristicas = caracteristicas;
+    }
+
+    public List<Opiniao> getOpinioes() {
+        return opinioes;
+    }
+
+    public void setOpinioes(List<Opiniao> opinioes) {
+        this.opinioes = opinioes;
+    }
+
+    public List<ImagemProduto> getImagens() {
+        return imagens;
+    }
+
+    public void setImagens(List<ImagemProduto> imagens) {
+        this.imagens = imagens;
+    }
+
+    public List<Pergunta> getPerguntas() {
+        return perguntas;
+    }
+
+    public void setPerguntas(List<Pergunta> perguntas) {
+        this.perguntas = perguntas;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -141,27 +219,4 @@ public class Produto {
         this.usuario = usuario;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-
-    public BigDecimal getValor() {
-        return valor;
-    }
-
-
-    public List<Opiniao> getOpinioes() {
-        return opinioes;
-    }
-
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 }

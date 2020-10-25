@@ -33,7 +33,8 @@ public class ProcessadorCompraController {
         String pagamentoProcessado = processaCompra
                 .processa(id, retornoPaypalRequest, entityManager);
 
-        return ResponseEntity.ok(pagamentoProcessado);
+        return ResponseEntity
+                .ok(pagamentoProcessado);
 
 
     }

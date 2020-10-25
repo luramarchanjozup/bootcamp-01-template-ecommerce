@@ -4,14 +4,20 @@ import br.com.ecommerce.cadastroproduto.Produto;
 import br.com.ecommerce.cadastrousuario.Usuario;
 
 import javax.persistence.EntityManager;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 public class CompraRequest {
 
-
+    @NotNull
+    @Positive
     private Long quantidade;
 
+    @NotNull
     private GatewayPagamento gatewayPagamento;
 
+    @NotNull
+    @Positive
     private Long produtoId;
 
 

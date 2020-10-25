@@ -29,19 +29,18 @@ public class DetalheProdutoResponse {
 
     private List<String> perguntas;
 
-    private List<String> caracteristicas;
+    private List<DetalheProdutoCaracteristica> caracteristicas;
+
 
 
     public DetalheProdutoResponse(Produto produto){
 
-        this.linksImagens = produto.listarLinks(imagemProduto -> imagemProduto.getLinkImagem());
 
+        this.linksImagens = produto.listarLinks(imagemProduto -> imagemProduto.getLinkImagem());
 
         this.nome = produto.getNome();
 
-
         this.preco = produto.getValor();
-
 
         this.descricao = produto.getDescricao();
 
@@ -49,7 +48,7 @@ public class DetalheProdutoResponse {
 
         this.perguntas = produto.listarPerguntas(pergunta -> pergunta.getTitulo());
 
-        this.caracteristicas = produto.listarCaracteristicas(caracteristica -> caracteristica.getNome());
+        this.caracteristicas = produto.listarCaracteristicas(DetalheProdutoCaracteristica::new);
 
         this.totalDeNotas = total(produto);
 
@@ -74,14 +73,6 @@ public class DetalheProdutoResponse {
                     .map(opiniao -> opiniao.getNota())
                     .mapToDouble(x -> x)
                     .average();
-    }
-
-    public List<String> getLinksImagens() {
-        return linksImagens;
-    }
-
-    public void setLinksImagens(List<String> linksImagens) {
-        this.linksImagens = linksImagens;
     }
 
     public String getNome() {
@@ -132,6 +123,14 @@ public class DetalheProdutoResponse {
         this.opinioes = opinioes;
     }
 
+    public List<String> getLinksImagens() {
+        return linksImagens;
+    }
+
+    public void setLinksImagens(List<String> linksImagens) {
+        this.linksImagens = linksImagens;
+    }
+
     public List<String> getPerguntas() {
         return perguntas;
     }
@@ -140,12 +139,11 @@ public class DetalheProdutoResponse {
         this.perguntas = perguntas;
     }
 
-    public List<String> getCaracteristicas() {
+    public List<DetalheProdutoCaracteristica> getCaracteristicas() {
         return caracteristicas;
     }
 
-    public void setCaracteristicas(List<String> caracteristicas) {
+    public void setCaracteristicas(List<DetalheProdutoCaracteristica> caracteristicas) {
         this.caracteristicas = caracteristicas;
     }
-
 }
