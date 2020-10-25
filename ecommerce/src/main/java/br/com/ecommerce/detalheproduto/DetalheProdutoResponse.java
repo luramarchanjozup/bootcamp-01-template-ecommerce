@@ -35,7 +35,7 @@ public class DetalheProdutoResponse {
 
     public DetalheProdutoResponse(Produto produto){
 
-
+                                                        //1
         this.linksImagens = produto.listarLinks(imagemProduto -> imagemProduto.getLinkImagem());
 
         this.nome = produto.getNome();
@@ -43,11 +43,11 @@ public class DetalheProdutoResponse {
         this.preco = produto.getValor();
 
         this.descricao = produto.getDescricao();
-
+                                                                    //1
         this.opinioes = produto.listarOpinioes(opiniao -> opiniao.getTitulo());
-
+                                                                    //1
         this.perguntas = produto.listarPerguntas(pergunta -> pergunta.getTitulo());
-
+                                                                            //1
         this.caracteristicas = produto.listarCaracteristicas(DetalheProdutoCaracteristica::new);
 
         this.totalDeNotas = total(produto);
@@ -56,7 +56,7 @@ public class DetalheProdutoResponse {
 
 
     }
-
+    //1
     public Integer total(Produto produto){
 
         return produto
@@ -64,7 +64,7 @@ public class DetalheProdutoResponse {
                 .size();
     }
 
-
+    //1
     public OptionalDouble media(Produto produto){
 
         return   produto

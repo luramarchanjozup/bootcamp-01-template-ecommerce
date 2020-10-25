@@ -35,15 +35,16 @@ public class Produto {
     @Positive
     private Long quantidadeDisponivel;
 
+    //1
     @OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
     private List<Caracteristica> caracteristicas = new ArrayList<>();
-
+    //1
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private List<Opiniao> opinioes = new ArrayList<>();
-
+    //1
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private List<ImagemProduto> imagens = new ArrayList<>();
-
+    //1
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private List<Pergunta> perguntas = new ArrayList<>();
 
@@ -51,14 +52,17 @@ public class Produto {
     @Size(max = 1000)
     private String descricao;
 
+    //1
     @NotNull
     @ManyToOne
     private Categoria categoria;
 
+    //1
     @ManyToOne
     private Usuario usuario;
 
     private OffsetDateTime instanteCadastro;
+
 
     @Deprecated
     public Produto(){};
@@ -71,6 +75,7 @@ public class Produto {
         this.valor = valor;
         this.quantidadeDisponivel = quantidadeDisponivel;
 
+        //1
         this.caracteristicas.addAll(caracteristicas.stream()
                 .map(caracteristica -> caracteristica.toModel(this))
                 .collect(Collectors.toList()));
@@ -82,7 +87,7 @@ public class Produto {
 
     }
 
-
+    //1
     public List<String> listarLinks(Function<ImagemProduto, String> funcaoDeListagem){
 
         return this.imagens
@@ -92,6 +97,7 @@ public class Produto {
 
     }
 
+    //1
     public <T> List<T> listarCaracteristicas(Function<Caracteristica, T> funcaoDeListagem){
 
         return this.caracteristicas
@@ -101,6 +107,7 @@ public class Produto {
 
     }
 
+    //1
     public List<String> listarOpinioes(Function<Opiniao, String> funcaoDeListagem){
 
         return this.opinioes
@@ -109,6 +116,7 @@ public class Produto {
                 .collect(Collectors.toList());
     }
 
+    //1
     public List<String> listarPerguntas(Function<Pergunta, String> funcaoDeListagem){
 
         return this.perguntas
@@ -117,6 +125,7 @@ public class Produto {
                 .collect(Collectors.toList());
     }
 
+    //1
     public void associaImagens(List<String> links) {
 
         List<ImagemProduto> imagens = links
@@ -128,7 +137,7 @@ public class Produto {
 
     }
 
-
+    //1
     public boolean verificaDisponibilidadeEAtualiza(Long quantidadeDemandada){
 
         boolean resposta = quantidadeDisponivel >= quantidadeDemandada;

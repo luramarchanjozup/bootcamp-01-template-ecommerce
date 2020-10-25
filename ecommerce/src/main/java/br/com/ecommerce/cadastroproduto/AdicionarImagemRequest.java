@@ -6,8 +6,10 @@ import java.util.List;
 
 public class AdicionarImagemRequest {
 
+
     @NotNull
     private List<MultipartFile> arquivos;
+
 
     public AdicionarImagemRequest(List<MultipartFile> arquivos) {
         this.arquivos = arquivos;

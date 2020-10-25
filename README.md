@@ -23,11 +23,88 @@
 
 
 
-- Obviamente o contador ainda precisa de diversas melhorias e ainda não oferece a maior precisão do mundo. Mas já possui alguma relevância em termos de precisão. Comparei a contagem automatizada e a manual na camada de Controllers e o resultado foi bem interessante.
+- É evidente que o contador ainda precisa de diversas melhorias e ainda não oferece a maior precisão do mundo. Mas já possui alguma relevância em termos de precisão. Comparei a contagem automatizada e a manual na camada de Controllers e o resultado foi bem interessante. Então, só reforço que não há, por enquanto, relevância estatística que assegure a eficiência da contagem de pontos do programa, mas já começam a aparecer algumas análises bem sucedidas, o que pode indicar pelo menos que esse passo inicial está tendo um direcionamento interessante.
 
 
 ![](/readme-images/comparacao.jpg)
 
+
+## Coesão, acoplamento e complexidade (C3 - Cohesion, Coupling and Complexity)
+
+- Analisando por uma visão global das métricas de coesão, acoplamento e complexidade é possível ver que no geral, o programa ficou com bons resultados, o que é um ponto positivo para o CDD, tendo em vista que o desenvolvimento foi totalmente direcionado ao CDD. É óbvio que teríamos que comparar a mesma situações com desenvolvimentos orientados a outros designs de código, mas, não deixa de ser um ponto positivo. O que ficou faltando, eu acho, foi explorar mais a Orientação a Objetos. Confesso que fiquei muitas horas pensando como poderia encaixar no meu código movimentos mais interessantes. Fica como algo para melhorar também.
+
+
+![](/readme-images/analise_geral_C3.jpg)
+
+
+- No detalhamento fica transparente que a maior questão foi coesão. Ponto para evoluir para o próximo projeto ou tentar refatorar esse com o objetivo de melhorar essas métricas de coesão.
+
+
+![](/readme-images/aprofunda_C3.jpg)
+
+
+- As classes que não são de configuração que mais aumentaram a contagem de falta de coesão foram: Compra, Produto, DetalheProdutoResponse. Trazendo uma correlação, essas mesmas classes com 'Lack of Cohesion', são classes que possuem elevada contagem de pontos de complexidade ao entendimento, inclusive, a classe Produto excedeu a contagem. É certo que as correlações de variáveis existem aos montes e precisamos ter sobriedade antes de concluir qualquer coisa. Apesar disso, fica aqui uma correlação interessante que vai de encontro com o CDD.
+
+
+![](/readme-images/classes_falta_coesao.jpg)
+
+
+
+- Contagem dos pontos -> Compra, Produto, DetalheProdutoResponse
+
+- Compra:
+
+```
+
+obs.: contagem manual -> pc = 6
+
+Pontos de complexidade na classe: 6
+
+Os indicadores de complexidade encontrados foram: set()
+
+As classes criadas especificamente nesse projeto, gerando complexidade, foram: {'Transacao', 'Produto', 'GatewayPagamento', 'Usuario', 'RetornoGatewayPagamento'}
+
+Número de acoplamentos: 0
+
+
+```
+
+
+- Produto:
+
+
+```
+
+obs.: contagem manual -> pc = 12
+
+Pontos de complexidade na classe: 10
+
+Os indicadores de complexidade encontrados foram: set()
+
+As classes criadas especificamente nesse projeto, gerando complexidade, foram: {'Usuario', 'Categoria', 'ImagemProduto'}
+
+Número de acoplamentos: 0
+
+
+```
+
+- DetalheProdutoResponse:
+
+
+```
+obs.: contagem manual -> pc = 6
+
+Pontos de complexidade na classe: 5
+
+Os indicadores de complexidade encontrados foram: set()
+
+As classes criadas especificamente nesse projeto, gerando complexidade, foram: {'Produto'}
+
+Número de acoplamentos: 0
+
+
+
+```
 
 
 
@@ -113,9 +190,11 @@ public class CompraController {
 
 - Minha contagem manual deu um total de 8 pontos.
 
-- O programa também contou 7 pontos. Com a seguinte saída:
+- O programa contou 7 pontos. Com a seguinte saída:
 
 > python3 start.py --classe=CompraController --pasta=finalizacompra --camada=c
+
+
 
 ```
 
@@ -130,7 +209,14 @@ Número de acoplamentos: 3
 
 ```
 
-- Tentei analisar os dados gerados pela métrica do CDD para conseguir balizar algumas escolhas de desenvolvimento. O programa está gerando alguns gráficos. Ainda são muito básicos e com rigor matemático ainda insuficiente. Mas servem como ponto de partida para analisar meu projeto.
+
+- Observações importantes:
+- (a) Para utilizar o programa, o único ajuste a se fazer é mudar o path do projeto.
+- (b) Está no arquivo receber_argumentos.py.
+- (c) Feito isso, é só executar o comando acima e o programa irá gerar essa análise abaixo e dois gráficos para a cada classe.
+- (d) Para gerar os gráficos gerais, deve executar o seguinte comando:
+
+> python3 gera_stats_finais.py
 
 
 ### Pontos CompraController - gráfico 1
