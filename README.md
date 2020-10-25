@@ -11,6 +11,7 @@
 
 ## Coesão, acoplamento e complexidade (C3 - Cohesion, Coupling and Complexity)
 
+- Utilizei o CodeMR (plugin Intellij) para fazer essas análises.
 
 - Analisando por uma visão global das métricas de coesão, acoplamento e complexidade é possível ver que no geral, o programa ficou com bons resultados, o que é um ponto positivo para o CDD, tendo em vista que o desenvolvimento foi totalmente direcionado ao CDD. É óbvio que teríamos que comparar a mesma situações com desenvolvimentos orientados a outros designs de código, mas, não deixa de ser um ponto positivo. O que ficou faltando, eu acho, foi explorar mais a Orientação a Objetos. Confesso que fiquei muitas horas pensando como poderia encaixar no meu código movimentos mais interessantes. Fica como algo para melhorar também.
 
