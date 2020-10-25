@@ -3,7 +3,6 @@ package br.com.carlos.ecommerce.api.controller;
 
 import br.com.carlos.ecommerce.api.dto.RequestOpiniaoDto;
 import br.com.carlos.ecommerce.config.security.TokenManager;
-import br.com.carlos.ecommerce.domain.entity.Opiniao;
 import br.com.carlos.ecommerce.domain.entity.Produto;
 import br.com.carlos.ecommerce.domain.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +23,20 @@ public class CadastrarOpiniaoController {
 
     @PersistenceContext
     EntityManager manager;
-    @Autowired
+    @Autowired      //1
     private UsuarioRepository usuarioRepository;
-    @Autowired
+    @Autowired      //1
     private TokenManager tokenManager;
 
     @Transactional
-    @PostMapping("/produtos/{id}/opinioes")
+    @PostMapping("/produtos/{id}/opinioes")                                                 //1
     public ResponseEntity<?> adicionar(@PathVariable("id") Long id, @Valid @RequestBody RequestOpiniaoDto request, HttpServletRequest servletRequest){
+        //1
         Produto produto = manager.find(Produto.class, id);
         var usuarioLogado = tokenManager.getUserName(servletRequest.getHeader("Authorization"));
         var dono = usuarioRepository.findByLogin(usuarioLogado);
-        Opiniao novaOpiniao = request.toEntity(produto, dono.get());
+        //1
+        var novaOpiniao = request.toEntity(produto, dono.get());
         manager.persist(novaOpiniao);
 
         return ResponseEntity.ok().build();

@@ -37,7 +37,7 @@ public class CadastrarPerguntaController {
     @PostMapping(value = "/produtos/{id}/perguntas")                                        //1
     public ResponseEntity<?> adicionar(@PathVariable("id") Long id, @Valid @RequestBody RequestPerguntaDto request, HttpServletRequest servletRequest ) {
         //1
-        Produto produto = manager.find(Produto.class, id);
+        var produto = manager.find(Produto.class, id);
         //1
         if(produto == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Produto não encontrado");
@@ -46,7 +46,7 @@ public class CadastrarPerguntaController {
         var usuarioLogado = tokenManager.getUserName(servletRequest.getHeader("Authorization"));
         var interessado = usuarioRepository.findByLogin(usuarioLogado);
         //1
-        Pergunta novaPergunta = request.toEntity(produto, interessado.get());
+        var novaPergunta = request.toEntity(produto, interessado.get());
 
         manager.persist(novaPergunta);
         emailService.enviarEmailNovaPergunta(novaPergunta);

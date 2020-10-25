@@ -2,7 +2,6 @@ package br.com.carlos.ecommerce.api.controller;
 
 
 import br.com.carlos.ecommerce.api.dto.RequestCategoriaDto;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +20,9 @@ public class CadastrarCategoriaController {
     private EntityManager manager;
 
     @Transactional
-    @PostMapping(value="categorias")
+    @PostMapping(value="categorias")                        //1
     public ResponseEntity<?> adicionar(@Valid @RequestBody RequestCategoriaDto request) {
+            //1
         var categoria = request.toEntity(manager);
         manager.persist(categoria);
         return ResponseEntity.ok().build();
