@@ -8,7 +8,19 @@
 ![](/readme-images/coberturatestes.jpg)
 
 
+
+## Coesão, acoplamento e complexidade (C3 - Cohesion, Coupling and Complexity)
+
+
+- Analisando por uma visão global das métricas de coesão, acoplamento e complexidade é possível ver que no geral, o programa ficou com bons resultados, o que é um ponto positivo para o CDD, tendo em vista que o desenvolvimento foi totalmente direcionado ao CDD. É óbvio que teríamos que comparar a mesma situações com desenvolvimentos orientados a outros designs de código, mas, não deixa de ser um ponto positivo. O que ficou faltando, eu acho, foi explorar mais a Orientação a Objetos. Confesso que fiquei muitas horas pensando como poderia encaixar no meu código movimentos mais interessantes. Fica como algo para melhorar também.
+
+
+![](/readme-images/analise_geral_C3.jpg)
+
+
+
 ### Pontos gerais do projeto - CDD
+
 
 - a variação de pontos por camada pode gerar diversas indicações de encaminhamento do que posso buscar melhorar. Teve um rastreamento de complexidade central nas classes de transferência de dados, o que pode indicar que talvez pudesse ter trazido mais métodos e lógica para as Models ou distribuído melhor entre todas as camadas. Não sei exatamente ainda qual seria a melhor interpretação, mas já me geram bons indícios de como melhorar para o próximo desafio. 
 
@@ -29,12 +41,11 @@
 ![](/readme-images/comparacao.jpg)
 
 
-## Coesão, acoplamento e complexidade (C3 - Cohesion, Coupling and Complexity)
-
-- Analisando por uma visão global das métricas de coesão, acoplamento e complexidade é possível ver que no geral, o programa ficou com bons resultados, o que é um ponto positivo para o CDD, tendo em vista que o desenvolvimento foi totalmente direcionado ao CDD. É óbvio que teríamos que comparar a mesma situações com desenvolvimentos orientados a outros designs de código, mas, não deixa de ser um ponto positivo. O que ficou faltando, eu acho, foi explorar mais a Orientação a Objetos. Confesso que fiquei muitas horas pensando como poderia encaixar no meu código movimentos mais interessantes. Fica como algo para melhorar também.
+# Detalhamento dos tópicos iniciados
 
 
-![](/readme-images/analise_geral_C3.jpg)
+## Detalhamento C3
+
 
 
 - No detalhamento fica transparente que a maior questão foi coesão. Ponto para evoluir para o próximo projeto ou tentar refatorar esse com o objetivo de melhorar essas métricas de coesão.
@@ -123,7 +134,8 @@ Número de acoplamentos: 0
 
 
 
-## Exemplo de análise de uma classe com o programa
+## Detalhamento CDD no projeto
+
 
 - Utilizei esse projeto para automatizar a contagem dos pontos de complexidade: [contar pontos de complexidade](https://github.com/MarceloAmorim25/cdd-complexity-counter)
 
