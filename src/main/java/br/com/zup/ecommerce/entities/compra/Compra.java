@@ -4,10 +4,7 @@ import br.com.zup.ecommerce.entities.produto.Produto;
 import br.com.zup.ecommerce.entities.usuario.Usuario;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -32,7 +29,9 @@ public class Compra {
     @NotNull
     @Positive
     private int quantidade;
+
     @NotNull
+    @Enumerated(EnumType.STRING)
     //1
     private TipoPagamentoEnum tipoPagamento;
     
@@ -43,6 +42,7 @@ public class Compra {
     private Usuario comprador;
     
     @NotNull
+    @Enumerated
     //1
     private StatusPagamentoEnum status;
 

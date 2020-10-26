@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 /**
  * Contagem de carga intrínseca da classe: 1
@@ -38,6 +39,11 @@ public class CaracteristicasProduto {
         this.produto = produto;
     }
 
+    public CaracteristicasProduto(@NotBlank String nome, @NotBlank String descricao) {
+        this.nome = nome;
+        this.descricao = descricao;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -53,4 +59,20 @@ public class CaracteristicasProduto {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CaracteristicasProduto)) return false;
+        CaracteristicasProduto that = (CaracteristicasProduto) o;
+        return nome.equals(that.nome) &&
+                descricao.equals(that.descricao) &&
+                Objects.equals(produto, that.produto);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, descricao, produto);
+    }
+
 }

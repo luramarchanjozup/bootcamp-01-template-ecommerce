@@ -2,11 +2,11 @@ package br.com.zup.ecommerce.entities.produto;
 
 import br.com.zup.ecommerce.entities.categoria.Categoria;
 import br.com.zup.ecommerce.entities.produto.caracteristica.CaracteristicasProduto;
-import br.com.zup.ecommerce.entities.produto.caracteristica.CaracteristicasProdutoNovoRequest;
 import br.com.zup.ecommerce.entities.produto.imagem.ImagemProduto;
 import br.com.zup.ecommerce.entities.produto.opiniao.OpiniaoProduto;
 import br.com.zup.ecommerce.entities.produto.pergunta.PerguntaProduto;
 import br.com.zup.ecommerce.entities.usuario.Usuario;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -79,15 +79,15 @@ public class Produto {
     @Deprecated
     public Produto() {}
 
-    //1
-    public Produto(@NotBlank String nome, @NotNull @Positive BigDecimal valor, @NotNull @Min(0) int qtdDisponivel, @Size(min = 3) Set<CaracteristicasProdutoNovoRequest> caracteristicasProdutoNovoRequests, @NotBlank @Size(max = 1000) String descricao, @NotNull Categoria categoria, @NotNull @Valid Usuario dono) {
+    public Produto(@NotBlank String nome, @NotNull @Positive BigDecimal valor, @NotNull @Min(0) int qtdDisponivel, @Size(min = 3) Set<CaracteristicasProduto> caracteristicasProduto, @NotBlank @Size(max = 1000) String descricao, @NotNull Categoria categoria, @NotNull @Valid Usuario dono) {
+        Assert.isTrue(caracteristicasProduto.size() >= 3, "Lista de Características do produto deve ter tamanho igual ou maior que 3");
+
         this.nome = nome;
         this.valor = valor;
         this.qtdDisponivel = qtdDisponivel;
         //1
-        this.caracteristicasProduto = caracteristicasProdutoNovoRequests.stream()
-                .map(cp -> cp.toModel(this))
-                .collect(Collectors.toSet());
+        caracteristicasProduto.forEach(cp -> cp.setProduto(this));
+        this.caracteristicasProduto = caracteristicasProduto;
         this.descricao = descricao;
         this.categoria = categoria;
         this.dono = dono;
@@ -154,7 +154,15 @@ public class Produto {
         return this.dono.equals(usuario);
     }
 
-    public void abateEstoque(int quantidade) {
+    public boolean abateEstoque(@Positive int quantidade) {
+        Assert.isTrue(quantidade >= 0, "Quantidade para abate deve ser mair ou igual a 0");
+
+        //1
+        if(quantidade > this.qtdDisponivel) {
+            return false;
+        }
+
         this.qtdDisponivel = this.qtdDisponivel - quantidade;
+        return true;
     }
 }

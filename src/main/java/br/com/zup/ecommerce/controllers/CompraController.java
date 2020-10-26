@@ -53,7 +53,10 @@ public class CompraController {
         //1
         Produto produto = manager.find(Produto.class, compraNova.getIdProduto());
 
-        produto.abateEstoque(compraNova.getQuantidade());
+        //1
+        if (!produto.abateEstoque(compraNova.getQuantidade())){
+           return ResponseEntity.badRequest().body("Sem estoque");
+        }
 
         //1
         UsuarioLogado userDetails = (UsuarioLogado) user;

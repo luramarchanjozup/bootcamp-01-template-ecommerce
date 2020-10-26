@@ -1,6 +1,7 @@
 package br.com.zup.ecommerce.entities.produto;
 
 import br.com.zup.ecommerce.entities.categoria.Categoria;
+import br.com.zup.ecommerce.entities.produto.caracteristica.CaracteristicasProduto;
 import br.com.zup.ecommerce.entities.produto.caracteristica.CaracteristicasProdutoNovoRequest;
 import br.com.zup.ecommerce.entities.usuario.Usuario;
 import br.com.zup.ecommerce.validations.existeId.ExisteId;
@@ -13,9 +14,10 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
- * Contagem de carga intrínseca da classe: 8
+ * Contagem de carga intrínseca da classe: 9
  */
 
 public class ProdutoNovoRequest {
@@ -76,9 +78,13 @@ public class ProdutoNovoRequest {
         Categoria categoria = manager.find(Categoria.class, this.categoriaId);
         Assert.notNull(categoria, "Categoria não encontrada");
 
-        return new Produto(this.nome, this.valor, this.qtdDisponivel,
-                new HashSet<>(this.caracteristicas),
-                this.descricao, categoria, dono);
+        Assert.isTrue(caracteristicas.size() >= 3, "Lista de Características do produto deve ter tamanho igual ou maior que 3");
+        //1
+        Set<CaracteristicasProduto> caracteristicas = this.caracteristicas.stream()
+                .map(CaracteristicasProdutoNovoRequest::toModelSemProduto)
+                .collect(Collectors.toSet());
+
+        return new Produto(this.nome, this.valor, this.qtdDisponivel, caracteristicas, this.descricao, categoria, dono);
     }
 
     public Set<String> caracteristicasIguais() {
