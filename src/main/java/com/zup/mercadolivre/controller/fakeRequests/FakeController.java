@@ -1,20 +1,22 @@
 package com.zup.mercadolivre.controller.fakeRequests;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class FakeController {
     
-    @PostMapping("/invoice?{purchaseId}&{buyerId}")
-    public ResponseEntity<?> fakeInvoiceClient(@PathVariable Long purchaseId, @PathVariable Long buyerId) {
+    @PostMapping("/invoice")
+    public ResponseEntity<?> fakeInvoiceClient(@RequestBody @Valid NewPurchaseInvoice request) {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/ranking?{purchaseId}&{sellerId}")
-    public ResponseEntity<?> fakeRankinClient(@PathVariable Long purchaseId, @PathVariable Long sellerId) {
+    @PostMapping("/ranking")
+    public ResponseEntity<?> fakeRankingClient(@RequestBody @Valid NewPurchaseRanking request) {
         return ResponseEntity.ok().build();
     }
 }

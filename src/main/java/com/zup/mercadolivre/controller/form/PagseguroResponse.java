@@ -1,34 +1,30 @@
 package com.zup.mercadolivre.controller.form;
 
-import com.zup.mercadolivre.model.enums.PagseguroStatus;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
-public class PagseguroResponse {
+import com.zup.mercadolivre.model.Purchase;
+import com.zup.mercadolivre.model.Transaction;
+import com.zup.mercadolivre.model.enums.PagseguroStatus;
+import com.zup.mercadolivre.model.interfaces.ReturnPaymentGateway;
+
+public class PagseguroResponse implements ReturnPaymentGateway {
     
-    private Long productId;
+    @NotBlank
     private Long paymentId;
+    @NotNull
     private PagseguroStatus status;
 
-    public PagseguroResponse(Long productId, Long paymentId, PagseguroStatus status) {
-        this.productId = productId;
+    public PagseguroResponse(Long paymentId, PagseguroStatus status) {
         this.paymentId = paymentId;
         this.status = status;
-    }
-
-    public Long getProductId() {
-        return this.productId;
     }
 
     public Long getPaymentId() {
         return this.paymentId;
     }
 
-    public boolean isApproved() {
-        if (this.status.equals(PagseguroStatus.SUCESSO)) {
-            return true;
-        } else if (this.status.equals(PagseguroStatus.ERRO)) {
-            return false;
-        } else {
-            throw new IllegalArgumentException("Unknown status code");
-        }
-    }
+	public Transaction toTransaction(Purchase purchase) {
+		return new Transaction(this.status.normalize(), this.paymentId, purchase);
+	}
 }
