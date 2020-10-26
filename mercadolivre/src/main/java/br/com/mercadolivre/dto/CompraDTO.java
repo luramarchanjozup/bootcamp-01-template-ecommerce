@@ -7,6 +7,7 @@ import br.com.mercadolivre.dto.enums.GatewayPagamentoEnum;
 import br.com.mercadolivre.model.Compra;
 import br.com.mercadolivre.model.Produto;
 import br.com.mercadolivre.model.Usuario;
+import br.com.mercadolivre.validator.IdExistente;
 
 //Contagem de Pontos - TOTAL:3
 //1 - Compra
@@ -19,7 +20,7 @@ public class CompraDTO {
 	
 	@Positive
 	private int quantidade;
-	@NotNull
+	@NotNull @IdExistente(classe = "Produto", campo = "id")
 	private Long idProduto;
 	@NotNull
 	private GatewayPagamentoEnum gateway;

@@ -2,10 +2,9 @@ package br.com.mercadolivre.service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.com.mercadolivre.dto.ImagemDTO;
@@ -18,6 +17,7 @@ import br.com.mercadolivre.model.Usuario;
 //1 - ProdutoDTO
 //1 - Produto
 //1 - Usuario
+//1 - If
 
 @Service
 public class ProdutoServices {
@@ -26,11 +26,7 @@ public class ProdutoServices {
 	@PersistenceContext
 	private EntityManager manager;
 	
-	public Produto salvar(ProdutoDTO produtodto) {
-		Query query = manager.createQuery("select u from Usuario u where loguin = :value");
-		query.setParameter("value", "gabriel@gmail.com");
-		Usuario usuarioProduto = (Usuario) query.getSingleResult();
-		
+	public Produto salvar(ProdutoDTO produtodto, Usuario usuarioProduto) {	
 		Produto produto = produtodto.toModel(manager);
 		produto.setUsuario(usuarioProduto);
 		
@@ -40,9 +36,11 @@ public class ProdutoServices {
 	
 	public Produto colocarImagem (ImagemDTO imagemdto, Long id, Usuario usuario) {
 		Produto produto = manager.find(Produto.class, id);
+		Assert.notNull(produto,"O id do produto informado não existe, produto não pode ser Nulo");
+		
 		produto.adicionarImagens(imagemdto.getImagens());
 		
-		if(produto.getUsuario() != usuario) {
+		if(!produto.getUsuario().getLoguin().equals(usuario.getLoguin())) {
 			throw new ResponseStatusException(HttpStatus.FORBIDDEN);
 		}
 		
