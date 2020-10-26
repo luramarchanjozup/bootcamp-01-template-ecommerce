@@ -1,7 +1,7 @@
 package br.com.zup.mercadolivre.controller;
 
-import br.com.zup.mercadolivre.dto.request.UserRequestDTO;
-import br.com.zup.mercadolivre.model.User;
+import br.com.zup.mercadolivre.dto.request.UsuarioRequestDTO;
+import br.com.zup.mercadolivre.model.Usuario;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,16 +14,16 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping(value = "users")
-public class UserController {
+@RequestMapping(value = "usuarios")
+public class UsuarioController {
 
     @PersistenceContext
     EntityManager entityManager;
 
     @PostMapping
     @Transactional
-    public ResponseEntity createUser (@RequestBody @Valid UserRequestDTO request) {
-        User user = request.toModel();
+    public ResponseEntity createUser (@RequestBody @Valid UsuarioRequestDTO request) {
+        Usuario user = request.toModel();
         entityManager.persist(user);
         return ResponseEntity.ok().build();
     }

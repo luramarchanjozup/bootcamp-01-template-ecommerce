@@ -11,24 +11,24 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
-@Entity(name = "users")
-public class User {
+@Entity(name = "usuarios")
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String login;
-    private String password;
+    private String senha;
     private LocalDateTime instantRegistration = LocalDateTime.now();
 
     @Deprecated
-    public User() {
+    public Usuario() {
     }
 
-    public User(@NotBlank @Email String login, @NotBlank @Length(min = 6) String password) {
+    public Usuario(@NotBlank @Email String login, @NotBlank @Length(min = 6) String senha) {
         this.login = login;
-        this.password = new BCryptPasswordEncoder().encode(password);;
+        this.senha = new BCryptPasswordEncoder().encode(senha);
     }
 
     public Long getId() {
@@ -47,12 +47,12 @@ public class User {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public LocalDateTime getInstantRegistration() {
