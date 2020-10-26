@@ -1,5 +1,6 @@
-package br.com.zup.mercadolivre.model;
+package br.com.zup.mercadolivre.config.security;
 
+import br.com.zup.mercadolivre.model.Usuario;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

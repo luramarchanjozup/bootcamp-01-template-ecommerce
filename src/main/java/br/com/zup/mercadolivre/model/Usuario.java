@@ -20,7 +20,7 @@ public class Usuario {
 
     private String login;
     private String senha;
-    private LocalDateTime instantRegistration = LocalDateTime.now();
+    private LocalDateTime instanteRegistro = LocalDateTime.now();
 
     @Deprecated
     public Usuario() {
@@ -55,11 +55,11 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public LocalDateTime getInstantRegistration() {
-        return instantRegistration;
+    public LocalDateTime getInstanteRegistro() {
+        return instanteRegistro;
     }
 
-    public void setInstantRegistration(LocalDateTime instantRegistration) {
-        this.instantRegistration = instantRegistration;
+    public void setInstanteRegistro(LocalDateTime instanteRegistro) {
+        this.instanteRegistro = instanteRegistro;
     }
 }
