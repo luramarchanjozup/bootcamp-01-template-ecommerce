@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 /**
- * Contagem de carga intrínseca da classe: 5
+ * Contagem de carga intrínseca da classe: 4
  */
 
 @Entity
@@ -80,25 +80,10 @@ public class Compra {
 
     public String getLinkPagamento(){
         String host = ServletUriComponentsBuilder.fromCurrentServletMapping().toUriString();
-        String linkPagamento = "";
         String linkRetornoPosPagamento = host + "/compras/" + this.id;
-
-        //1
-        switch (this.tipoPagamento) {
-            case PAYPAL:
-                linkPagamento = String.format("http://paypal.com/%d?redirectUrl=%s",
-                        this.id,
-                        linkRetornoPosPagamento
-                );
-                break;
-            case PAGSEGURO:
-                linkPagamento = String.format("http://pagseguro.com?returnId=%d&redirectUrl=%s",
-                        this.id,
-                        linkRetornoPosPagamento
-                );
-                break;
-        }
-
-        return linkPagamento;
+        return String.format(this.tipoPagamento.geLink(),
+                this.id,
+                linkRetornoPosPagamento
+        );
     }
 }
