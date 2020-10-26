@@ -1,6 +1,5 @@
 package com.zup.mercadolivre.controller;
 
-import java.net.URI;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,7 +10,6 @@ import javax.validation.Valid;
 import com.zup.mercadolivre.controller.form.PurchaseForm;
 import com.zup.mercadolivre.model.Purchase;
 import com.zup.mercadolivre.model.User;
-import com.zup.mercadolivre.model.enums.PaymentGateway;
 import com.zup.mercadolivre.model.products.Product;
 import com.zup.mercadolivre.services.UserService;
 
@@ -24,14 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-//7
+//5
 public class PurchaseGatewayController {
     
     @PersistenceContext
     private EntityManager manager;
-
-    //@Autowired
-    //private MailService mailService;
 
     @PostMapping("/product/{id}/purchase")
     @Transactional
@@ -51,20 +46,9 @@ public class PurchaseGatewayController {
             Purchase purchase = form.toPurchase(product, loggedUser);
             manager.persist(purchase);
             
-            //1
-            if(form.getGateway().equals(PaymentGateway.pagseguro)) {
-                URI redirectUrl = uriBuilder.path("/payment/pagseguro-response/{id}").buildAndExpand(purchase.getId()).toUri();
-                URI uri = URI.create("paypal.com/" + product.getId() + "?redirectUrl=" + redirectUrl);
-
-                response.setHeader("Location", uri.toString());
-                return ResponseEntity.ok().build();
-            } /*1*/ else {
-                URI redirectUrl = uriBuilder.path("/payment/paypal-response/{id}").buildAndExpand(purchase.getId()).toUri();
-                URI uri = URI.create("pagseguro.com/?returnId=" + product.getId() + "&redirectUrl=" + redirectUrl);
-
-                response.setHeader("Location", uri.toString());
-                return ResponseEntity.ok().build();
-            }
+            response.setHeader("Location", purchase.returnUrl(uriBuilder));
+            return ResponseEntity.ok().build();
+            
         }
 
         BindException bindException = new BindException(form, "purchaseForm");
