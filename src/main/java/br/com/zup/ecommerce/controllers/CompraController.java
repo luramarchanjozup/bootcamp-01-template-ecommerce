@@ -2,6 +2,10 @@ package br.com.zup.ecommerce.controllers;
 
 import br.com.zup.ecommerce.entities.compra.Compra;
 import br.com.zup.ecommerce.entities.compra.CompraNovoRequest;
+import br.com.zup.ecommerce.entities.compra.CompraRetorno;
+import br.com.zup.ecommerce.entities.compra.pagamento.Pagamento;
+import br.com.zup.ecommerce.entities.compra.pagamento.RetornoPagamentoPaypalRequest;
+import br.com.zup.ecommerce.entities.compra.pagamento.StatusTransacaoEnum;
 import br.com.zup.ecommerce.entities.produto.Produto;
 import br.com.zup.ecommerce.entities.usuario.Usuario;
 import br.com.zup.ecommerce.security.UsuarioLogado;
@@ -9,11 +13,13 @@ import br.com.zup.ecommerce.service.email.EnviarEmail;
 import br.com.zup.ecommerce.validations.compra.EstoqueDisponivelValidador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,7 +28,7 @@ import javax.validation.Valid;
 import java.net.URI;
 
 /**
- * Contagem de carga intrínseca da classe: 7
+ * Contagem de carga intrínseca da classe: 6
  */
 
 @RestController
@@ -40,7 +46,7 @@ public class CompraController {
     //1
     private EstoqueDisponivelValidador estoqueDisponivelValidador;
 
-    @InitBinder
+    @InitBinder(value = "compraNovoRequest")
     public void init(WebDataBinder binder) {
         binder.addValidators(estoqueDisponivelValidador);
     }
@@ -60,14 +66,11 @@ public class CompraController {
 
         //1
         UsuarioLogado userDetails = (UsuarioLogado) user;
-        //1
-        Usuario usuario = userDetails.getUsuario();
 
         //1
-        Compra compra = compraNova.toModel(produto, usuario);
+        Compra compra = compraNova.toModel(produto, userDetails.getUsuario());
 
         manager.persist(compra);
-        manager.persist(produto);
 
         enviarEmail.enviarEmail(produto.getDono().getLogin(),"Interesse na compra do produto", "Há um interessado na compra do produto");
 
@@ -76,5 +79,38 @@ public class CompraController {
         httpHeaders.setLocation(URI.create(compra.getLinkPagamento()));
 
         return ResponseEntity.status(302).headers(httpHeaders).build();
+    }
+
+    @PostMapping("{id}/retorno-paypal")
+    @Transactional
+    //1
+    public ResponseEntity<String> retornoPaypal(@PathVariable("id") Long id, @Valid RetornoPagamentoPaypalRequest retornoPagamentoPaypal) {
+        Compra compra = manager.find(Compra.class, id);
+
+        //1
+        if(compra == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+        //1
+        Usuario comprador = compra.getComprador();
+        Usuario vendedor = compra.getProduto().getDono();
+
+        Pagamento pagamento = retornoPagamentoPaypal.toModel(compra);
+        manager.persist(pagamento);
+
+        //3
+        if (pagamento.getStatus() == StatusTransacaoEnum.SUCESSO) {
+            compra.atualizaStatusSucessoPagamento();
+        } else {
+            compra.atualizaStatusErroPagamento();
+        }
+
+        CompraRetorno compraRetorno = new CompraRetorno(compra);
+
+        String menssagem = "Segue os dados do pagamento de sua compra:\n\n" + compraRetorno.toString();
+        enviarEmail.enviarEmail(comprador.getLogin(), "Pagamento da compra", menssagem);
+
+        return ResponseEntity.ok("Pago");
     }
 }

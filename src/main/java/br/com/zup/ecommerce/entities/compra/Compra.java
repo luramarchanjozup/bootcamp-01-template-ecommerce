@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 /**
- * Contagem de carga intrínseca da classe: 4
+ * Contagem de carga intrínseca da classe: 6
  */
 
 @Entity
@@ -46,6 +46,9 @@ public class Compra {
     //1
     private StatusPagamentoEnum status;
 
+    @Deprecated
+    public Compra(){}
+
     public Compra(@NotNull @Valid Produto produto, @NotNull @Positive int quantidade, @NotNull TipoPagamentoEnum tipoPagamento, @NotNull @Valid Usuario comprador) {
         this.status = StatusPagamentoEnum.INICIADA;
         this.produto = produto;
@@ -80,10 +83,26 @@ public class Compra {
 
     public String getLinkPagamento(){
         String host = ServletUriComponentsBuilder.fromCurrentServletMapping().toUriString();
-        String linkRetornoPosPagamento = host + "/compras/" + this.id;
         return String.format(this.tipoPagamento.geLink(),
                 this.id,
-                linkRetornoPosPagamento
+                host,
+                this.id
         );
+    }
+
+    public StatusPagamentoEnum atualizaStatusSucessoPagamento() {
+        //1
+        if (this.status != StatusPagamentoEnum.PAGA) {
+            this.status = StatusPagamentoEnum.PAGA;
+        }
+        return this.status;
+    }
+
+    public StatusPagamentoEnum atualizaStatusErroPagamento() {
+        //1
+        if (this.status != StatusPagamentoEnum.PAGA) {
+            this.status = StatusPagamentoEnum.ERRO_PAGAMENTO;
+        }
+        return this.status;
     }
 }

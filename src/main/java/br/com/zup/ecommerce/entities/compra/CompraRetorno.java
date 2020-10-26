@@ -42,4 +42,14 @@ public class CompraRetorno {
     public String getComprador() {
         return comprador;
     }
+
+    @Override
+    public String toString() {
+        return "Dados do produto:" +
+                "\nStatus da compra: " + status +
+                "\nForma de pagamento: " + tipoPagamento +
+                "\nProduto: " + nomeProduto +
+                "\nQuantidade: " + quantidade +
+                "\nComprador: " + comprador;
+    }
 }
