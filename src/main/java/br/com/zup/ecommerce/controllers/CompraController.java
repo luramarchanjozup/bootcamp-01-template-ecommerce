@@ -3,9 +3,7 @@ package br.com.zup.ecommerce.controllers;
 import br.com.zup.ecommerce.entities.compra.Compra;
 import br.com.zup.ecommerce.entities.compra.CompraNovoRequest;
 import br.com.zup.ecommerce.entities.compra.CompraRetorno;
-import br.com.zup.ecommerce.entities.compra.pagamento.Pagamento;
-import br.com.zup.ecommerce.entities.compra.pagamento.RetornoPagamentoPaypalRequest;
-import br.com.zup.ecommerce.entities.compra.pagamento.StatusTransacaoEnum;
+import br.com.zup.ecommerce.entities.compra.transacao.RetornoTransacaoPaypalRequest;
 import br.com.zup.ecommerce.entities.produto.Produto;
 import br.com.zup.ecommerce.entities.usuario.Usuario;
 import br.com.zup.ecommerce.security.UsuarioLogado;
@@ -28,7 +26,7 @@ import javax.validation.Valid;
 import java.net.URI;
 
 /**
- * Contagem de carga intrínseca da classe: 6
+ * Contagem de carga intrínseca da classe: 12
  */
 
 @RestController
@@ -84,7 +82,7 @@ public class CompraController {
     @PostMapping("{id}/retorno-paypal")
     @Transactional
     //1
-    public ResponseEntity<String> retornoPaypal(@PathVariable("id") Long id, @Valid RetornoPagamentoPaypalRequest retornoPagamentoPaypal) {
+    public ResponseEntity<String> retornoPaypal(@PathVariable("id") Long id, @Valid RetornoTransacaoPaypalRequest retornoPagamentoPaypal) {
         Compra compra = manager.find(Compra.class, id);
 
         //1
@@ -92,19 +90,22 @@ public class CompraController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
+        boolean salvoTransacao = compra.addTransacao(retornoPagamentoPaypal);
+        manager.merge(compra);
+
+        //1
+        if (!salvoTransacao) {
+            return ResponseEntity.badRequest().body("Compra já paga");
+        }
+        //1
+        if (retornoPagamentoPaypal.getStatusTransacao() == 0) {
+            return ResponseEntity.ok().body("Erro na transação do PayPal");
+        }
+
         //1
         Usuario comprador = compra.getComprador();
         Usuario vendedor = compra.getProduto().getDono();
 
-        Pagamento pagamento = retornoPagamentoPaypal.toModel(compra);
-        manager.persist(pagamento);
-
-        //3
-        if (pagamento.getStatus() == StatusTransacaoEnum.SUCESSO) {
-            compra.atualizaStatusSucessoPagamento();
-        } else {
-            compra.atualizaStatusErroPagamento();
-        }
 
         CompraRetorno compraRetorno = new CompraRetorno(compra);
 

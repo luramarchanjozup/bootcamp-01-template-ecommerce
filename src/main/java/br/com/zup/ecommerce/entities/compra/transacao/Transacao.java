@@ -1,4 +1,4 @@
-package br.com.zup.ecommerce.entities.compra.pagamento;
+package br.com.zup.ecommerce.entities.compra.transacao;
 
 import br.com.zup.ecommerce.entities.compra.Compra;
 
@@ -7,13 +7,14 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * Contagem de carga intrínseca da classe: 2
  */
 
 @Entity
-public class Pagamento {
+public class Transacao {
 
     @Id
     @GeneratedValue
@@ -29,13 +30,16 @@ public class Pagamento {
 
     @NotNull
     @Valid
-    @OneToOne
+    @ManyToOne
     //1
     private Compra compra;
 
     private LocalDateTime dataTransacao = LocalDateTime.now();
 
-    public Pagamento(@NotBlank String idTransacao, @NotNull StatusTransacaoEnum status, @NotNull @Valid Compra compra) {
+    @Deprecated
+    public Transacao(){}
+
+    public Transacao(@NotBlank String idTransacao, @NotNull StatusTransacaoEnum status, @NotNull @Valid Compra compra) {
         this.idTransacao = idTransacao;
         this.status = status;
         this.compra = compra;
@@ -55,5 +59,22 @@ public class Pagamento {
 
     public Compra getCompra() {
         return compra;
+    }
+
+    public boolean concluidaComSucesso() {
+        return this.status.equals(StatusTransacaoEnum.SUCESSO);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Transacao)) return false;
+        Transacao transacao = (Transacao) o;
+        return idTransacao.equals(transacao.idTransacao);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idTransacao);
     }
 }

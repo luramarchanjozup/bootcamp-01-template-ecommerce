@@ -1,5 +1,7 @@
 package br.com.zup.ecommerce.entities.compra;
 
+import br.com.zup.ecommerce.entities.compra.transacao.RetornoTransacaoRequest;
+import br.com.zup.ecommerce.entities.compra.transacao.Transacao;
 import br.com.zup.ecommerce.entities.produto.Produto;
 import br.com.zup.ecommerce.entities.usuario.Usuario;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -8,9 +10,11 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * Contagem de carga intrínseca da classe: 6
+ * Contagem de carga intrínseca da classe: 9
  */
 
 @Entity
@@ -45,6 +49,12 @@ public class Compra {
     @Enumerated
     //1
     private StatusPagamentoEnum status;
+
+    @NotNull
+    @Valid
+    @OneToMany(mappedBy = "compra", cascade = CascadeType.MERGE)
+    //1
+    Set<Transacao> transacoes = new HashSet<>();
 
     @Deprecated
     public Compra(){}
@@ -90,19 +100,21 @@ public class Compra {
         );
     }
 
-    public StatusPagamentoEnum atualizaStatusSucessoPagamento() {
-        //1
-        if (this.status != StatusPagamentoEnum.PAGA) {
-            this.status = StatusPagamentoEnum.PAGA;
-        }
-        return this.status;
-    }
+    //1
+    public boolean addTransacao(RetornoTransacaoRequest transacaoRequest) {
 
-    public StatusPagamentoEnum atualizaStatusErroPagamento() {
-        //1
-        if (this.status != StatusPagamentoEnum.PAGA) {
+        //2
+        if (this.transacoes.stream().noneMatch(Transacao::concluidaComSucesso)) {
+            Transacao novaTransacao = transacaoRequest.toModel(this);
+            transacoes.add(novaTransacao);
             this.status = StatusPagamentoEnum.ERRO_PAGAMENTO;
+            //1
+            if (novaTransacao.concluidaComSucesso()) {
+                this.status = StatusPagamentoEnum.PAGA;
+            }
+            return true;
         }
-        return this.status;
+
+        return false;
     }
 }
