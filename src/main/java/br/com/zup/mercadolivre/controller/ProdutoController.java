@@ -5,13 +5,12 @@ import br.com.zup.mercadolivre.dto.request.ProdutoRequestDTO;
 import br.com.zup.mercadolivre.model.Categoria;
 import br.com.zup.mercadolivre.model.Produto;
 import br.com.zup.mercadolivre.model.Usuario;
+import br.com.zup.mercadolivre.validator.ProibeCaracteristicaIgualValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -24,6 +23,11 @@ public class ProdutoController {
 
     @PersistenceContext
     EntityManager entityManager;
+
+    @InitBinder
+    public void init(WebDataBinder webDataBinder) {
+        webDataBinder.addValidators(new ProibeCaracteristicaIgualValidator());
+    }
 
     @PostMapping
     @Transactional

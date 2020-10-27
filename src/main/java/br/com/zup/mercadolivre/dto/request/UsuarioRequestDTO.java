@@ -9,11 +9,11 @@ import javax.validation.constraints.NotBlank;
 
 public class UsuarioRequestDTO {
 
-    @NotBlank(message = "is required") @Email(message = "Invalid email address")
+    @NotBlank(message = "o login deve ser preenchido") @Email(message = "endereço de email invalido")
     @UniqueValue(domainClass = Usuario.class, fieldName = "login", message = "already registered")
     private String login;
 
-    @NotBlank (message = "is required") @Length(min = 6, message = "minimum size 6")
+    @NotBlank (message = "a senha deve ser preenchida") @Length(min = 6, message = "tamanho mínimo 6")
     private String senha;
 
 
@@ -21,7 +21,7 @@ public class UsuarioRequestDTO {
     public UsuarioRequestDTO() {
     }
 
-    public UsuarioRequestDTO(@NotBlank(message = "is required") @Email(message = "Invalid email address") String login, @NotBlank(message = "is required") @Length(min = 6) String senha) {
+    public UsuarioRequestDTO(@NotBlank(message = "o nome deve ser preenchido") @Email(message = "endereço de email invalido") String login, @NotBlank(message = "a senha deve ser preenchida") @Length(min = 6) String senha) {
         this.login = login;
         this.senha = senha;
     }

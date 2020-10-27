@@ -9,7 +9,9 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ProdutoRequestDTO {
 
@@ -42,11 +44,32 @@ public class ProdutoRequestDTO {
         this.caracteristicas = caracteristicas;
     }
 
+
     public long getCategoriaId() {
         return categoriaId;
     }
 
+    public List<CaracteristicaProdutoRequestDTO> getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public void setCaracteristicas(List<CaracteristicaProdutoRequestDTO> caracteristicas) {
+        this.caracteristicas = caracteristicas;
+    }
+
     public Produto toModel (Categoria categoria, Usuario usuario) {
         return new Produto(nome, valor, quantidade, caracteristicas, descricao, categoria, usuario);
+    }
+
+    public Set<String> caracteristicasIguais() {
+        HashSet<String> nomesIguais = new HashSet<>();
+        HashSet<String> resultados = new HashSet<>();
+
+        for(CaracteristicaProdutoRequestDTO caracteristica : caracteristicas) {
+            if(!nomesIguais.add(caracteristica.getNome())){
+                resultados.add(nome);
+            }
+        }
+        return resultados;
     }
 }
