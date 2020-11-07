@@ -1,7 +1,7 @@
-package br.com.zup.mercadolivre.config.security;
+package br.com.zup.mercadolivre.controller;
 
-import br.com.zup.mercadolivre.config.security.AuthenticationTokenOutputDto;
-import br.com.zup.mercadolivre.config.security.TokenManager;
+import br.com.zup.mercadolivre.dto.response.AuthenticationTokenOutputDto;
+import br.com.zup.mercadolivre.security.TokenManager;
 import br.com.zup.mercadolivre.dto.request.LoginInputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

@@ -20,6 +20,7 @@ public class Usuario {
 
     private String login;
     private String senha;
+
     private LocalDateTime instanteRegistro = LocalDateTime.now();
 
     @Deprecated

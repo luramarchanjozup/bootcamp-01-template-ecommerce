@@ -1,4 +1,4 @@
-package br.com.zup.mercadolivre.config.security;
+package br.com.zup.mercadolivre.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;

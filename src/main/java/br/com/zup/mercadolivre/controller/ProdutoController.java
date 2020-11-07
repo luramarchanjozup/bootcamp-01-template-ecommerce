@@ -1,6 +1,6 @@
 package br.com.zup.mercadolivre.controller;
 
-import br.com.zup.mercadolivre.config.security.UsuarioLogado;
+import br.com.zup.mercadolivre.model.UsuarioLogado;
 import br.com.zup.mercadolivre.dto.request.ProdutoRequestDTO;
 import br.com.zup.mercadolivre.model.Categoria;
 import br.com.zup.mercadolivre.model.Produto;

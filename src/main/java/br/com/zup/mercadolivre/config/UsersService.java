@@ -1,7 +1,6 @@
-package br.com.zup.mercadolivre.config.security;
+package br.com.zup.mercadolivre.config;
 
 
-import br.com.zup.mercadolivre.config.security.UserDetailsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;

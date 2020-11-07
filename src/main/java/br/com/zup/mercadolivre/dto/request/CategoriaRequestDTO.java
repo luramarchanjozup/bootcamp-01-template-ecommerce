@@ -12,11 +12,11 @@ import javax.validation.constraints.Positive;
 public class CategoriaRequestDTO {
 
     @NotBlank
-    @UniqueValue(domainClass = Categoria.class, fieldName = "nome", message = "already registered")
+    @UniqueValue(domainClass = Categoria.class, fieldName = "nome", message = "já registrado")
     private String nome;
 
     @Positive
-    @ExistsValue(domainClass = Categoria.class, fieldName = "id", message = "the id does not exist")
+    @ExistsValue(domainClass = Categoria.class, fieldName = "id", message = "não existe")
     private Long categoriaMaeId;
 
 

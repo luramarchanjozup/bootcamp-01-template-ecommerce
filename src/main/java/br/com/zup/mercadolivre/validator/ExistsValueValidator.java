@@ -26,6 +26,10 @@ public class ExistsValueValidator implements ConstraintValidator<ExistsValue, Ob
 
     @Override
     public boolean isValid(Object obj, ConstraintValidatorContext context) {
+        if (obj == null ) {
+            return true;
+        }
+
         Query query = entityManager.createQuery("SELECT 1 FROM " + theClass.getName() + " WHERE " + domainAttribute + " = :value");
         query.setParameter("value", obj);
 

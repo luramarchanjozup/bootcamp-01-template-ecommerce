@@ -24,7 +24,7 @@ public class HandlerAdvice {
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
         fieldErrors.forEach(
                 fieldError -> {
-                    String post = String.format("Field %s %s", fieldError.getField(), fieldError.getDefaultMessage());
+                    String post = String.format("Campo %s %s", fieldError.getField(), fieldError.getDefaultMessage());
                     message.add(post);
                 }
         );

@@ -1,4 +1,4 @@
-package br.com.zup.mercadolivre.config.security;
+package br.com.zup.mercadolivre.dto.response;
 
 public class AuthenticationTokenOutputDto {
 

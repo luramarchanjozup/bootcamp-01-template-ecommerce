@@ -1,5 +1,6 @@
-package br.com.zup.mercadolivre.config.security;
+package br.com.zup.mercadolivre.security;
 
+import br.com.zup.mercadolivre.config.UsersService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
