@@ -11,9 +11,7 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -22,7 +20,7 @@ public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     private String nome;
     private BigDecimal valor;
@@ -40,6 +38,9 @@ public class Produto {
 
     @ManyToOne
     private Usuario dono;
+
+    @ElementCollection
+    private List<String> imagens;
 
     @Deprecated
     public Produto() {
@@ -94,5 +95,13 @@ public class Produto {
 
     public <T> Set<T> mapCaracteristicas (Function<CaracteristicaProduto, T> mapFunction ) {
         return this.caracteristicas.stream().map(mapFunction).collect(Collectors.toSet());
+    }
+
+    public boolean verificarSeEOProprietarioDoProduto(String login){
+        return dono.getLogin().equals(login);
+    }
+
+    public void adicionarListaDeImagensNoProduto(List<String> imagens){
+        this.imagens.addAll(imagens);
     }
 }
