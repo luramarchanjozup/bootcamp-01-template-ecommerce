@@ -11,23 +11,27 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.persistence.EntityManager;
 
 @RestController
-@RequestMapping("/detalhe")
+@RequestMapping("/api/detalhes")
 public class DetalheProdutoController {
 
-    @Autowired
-    private EntityManager entityManager;
 
-    @GetMapping("/{produtoId}")                                                                                            
+    private final EntityManager entityManager;
+
+
+    public DetalheProdutoController(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+
+    @GetMapping("/{produtoId}")
     public ResponseEntity<DetalheProdutoResponse> detalharProduto(@PathVariable Long produtoId){
 
-        //1
-        Produto produto = entityManager.find(Produto.class, produtoId);
 
-        //1
-        DetalheProdutoResponse DetalhamentoDoProduto = new DetalheProdutoResponse(produto);
+        var produto = entityManager.find(Produto.class, produtoId);
 
-        return ResponseEntity
-                .ok(DetalhamentoDoProduto);
+        var DetalhamentoDoProduto = new DetalheProdutoResponse(produto);
+
+        return ResponseEntity.ok(DetalhamentoDoProduto);
 
     }
 }

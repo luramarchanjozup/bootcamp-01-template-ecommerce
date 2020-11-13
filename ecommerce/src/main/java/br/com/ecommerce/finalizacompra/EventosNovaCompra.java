@@ -9,18 +9,12 @@ public class EventosNovaCompra {
     private List<EventoCompraSucesso> eventosCompraSucesso;
 
     public EventosNovaCompra(List<EventoCompraSucesso> eventosCompraSucesso) {
-
         this.eventosCompraSucesso = eventosCompraSucesso;
-
     }
 
     public void processa(Compra compra) {
-
         if(compra.processadaComSucesso()){
-
             eventosCompraSucesso.forEach(evento -> evento.processa(compra));
-
         }
     }
-
 }

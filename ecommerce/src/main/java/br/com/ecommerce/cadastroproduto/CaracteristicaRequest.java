@@ -1,7 +1,5 @@
 package br.com.ecommerce.cadastroproduto;
 
-import javax.persistence.EntityManager;
-import java.math.BigDecimal;
 
 public class CaracteristicaRequest {
 
@@ -29,6 +27,7 @@ public class CaracteristicaRequest {
         this.nome = nome;
     }
 
+
     public String getValor() {
         return valor;
     }
@@ -36,5 +35,4 @@ public class CaracteristicaRequest {
     public void setValor(String valor) {
         this.valor = valor;
     }
-
 }

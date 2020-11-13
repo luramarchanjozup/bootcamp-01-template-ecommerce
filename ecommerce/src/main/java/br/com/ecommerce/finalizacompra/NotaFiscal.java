@@ -16,18 +16,11 @@ public class NotaFiscal implements EventoCompraSucesso {
 
         Assert.isTrue(compra.processadaComSucesso(),"opa opa opa compra nao processada com sucesso " + compra);
 
-
         Map<String, Object> request = Map.of("idCompra", compra.getId(),
                 "idDonoProduto", compra.getUsuario().getId());
 
-
-       /*
-            A requisição tá recebendo forbidden por causa do spring security
-
-        * */
-
-
-        WebClient client = WebClient.create("http://localhost:8080");
+        /* Substituir pelo Feign */
+        WebClient client = WebClient.create("http://localhost:1234");
 
 
         Mono<Void> result = client.post()

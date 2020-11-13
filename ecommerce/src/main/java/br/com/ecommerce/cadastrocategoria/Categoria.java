@@ -22,17 +22,12 @@ public class Categoria {
 
 
     public Categoria(String nome){
-
         this.nome = nome;
-
     }
 
     public Categoria(@NotBlank String nome, Categoria categoriaMae) {
-
         this.nome = nome;
-
         this.categoria = categoriaMae;
-
     }
 
     public String getNome() {

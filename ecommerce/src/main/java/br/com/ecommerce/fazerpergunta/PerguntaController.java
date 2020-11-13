@@ -6,30 +6,35 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/pergunta")
+@RequestMapping("/api/perguntas")
 public class PerguntaController {
 
-    @Autowired
-    private EntityManager entityManager;
+
+    private final EntityManager entityManager;
+
+
+    public PerguntaController(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
 
     @PostMapping
-    @Transactional                                                  //1
-    public ResponseEntity<?> criarPergunta(@RequestBody @Valid PerguntaRequest perguntaRequest){
+    @Transactional
+    public ResponseEntity<?> criarPergunta(@RequestBody @Valid PerguntaRequest perguntaRequest, UriComponentsBuilder uriComponentsBuilder){
 
-        //1
-        Pergunta pergunta = perguntaRequest.converteParaTipoPergunta(entityManager);
-
+        var pergunta = perguntaRequest.converteParaTipoPergunta(entityManager);
         entityManager.persist(pergunta);
 
         return ResponseEntity
-                .ok()
-                .build();
+                .created(uriComponentsBuilder.path("/api/perguntas").buildAndExpand().toUri())
+                .body(pergunta);
 
     }
 }

@@ -12,53 +12,43 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/imagens/{produtoId}")
+@RequestMapping("/api/imagens/{produtoId}")
 public class ImagemController {
 
 
-    @Autowired
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
-    //1
-    @Autowired
-    private ImagemUploader imagemUploader;
+    private final ImagemUploader imagemUploader;
 
-    //1
-    @Autowired
-    private AutorizacaoDonoProduto autorizacaoDonoProduto;
+    private final AutorizacaoDonoProduto autorizacaoDonoProduto;
 
 
-    @PostMapping        
-    @Transactional                                                                          //1             
+    public ImagemController(EntityManager entityManager, ImagemUploader imagemUploader, AutorizacaoDonoProduto autorizacaoDonoProduto) {
+        this.entityManager = entityManager;
+        this.imagemUploader = imagemUploader;
+        this.autorizacaoDonoProduto = autorizacaoDonoProduto;
+    }
+
+    @PostMapping
+    @Transactional
     public ResponseEntity<?> adicionarFotos(@PathVariable Long produtoId, @Valid AdicionarImagemRequest arquivosEnviados,
                                             HttpServletRequest request) {
 
-         //1                                       
-        Produto produto = entityManager.find(Produto.class, produtoId);
-
-         //1                  //1                     
+        var produto = entityManager.find(Produto.class, produtoId);
         if(!autorizacaoDonoProduto.donoDoProduto(request, produto)){
-
-            return ResponseEntity
-                    .status(HttpStatus.FORBIDDEN)
-                    .build();
-
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
-        List<MultipartFile> imagens = arquivosEnviados.getArquivos();
 
-                                        //1
-        List<String> listaLinks = imagemUploader.envia(imagens);
-
-        //1
+        var imagens = arquivosEnviados.getArquivos();
+        var listaLinks = imagemUploader.envia(imagens);
         produto.associaImagens(listaLinks);
-
         entityManager.merge(produto);
+
 
         return ResponseEntity
                 .ok()
                 .build();
-
 
     }
 }

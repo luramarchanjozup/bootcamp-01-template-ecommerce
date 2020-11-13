@@ -9,11 +9,10 @@ import java.util.stream.Collectors;
 public class ImagemUploader {
 
     public List<String> envia(List<MultipartFile> imagens) {
-
         return imagens
                 .stream()
                 .map(imagem -> "http://bucket.io/" + imagem.getOriginalFilename())
                 .collect(Collectors.toList());
-
     }
+
 }

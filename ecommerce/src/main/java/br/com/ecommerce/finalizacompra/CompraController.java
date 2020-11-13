@@ -16,53 +16,45 @@ import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping("produtos/{produtoId}/compras")
+@RequestMapping("/api/produtos/{produtoId}/compras")
 public class CompraController {
 
-    @Autowired
-    private EntityManager entityManager;
 
-    //1
-    @Autowired
-    private BuscaEmailDoUsuarioPeloToken buscaEmailDoUsuarioPeloToken;
+    private final EntityManager entityManager;
 
-    //1
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final BuscaEmailDoUsuarioPeloToken buscaEmailDoUsuarioPeloToken;
 
+    private final UsuarioRepository usuarioRepository;
+
+
+    public CompraController(EntityManager entityManager, BuscaEmailDoUsuarioPeloToken buscaEmailDoUsuarioPeloToken,
+                            UsuarioRepository usuarioRepository) {
+        this.entityManager = entityManager;
+        this.buscaEmailDoUsuarioPeloToken = buscaEmailDoUsuarioPeloToken;
+        this.usuarioRepository = usuarioRepository;
+    }
 
     @PostMapping
-    @Transactional                                                              //1
+    @Transactional
     public ResponseEntity<?> comprar(@RequestBody @Valid CompraRequest compraRequest, HttpServletRequest request,
                                      @PathVariable Long produtoId, UriComponentsBuilder uriComponentsBuilder){
 
 
-
-        Long quantidadeSolicitada = compraRequest.getQuantidade();
-
-                        //1                
-        Produto produtoASerComprado = entityManager.find(Produto.class, produtoId);
+        var quantidadeSolicitada = compraRequest.getQuantidade();
+        var produtoASerComprado = entityManager.find(Produto.class, produtoId);
 
 
-        //1                                    
         if(produtoASerComprado.verificaDisponibilidadeEAtualiza(quantidadeSolicitada)){
 
-                                            //1
             String emailComprador = buscaEmailDoUsuarioPeloToken.buscaEmailDoUsuario(request);
-
-                    //1
-            Usuario comprador = usuarioRepository.findByLogin(emailComprador);
-
-                    //1
-            Compra compra = compraRequest.toModel(entityManager, comprador);
-
+            var comprador = usuarioRepository.findByLogin(emailComprador);
+            var compra = compraRequest.toModel(entityManager, comprador);
             entityManager.persist(compra);
                                                                         
             String urlRedirecionamento = compra.urlRedirecionamento(uriComponentsBuilder);
 
             return ResponseEntity
                     .ok(urlRedirecionamento);
-
 
         }
 

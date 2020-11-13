@@ -53,8 +53,4 @@ public class Caracteristica {
         return valor;
     }
 
-    public void setValor(String valor) {
-        this.valor = valor;
-    }
-
 }

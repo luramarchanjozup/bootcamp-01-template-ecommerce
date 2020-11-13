@@ -15,44 +15,43 @@ import javax.validation.Valid;
 public class ProcessadorCompraController {
 
 
-    @Autowired
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
+
+    private final ProcessaCompra processaCompra;
 
 
-    @Autowired
-    private ProcessaCompra processaCompra;
+    public ProcessadorCompraController(EntityManager entityManager, ProcessaCompra processaCompra) {
+        this.entityManager = entityManager;
+        this.processaCompra = processaCompra;
+    }
 
 
-
-    @PostMapping("/retorno-paypal/{id}")
+    @PostMapping("/api/retorno-paypal/{id}")
     @Transactional
     public ResponseEntity<?> pagamentoPaypal(@PathVariable Long id,
                                              @RequestBody @Valid RetornoPaypalRequest retornoPaypalRequest){
 
 
-        String pagamentoProcessado = processaCompra
+        var pagamentoProcessado = processaCompra
                 .processa(id, retornoPaypalRequest, entityManager);
-
-        return ResponseEntity
-                .ok(pagamentoProcessado);
-
-
-    }
-
-
-
-    @PostMapping("/retorno-pagseguro/{id}")
-    @Transactional
-    public ResponseEntity<?> pagamentoPagseguro(@PathVariable Long id,
-                                                @RequestBody @Valid RetornoPagseguroRequest retornoPagseguroRequest){
-
-        String pagamentoProcessado = processaCompra
-                .processa(id, retornoPagseguroRequest, entityManager);
 
         return ResponseEntity.ok(pagamentoProcessado);
 
     }
 
+
+
+    @PostMapping("/api/retorno-pagseguro/{id}")
+    @Transactional
+    public ResponseEntity<?> pagamentoPagseguro(@PathVariable Long id,
+                                                @RequestBody @Valid RetornoPagseguroRequest retornoPagseguroRequest){
+
+        var pagamentoProcessado = processaCompra
+                .processa(id, retornoPagseguroRequest, entityManager);
+
+        return ResponseEntity.ok(pagamentoProcessado);
+
+    }
 
 
 }

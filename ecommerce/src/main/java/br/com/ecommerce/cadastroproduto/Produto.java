@@ -36,16 +36,15 @@ public class Produto {
     @Positive
     private Long quantidadeDisponivel;
 
-    //1
     @OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
     private List<Caracteristica> caracteristicas = new ArrayList<>();
-    //1
+
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private List<Opiniao> opinioes = new ArrayList<>();
-    //1
+
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private List<ImagemProduto> imagens = new ArrayList<>();
-    //1
+
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private List<Pergunta> perguntas = new ArrayList<>();
 
@@ -53,17 +52,15 @@ public class Produto {
     @Size(max = 1000)
     private String descricao;
 
-    //1
     @NotNull
     @ManyToOne
     private Categoria categoria;
 
-    //1
     @ManyToOne
     private Usuario usuario;
 
 
-    private OffsetDateTime instanteCadastro;
+    private final OffsetDateTime instanteCadastro = OffsetDateTime.now();
 
 
     @Deprecated
@@ -77,7 +74,6 @@ public class Produto {
         this.valor = valor;
         this.quantidadeDisponivel = quantidadeDisponivel;
 
-        //1
         this.caracteristicas.addAll(caracteristicas.stream()
                 .map(caracteristica -> caracteristica.toModel(this))
                 .collect(Collectors.toList()));
@@ -85,8 +81,6 @@ public class Produto {
         this.descricao = descricao;
         this.categoria = categoria;
         this.usuario = usuario;
-        this.instanteCadastro = OffsetDateTime.now();
-
     }
 
     //1
@@ -100,12 +94,12 @@ public class Produto {
     //1
     public OptionalDouble media(){
 
-        return   this
-                    .opinioes
-                    .stream()
-                    .map(opiniao -> opiniao.getNota())
-                    .mapToDouble(x -> x)
-                    .average();
+        return this
+                .opinioes
+                .stream()
+                .map(Opiniao::getNota)
+                .mapToDouble(x -> x)
+                .average();
     }
 
 
@@ -161,13 +155,9 @@ public class Produto {
 
     //1
     public boolean verificaDisponibilidadeEAtualiza(Long quantidadeDemandada){
-
         boolean resposta = quantidadeDisponivel >= quantidadeDemandada;
-
         this.quantidadeDisponivel = quantidadeDisponivel - quantidadeDemandada;
-
         return resposta;
-
     }
 
     public String getNome() {
@@ -180,50 +170,6 @@ public class Produto {
 
     public BigDecimal getValor() {
         return valor;
-    }
-
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
-
-    public Long getQuantidadeDisponivel() {
-        return quantidadeDisponivel;
-    }
-
-    public void setQuantidadeDisponivel(Long quantidadeDisponivel) {
-        this.quantidadeDisponivel = quantidadeDisponivel;
-    }
-
-    public List<Caracteristica> getCaracteristicas() {
-        return caracteristicas;
-    }
-
-    public void setCaracteristicas(List<Caracteristica> caracteristicas) {
-        this.caracteristicas = caracteristicas;
-    }
-
-    public List<Opiniao> getOpinioes() {
-        return opinioes;
-    }
-
-    public void setOpinioes(List<Opiniao> opinioes) {
-        this.opinioes = opinioes;
-    }
-
-    public List<ImagemProduto> getImagens() {
-        return imagens;
-    }
-
-    public void setImagens(List<ImagemProduto> imagens) {
-        this.imagens = imagens;
-    }
-
-    public List<Pergunta> getPerguntas() {
-        return perguntas;
-    }
-
-    public void setPerguntas(List<Pergunta> perguntas) {
-        this.perguntas = perguntas;
     }
 
     public String getDescricao() {

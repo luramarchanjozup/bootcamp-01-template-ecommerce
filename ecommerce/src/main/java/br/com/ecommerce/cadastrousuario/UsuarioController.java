@@ -11,22 +11,28 @@ import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping("/api/usuarios")
 public class UsuarioController {
 
-    @Autowired
-    private EntityManager entityManager;
+
+    private final EntityManager entityManager;
+
+    public UsuarioController(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
 
     @PostMapping
     @Transactional
-    public ResponseEntity<?> criarUsuario(@RequestBody @Valid CadastroUsuarioRequest cadastroUsuarioRequest){
+    public ResponseEntity<?> criarUsuario(@RequestBody @Valid CadastroUsuarioRequest cadastroUsuarioRequest,
+                                          UriComponentsBuilder uriComponentsBuilder){
 
-        Usuario usuario = cadastroUsuarioRequest.converterParaTipoUsuario();
-
+        var usuario = cadastroUsuarioRequest.converterParaTipoUsuario();
         entityManager.persist(usuario);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity
+                .created(uriComponentsBuilder.path("/api/usuarios").buildAndExpand().toUri())
+                .body(usuario);
 
     }
-
 }

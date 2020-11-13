@@ -30,10 +30,6 @@ public class ImagemProduto {
         return linkImagem;
     }
 
-    public void setLinkImagem(String linkImagem) {
-        this.linkImagem = linkImagem;
-    }
-
     public Produto getProduto() {
         return produto;
     }
