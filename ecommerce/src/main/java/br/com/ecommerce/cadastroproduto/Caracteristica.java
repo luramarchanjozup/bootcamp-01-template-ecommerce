@@ -16,6 +16,7 @@ public class Caracteristica {
 
     private String valor;
 
+    /* @complexidade = acoplamento contextual */
     @ManyToOne
     private Produto produto;
 

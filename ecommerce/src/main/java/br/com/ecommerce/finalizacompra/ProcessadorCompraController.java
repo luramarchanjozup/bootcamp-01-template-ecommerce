@@ -17,6 +17,7 @@ public class ProcessadorCompraController {
 
     private final EntityManager entityManager;
 
+    /* @complexidade = acoplamento contextual */
     private final ProcessaCompra processaCompra;
 
 

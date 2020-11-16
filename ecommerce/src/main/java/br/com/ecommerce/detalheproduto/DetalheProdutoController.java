@@ -1,7 +1,6 @@
 package br.com.ecommerce.detalheproduto;
 
 import br.com.ecommerce.cadastroproduto.Produto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,9 +13,9 @@ import javax.persistence.EntityManager;
 @RequestMapping("/api/detalhes")
 public class DetalheProdutoController {
 
+    /* total de pontos de dificuldade de entendimento = 2 */
 
     private final EntityManager entityManager;
-
 
     public DetalheProdutoController(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -26,9 +25,8 @@ public class DetalheProdutoController {
     @GetMapping("/{produtoId}")
     public ResponseEntity<DetalheProdutoResponse> detalharProduto(@PathVariable Long produtoId){
 
-
+        /* @complexidade (2) = método em classe específica  */
         var produto = entityManager.find(Produto.class, produtoId);
-
         var DetalhamentoDoProduto = new DetalheProdutoResponse(produto);
 
         return ResponseEntity.ok(DetalhamentoDoProduto);

@@ -3,8 +3,7 @@ package br.com.ecommerce.detalheproduto;
 import br.com.ecommerce.adicionaropiniao.Opiniao;
 import br.com.ecommerce.cadastroproduto.ImagemProduto;
 import br.com.ecommerce.cadastroproduto.Produto;
-
-import javax.persistence.ElementCollection;
+import br.com.ecommerce.fazerpergunta.Pergunta;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.OptionalDouble;
@@ -35,19 +34,18 @@ public class DetalheProdutoResponse {
 
     public DetalheProdutoResponse(Produto produto){
 
-                                                        //1
-        this.linksImagens = produto.listarLinks(imagemProduto -> imagemProduto.getLinkImagem());
+        this.linksImagens = produto.listarLinks(ImagemProduto::getLinkImagem);
 
         this.nome = produto.getNome();
 
         this.preco = produto.getValor();
 
         this.descricao = produto.getDescricao();
-                                                                    //1
-        this.opinioes = produto.listarOpinioes(opiniao -> opiniao.getTitulo());
-                                                                    //1
-        this.perguntas = produto.listarPerguntas(pergunta -> pergunta.getTitulo());
-                                                                            //1
+
+        this.opinioes = produto.listarOpinioes(Opiniao::getTitulo);
+
+        this.perguntas = produto.listarPerguntas(Pergunta::getTitulo);
+
         this.caracteristicas = produto.listarCaracteristicas(DetalheProdutoCaracteristica::new);
 
         this.totalDeNotas = produto.total();

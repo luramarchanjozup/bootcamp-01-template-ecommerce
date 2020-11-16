@@ -16,6 +16,7 @@ import javax.validation.Valid;
 @RequestMapping("/api/perguntas")
 public class PerguntaController {
 
+    /* total de pontos de dificuldade de entendimento = 2 */
 
     private final EntityManager entityManager;
 
@@ -29,6 +30,7 @@ public class PerguntaController {
     @Transactional
     public ResponseEntity<?> criarPergunta(@RequestBody @Valid PerguntaRequest perguntaRequest, UriComponentsBuilder uriComponentsBuilder){
 
+        /* @complexidade (2) = método em classe específica  */
         var pergunta = perguntaRequest.converteParaTipoPergunta(entityManager);
         entityManager.persist(pergunta);
 

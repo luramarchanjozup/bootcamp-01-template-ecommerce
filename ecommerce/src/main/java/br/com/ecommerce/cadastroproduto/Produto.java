@@ -36,15 +36,19 @@ public class Produto {
     @Positive
     private Long quantidadeDisponivel;
 
+    /* @complexidade = acoplamento contextual */
     @OneToMany(mappedBy = "produto", cascade = CascadeType.PERSIST)
     private List<Caracteristica> caracteristicas = new ArrayList<>();
 
+    /* @complexidade = acoplamento contextual */
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private List<Opiniao> opinioes = new ArrayList<>();
 
+    /* @complexidade = acoplamento contextual */
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private List<ImagemProduto> imagens = new ArrayList<>();
 
+    /* @complexidade = acoplamento contextual */
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private List<Pergunta> perguntas = new ArrayList<>();
 
@@ -52,10 +56,12 @@ public class Produto {
     @Size(max = 1000)
     private String descricao;
 
+    /* @complexidade = acoplamento contextual */
     @NotNull
     @ManyToOne
     private Categoria categoria;
 
+    /* @complexidade = acoplamento contextual */
     @ManyToOne
     private Usuario usuario;
 

@@ -10,13 +10,15 @@ public class Transacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated
+    /* @complexidade = acoplamento contextual */
+    @Enumerated(value = EnumType.STRING)
     private StatusTransacao status;
 
     private Long idTransacaoGateway;
 
-    private OffsetDateTime instanteCriacao;
+    private OffsetDateTime instanteCriacao = OffsetDateTime.now();
 
+    /* @complexidade = acoplamento contextual */
     @ManyToOne
     private Compra compra;
 
@@ -26,7 +28,6 @@ public class Transacao {
     public Transacao(StatusTransacao status, Long idTransacaoGateway, Compra compra) {
         this.status = status;
         this.idTransacaoGateway = idTransacaoGateway;
-        this.instanteCriacao = OffsetDateTime.now();
         this.compra = compra;
     }
 

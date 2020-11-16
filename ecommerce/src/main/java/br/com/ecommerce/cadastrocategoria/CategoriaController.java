@@ -16,6 +16,8 @@ import javax.validation.Valid;
 @RequestMapping("/api/categorias")
 public class CategoriaController {
 
+    /* pontos de dificuldade de entendimento = 2 */
+
     private final EntityManager entityManager;
 
     public CategoriaController(EntityManager entityManager) {
@@ -27,6 +29,7 @@ public class CategoriaController {
     public ResponseEntity<?> criarCategoria(@RequestBody @Valid CadastroCategoriaRequest cadastroCategoriaRequest,
                                             UriComponentsBuilder uriComponentsBuilder){
 
+        /* @complexidade (2) = método em classe específica  */
         var categoria = cadastroCategoriaRequest.converterParaTipoCategoria();
         entityManager.persist(categoria);
 

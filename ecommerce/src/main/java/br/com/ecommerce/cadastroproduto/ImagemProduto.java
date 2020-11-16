@@ -14,6 +14,7 @@ public class ImagemProduto {
     @NotBlank
     private String linkImagem;
 
+    /* @complexidade = acoplamento contextual */
     @ManyToOne
     private Produto produto;
 

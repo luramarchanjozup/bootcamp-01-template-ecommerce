@@ -23,10 +23,12 @@ public class Opiniao {
     @Size(max = 500)
     private String descricao;
 
+    /* @complexidade = acoplamento contextual */
     @NotNull
     @ManyToOne
     private Usuario usuario;
 
+    /* @complexidade = acoplamento contextual */
     @NotNull
     @ManyToOne
     private Produto produto;

@@ -22,17 +22,21 @@ public class Compra {
 
     private Long quantidade;
 
+    /* @complexidade = acoplamento contextual */
     @Enumerated
     private GatewayPagamento gatewayPagamento;
 
+    /* @complexidade = acoplamento contextual */
     @NotNull
     @ManyToOne
     private Produto produto;
 
+    /* @complexidade = acoplamento contextual */
     @NotNull
     @ManyToOne
     private Usuario usuario;
 
+    /* @complexidade = acoplamento contextual */
     @OneToMany(mappedBy = "compra", cascade = CascadeType.MERGE)
     private Set<Transacao> transacoes = new HashSet<>();
 
@@ -85,18 +89,13 @@ public class Compra {
     }
 
 
-
     public void adicionaTransacao(@Valid RetornoGatewayPagamento request) {
 
-
-        Transacao novaTransacao = request.toTransacao(this);
-
+        var novaTransacao = request.toTransacao(this);
         boolean naoExisteTransacaoIgual = !this.transacoes.contains(novaTransacao);
 
         Assert.state(naoExisteTransacaoIgual, "Já existe uma transacao igual a essa processada" + novaTransacao);
-
         Assert.state(transacoesConcluidasComSucesso().isEmpty(), "Esse compra já foi concluída com sucesso");
-
 
         this.transacoes.add(novaTransacao);
 

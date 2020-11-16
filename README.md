@@ -1,5 +1,17 @@
 # Desafio Ecommerce
 
+## Sobre a revisão
+
+- Algo que poderia ser feito é desacoplar a parte de segurança, utilizando o Keycloak. No caso, aqui na API, ficou um microsserviço com outro microsserviço (a pasta segurança), o que não de encontro com a prática deixar o serviço responsável apenas por uma atividade.
+
+- Utilizar o CrudRepository como padrão de herança nas interfaces Repository, pensando em possível uso de banco não relacional, ao qual o CrudRepository suporta e o JpaRepository não.
+
+- Tentei priorizar a utilização de construtor ao invés de Autowireds na revisão e adicionei o atributo final às classes acopladas, tendo em vista que não sofrerão mais alterações (pesquisa rápida que fiz vi que utilizar final + construtor pode melhorar um pouco a robustez da segurança da API).
+
+- Aqui pode ser acrescentado também esse ferramental de monitoramento estudado no desafio 3: Jaeger, Prometheus,
+Grafana, Keycloak etc. Criei um repositório que pode funcionar como um quick start para configurar essas ferramentas
+numa API com Spring -> https://github.com/MarceloAmorim25/framework-ferramentas-spring
+
 
 ## Sobre os testes
 

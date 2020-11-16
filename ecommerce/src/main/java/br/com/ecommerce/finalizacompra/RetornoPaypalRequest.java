@@ -7,10 +7,9 @@ public class RetornoPaypalRequest implements RetornoGatewayPagamento {
 
     @Min(0)
     @Max(1)
-    private int status;
+    private final int status;
 
-
-    private Long transacaoId;
+    private final Long transacaoId;
 
 
     public RetornoPaypalRequest(int status, Long transacaoId) {
@@ -22,11 +21,9 @@ public class RetornoPaypalRequest implements RetornoGatewayPagamento {
     @Override
     public Transacao toTransacao(Compra compra) {
 
-        var statusNumeroZeroOuUm = this.status;
-
         StatusTransacao statusDaTransacao;
 
-        if(statusNumeroZeroOuUm == 0){
+        if(this.status == 0){
 
             statusDaTransacao  = StatusTransacao.erro;
 

@@ -14,9 +14,11 @@ import javax.validation.Valid;
 @RequestMapping("/api/produtos/{produtoId}/respostas")
 public class RespostaController {
 
+    /* total pontos de dificuldade de entendimento = 5 */
 
     private final EntityManager entityManager;
 
+    /* @complexidade (1) = acoplamento contextual */
     private final AutorizacaoDonoProduto autorizacaoDonoProduto;
 
 
@@ -31,11 +33,13 @@ public class RespostaController {
     public ResponseEntity<?> responder(@RequestBody @Valid RespostaRequest respostaRequest,
                                        HttpServletRequest request, @PathVariable Long produtoId){
 
+        /* @complexidade (2) = método em classe específica + branch */
         var produto = entityManager.find(Produto.class, produtoId);
         if(!autorizacaoDonoProduto.donoDoProduto(request, produto)){
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 
+        /* @complexidade (2) = método em classe específica  */
         var resposta = respostaRequest.converteParaTipoResposta(entityManager);
         entityManager.persist(resposta);
 

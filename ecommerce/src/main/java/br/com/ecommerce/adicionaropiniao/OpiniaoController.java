@@ -18,6 +18,8 @@ import javax.validation.Valid;
 @RequestMapping("/api/opinioes")
 public class OpiniaoController {
 
+    /* pontos de dificuldade de entendimento = 2 */
+
 
     private final EntityManager entityManager;
 
@@ -34,6 +36,7 @@ public class OpiniaoController {
     public ResponseEntity<?> criarOpiniao(@RequestBody @Valid OpiniaoRequest opiniaoRequest,
                                           UriComponentsBuilder uriComponentsBuilder){
 
+        /* @complexidade (2) = método em classe específica  */
         var opiniao = opiniaoRequest.converteParaTipoOpiniao(entityManager);
         entityManager.persist(opiniao);
 

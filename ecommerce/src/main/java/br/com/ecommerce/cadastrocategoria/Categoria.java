@@ -14,6 +14,7 @@ public class Categoria {
     @NotBlank
     private String nome;
 
+    /* @complexidade = acoplamento contextual */
     @ManyToOne
     private Categoria categoria;
 

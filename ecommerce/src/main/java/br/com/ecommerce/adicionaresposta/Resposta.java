@@ -16,6 +16,7 @@ public class Resposta {
     @NotBlank
     private String conteudo;
 
+    /* @complexidade = acoplamento contextual */
     @ManyToOne
     private Pergunta pergunta;
 

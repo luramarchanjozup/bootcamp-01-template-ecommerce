@@ -22,8 +22,10 @@ public class CompraController {
 
     private final EntityManager entityManager;
 
+    /* @complexidade = acoplamento contextual */
     private final BuscaEmailDoUsuarioPeloToken buscaEmailDoUsuarioPeloToken;
 
+    /* @complexidade = acoplamento contextual */
     private final UsuarioRepository usuarioRepository;
 
 

@@ -14,6 +14,7 @@ import javax.validation.Valid;
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
 
+    /* total de pontos de dificuldade de entendimento = 2 */
 
     private final EntityManager entityManager;
 
@@ -27,6 +28,7 @@ public class UsuarioController {
     public ResponseEntity<?> criarUsuario(@RequestBody @Valid CadastroUsuarioRequest cadastroUsuarioRequest,
                                           UriComponentsBuilder uriComponentsBuilder){
 
+        /* @complexidade (2) = método em classe específica  */
         var usuario = cadastroUsuarioRequest.converterParaTipoUsuario();
         entityManager.persist(usuario);
 

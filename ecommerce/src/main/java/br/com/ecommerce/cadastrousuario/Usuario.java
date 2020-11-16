@@ -29,9 +29,11 @@ public class Usuario {
     @PastOrPresent
     private OffsetDateTime instanteCadastro;
 
+    /* @complexidade = acoplamento contextual */
     @OneToMany(mappedBy = "usuario")
     private List<Opiniao> opinioes;
 
+    /* @complexidade = acoplamento contextual */
     @OneToMany(mappedBy = "usuario")
     private List<Produto> produtos;
 
@@ -48,17 +50,6 @@ public class Usuario {
 
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "login='" + login + '\'' +
-                '}';
-    }
-
     public Long getId() {
         return id;
     }
@@ -67,13 +58,8 @@ public class Usuario {
         return login;
     }
 
-
     public String getSenha() {
         return senha;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public OffsetDateTime getInstanteCadastro() {

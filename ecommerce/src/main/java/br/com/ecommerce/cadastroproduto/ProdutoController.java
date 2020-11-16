@@ -16,6 +16,7 @@ import javax.validation.Valid;
 @RequestMapping("/api/produtos")
 public class ProdutoController {
 
+    /* total de pontos de dificuldade de entendimento = 2 */
 
     private final EntityManager entityManager;
 
@@ -29,7 +30,7 @@ public class ProdutoController {
     public ResponseEntity<?> criarProduto(@RequestBody @Valid CadastroProdutoRequest cadastroProdutoRequest,
                                           UriComponentsBuilder uriComponentsBuilder){
 
-
+        /* @complexidade (2) = método em classe específica  */
         var produtoCadastrado = cadastroProdutoRequest.converteParaTipoProduto(entityManager);
         entityManager.persist(produtoCadastrado);
 

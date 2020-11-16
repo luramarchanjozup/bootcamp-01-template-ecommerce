@@ -18,14 +18,17 @@ public class Pergunta {
 
     private String titulo;
 
-    private OffsetDateTime instanteCriacao;
+    private OffsetDateTime instanteCriacao = OffsetDateTime.now();
 
+    /* @complexidade = acoplamento contextual */
     @ManyToOne
     private Usuario usuario;
 
+    /* @complexidade = acoplamento contextual */
     @ManyToOne
     private Produto produto;
 
+    /* @complexidade = acoplamento contextual */
     @Size(max=1)
     @OneToMany(mappedBy = "pergunta")
     private List<Resposta> resposta;
@@ -35,7 +38,6 @@ public class Pergunta {
 
     public Pergunta(String titulo, Usuario usuario, Produto produto) {
         this.titulo = titulo;
-        this.instanteCriacao = OffsetDateTime.now();
         this.usuario = usuario;
         this.produto = produto;
     }
