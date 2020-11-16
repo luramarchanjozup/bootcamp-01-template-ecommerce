@@ -10,7 +10,7 @@
 
 - Aqui pode ser acrescentado também esse ferramental de monitoramento estudado no desafio 3: Jaeger, Prometheus,
 Grafana, Keycloak etc. Criei um repositório que pode funcionar como um quick start para configurar essas ferramentas
-numa API com Spring -> https://github.com/MarceloAmorim25/framework-ferramentas-spring
+numa API com Spring -> https://github.com/MarceloAmorim25/setup-ferramentas-spring
 
 
 ## Sobre os testes
