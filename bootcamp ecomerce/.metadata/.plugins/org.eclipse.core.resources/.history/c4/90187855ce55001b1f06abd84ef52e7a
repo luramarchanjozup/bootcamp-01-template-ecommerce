@@ -1,0 +1,42 @@
+package br.com.zup.ecomerce.nicolle.model;
+
+import java.util.Optional;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
+@Entity
+public class Compra {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
+	@ManyToOne
+	private @NotNull @Valid Produto produto;
+	private @Positive int quantidade;
+	@ManyToOne
+	private @NotNull @Valid Optional<Usuario> comprador;
+
+	public Compra(@NotNull @Valid Produto produtoParaCompra, @Positive int quantidade, 
+			@NotNull @Valid Optional<Usuario> comprador) {
+		this.produto = produtoParaCompra;
+		this.quantidade = quantidade;
+		this.comprador = comprador;
+	}
+
+	@Override
+	public String toString() {
+		return "Compra [id=" + id + ", produto=" + produto + ", quantidade=" + quantidade + ", comprador=" + comprador
+				+ "]";
+	}
+	
+	
+
+}

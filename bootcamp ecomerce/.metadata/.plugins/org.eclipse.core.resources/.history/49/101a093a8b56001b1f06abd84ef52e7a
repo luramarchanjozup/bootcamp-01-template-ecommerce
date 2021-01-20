@@ -1,0 +1,23 @@
+package br.com.zup.ecomerce.nicolle.controller;
+
+import javax.validation.Valid;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.zup.ecomerce.nicolle.request.RetornoPagseguroRequest;
+
+@RestController
+@RequestMapping(value = "/ecomerce")
+public class FechamentoCompraController {
+	
+	@PostMapping(value = "/retorno-pagseguro/{id}")
+	public ResponseEntity<?> retornoPagseguro(@PathVariable("id") Long idCompra, @Valid RetornoPagseguroRequest request){
+		
+		return null;
+	}
+
+}
