@@ -1,0 +1,5 @@
+package br.com.zup.ecomerce.nicolle.request;
+
+public class CompraNotaFiscalRequest {
+
+}

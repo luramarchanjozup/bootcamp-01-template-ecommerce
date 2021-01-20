@@ -1,0 +1,31 @@
+package br.com.zup.ecomerce.nicolle.request;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import br.com.zup.ecomerce.nicolle.enums.StatusRetornoPagueseguro;
+import br.com.zup.ecomerce.nicolle.model.Transacao;
+
+public class RetornoPagseguroRequest {
+	
+	@NotBlank
+	private String idTransacao;
+	@NotNull
+	private StatusRetornoPagueseguro status;
+	
+	
+	
+	public RetornoPagseguroRequest(@NotBlank String idTransacao, @NotNull StatusRetornoPagueseguro status) {
+		this.idTransacao = idTransacao;
+		this.status = status;
+	}
+
+
+
+	public Transacao toTransacao() {
+		return new Transacao(status.normaliza(), idTransacao);
+	}
+	
+	
+
+}

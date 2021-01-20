@@ -1,0 +1,45 @@
+package br.com.zup.ecomerce.nicolle.controller;
+
+import java.util.Optional;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.com.zup.ecomerce.nicolle.model.Produto;
+import br.com.zup.ecomerce.nicolle.repository.ProdutosRepository;
+import br.com.zup.ecomerce.nicolle.request.CompraRequest;
+
+@RestController
+@RequestMapping(value = "ecomerce/compras")
+public class CompraController {
+	
+	
+	@Autowired
+	private ProdutosRepository produtosRepository;
+	
+	@Autowired
+	private UsuarioRepository usu
+	
+	@PostMapping
+	public ResponseEntity<?> comprar(@RequestBody @Valid CompraRequest request){
+		
+		Produto produtoParaCompra = produtosRepository.findById(request.getIdProduto()).get();
+		
+		int quantidade = request.getQuantidade();
+		boolean deduziu = produtoParaCompra.tiraEstoque(request.getQuantidade());
+		if(deduziu) {
+			Usuario comprador = usuarioRepository.
+			new Compra(produto, quantidade)
+		}
+		
+		return null;
+		
+	}
+
+}

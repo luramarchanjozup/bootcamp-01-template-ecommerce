@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "ecomerce.jwt.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'ecomerce.jwt.secret'"
+  },
+  {
+    "name": "ecomerce.jwt.expiration",
+    "type": "java.lang.String",
+    "description": "A description for 'ecomerce.jwt.expiration'"
+  }
+]}
